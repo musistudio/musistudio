@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>HTTP协议初探</title>
+    <url>/2019/03/24/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
+    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
+<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
+<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
+</blockquote>
+<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
+<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
+<a id="more"></a></li>
+<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
+</li>
+<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
+<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
+</li>
+<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
+<ol>
+<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
+<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
+<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
+<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
+</ol>
+<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
+</li>
+<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
+<ol>
+<li><p>Host头域</p>
+<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
+</li>
+<li><p>Referer头域</p>
+<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
+</li>
+<li><p>User-Agent头域</p>
+<p>User-Agent头域的内容包含发出请求的用户信息</p>
+</li>
+<li><p>Cache-Control头域</p>
+<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
+</li>
+<li><p>Date头域</p>
+<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
+</li>
+</ol>
+</li>
+<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
+<li><p>连接：Connection</p>
+<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
+<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
+<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
+</li>
+<li><p>消息：Message</p>
+<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
+</li>
+<li><p>请求：Request</p>
+<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
+</li>
+<li><p>响应：Response</p>
+<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
+</li>
+<li><p>资源：Resource</p>
+<p>由URI标识的网络数据对象或服务</p>
+</li>
+<li><p>实体：Entity</p>
+<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
+</li>
+<li><p>客户机：Client</p>
+<p>一个为发送请求目的而建立连接的应用程序</p>
+</li>
+<li><p>用户代理：UserAgent</p>
+<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
+</li>
+<li><p>服务器：Server</p>
+<p>一个接受连接并对请求返回信息的应用程序。</p>
+</li>
+<li><p>源服务器：Originserver</p>
+<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
+</li>
+<li><p>代理：Proxy</p>
+<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
+<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
+</li>
+<li><p>网关：Gateway</p>
+<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
+<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
+</li>
+<li><p>通道：Tunnel</p>
+<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
+</li>
+<li><p>缓存：Cache</p>
+<p>反应信息的局域存储。</p>
+</li>
+</ol>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>HTTP协议补充</title>
+    <url>/2019/03/27/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
+    <content><![CDATA[<blockquote>
+<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
+</blockquote>
+<ol>
+<li><p>HTTP协议格式</p>
+<p>HTTP协议的格式大致可划分成一下几个部分</p>
+<ul>
+<li>Request<ul>
+<li>Request line<ul>
+<li>method</li>
+<li>path</li>
+<li>Version</li>
+</ul>
+</li>
+<li>head</li>
+<li>body</li>
+</ul>
+</li>
+<li>Response<ul>
+<li>Response line<ul>
+<li>version</li>
+<li>Status code</li>
+<li>Statis text</li>
+</ul>
+</li>
+<li>head</li>
+<li>body<a id="more"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HTTP Method(方法)</p>
+<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+<li>TRACE</li>
+</ul>
+<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
+<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
+<p>CONNECT多用于HTTPS和WebSocket</p>
+<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
+</li>
+<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
+<p>常见的状态码有以下几种:</p>
+<ul>
+<li>1xx: 临时回应，表示客户端请继续</li>
+<li>2xx: 请求成功<ul>
+<li>200: 请求成功</li>
+</ul>
+</li>
+<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
+<li>301&amp;302：永久性与临时性跳转</li>
+<li>304：客户端缓存没有更新</li>
+</ul>
+</li>
+<li>4xx: 客户端请求错误<ul>
+<li>403：无权限</li>
+<li>404：表示请求的页面不存在</li>
+<li>418：这是一个彩蛋</li>
+</ul>
+</li>
+<li>5xx: 服务端请求错误<ul>
+<li>500: 服务端错误</li>
+<li>503: 服务端暂时性错误，可以稍后再试</li>
+</ul>
+</li>
+</ul>
+<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
+<p>2xx系列的状态码通常是网页请求成功的标志</p>
+<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
+<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
+</li>
+<li><p>HTTP Head(HTTP头)</p>
+<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
+<p>Request Header              </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Request Header</th>
+<th align="center">规定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accept</td>
+<td align="center">浏览器端接收的格式</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">浏览器接收的编码方式</td>
+</tr>
+<tr>
+<td align="center">Accept_Language</td>
+<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>JS中的事件机制</title>
+    <url>/2019/06/17/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
+    <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
+<p>以下是一个简单的例子:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>点击按钮标准的事件触发分别经历以下三个阶段:</p>
+<p><img src="https://images0.cnblogs.com/blog2015/697856/201504/080003152437715.png" alt="图片"></p>
+<p>事件触发一次经历三个阶段，所以我们在一个元素上注册事件也就可以在对应阶段注册事件，移除事件一样。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//标准注册事件函数 target: 文档节点、document、window 或 XMLHttpRequest。type: 注册事件类型(不包含on)，listener: 事件的回调函数，useCapture:事件注册在捕获期间还是冒泡期间</span></span><br><span class="line">target.addEventListener(type, listener, useCapture); </span><br><span class="line"></span><br><span class="line"><span class="comment">//例如：给button注册onclick事件，要是在捕获阶段注册</span></span><br><span class="line">button.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//在某一个元素上撤销已注册的事件。 这里强调的是 这里的listener必须与已注册的listener是同一个</span></span><br><span class="line">target.removeEventListener(type, listener, useCapture);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-IE中的事件流"><a href="#2-IE中的事件流" class="headerlink" title="2. IE中的事件流"></a>2. IE中的事件流</h4><p>IE中的事件是非标准的，总共分为两个阶段: <strong>处于目标阶段</strong>、<strong>冒泡阶段</strong>。</p>
+<p>上面提到的例子在IE中执行时这样的:</p>
+<p><img src="https://images0.cnblogs.com/blog2015/697856/201504/080003359931643.png" alt="图片"></p>
+<p>IE中的事件注册与销毁事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//IE注册事件函数 target: 文档节点、document、window 或 XMLHttpRequest。type: 注册事件类型(包含on) listener: 事件的回调函数 由于没有事件捕获阶段，所以没有useCapture参数</span></span><br><span class="line">target.attachEvent(type, listener);</span><br><span class="line"></span><br><span class="line">target.detachEvent(type,listener);   <span class="comment">//参数与注册参数相对应。</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-事件的执行顺序"><a href="#3-事件的执行顺序" class="headerlink" title="3. 事件的执行顺序"></a>3. 事件的执行顺序</h4><p>一般事件的执行顺序： 事件的捕获阶段==&gt;处于目标阶段==&gt;事件的冒泡阶段==&gt;事件的默认行为</p>
+<p>事件的默认行为是最后才执行的，所以我们可以阻止事件的默认行为。例如:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//阻止文本框获取焦点  </span></span><br><span class="line"><span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">"inputText"</span>);</span><br><span class="line">input.onmousedown=<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">  event=event||<span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">if</span>(event.preventDefault)&#123;  <span class="comment">//非IE浏览器阻止事件默认行为</span></span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    event.returnValue=<span class="literal">false</span>; <span class="comment">//IE浏览器阻止事件默认行为</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-跨浏览器的注册事件"><a href="#4-跨浏览器的注册事件" class="headerlink" title="4. 跨浏览器的注册事件"></a>4. 跨浏览器的注册事件</h4><p>上面我们提到IE是非标准的事件流，所以要跨浏览器注册事件的话需要一些处理，下面是个例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil =  &#123;</span><br><span class="line">  <span class="comment">//注册事件，因为浏览器的兼容性考虑，注册事件一般都是注册在事件的冒泡阶段</span></span><br><span class="line">  addEventListener: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">      <span class="comment">// 非IE</span></span><br><span class="line">      element.addEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">      <span class="comment">// IE</span></span><br><span class="line">      element.attachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = callback;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//撤销事件</span></span><br><span class="line">  removeEventListener: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.removeEventListener) &#123;</span><br><span class="line">      element.removeEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent) &#123;</span><br><span class="line">      element.detachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-DOM事件"><a href="#5-DOM事件" class="headerlink" title="5. DOM事件"></a>5. DOM事件</h4><ul>
+<li><p>DOM0级事件</p>
+<p>javaScript指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序的属性。这种为事件处理程序赋值的方法是在第四代Web浏览器中出现的，而且至今仍然为所有现在浏览器支持。原因主要有两点： <strong>简单</strong>、<strong>具有跨浏览器优势</strong>。 每个元素（window和document）都有自己的事件处理程序属性，这些属性通常全部小写，例如 onclick， onmousedown。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'mybtn'</span>);</span><br><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'click'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>局限性: </p>
+<p>1.某一个属性只能赋值给一个函数，也就导致在某一个元素上的某一个事件属性只能对应着一个函数。多次注册时，已最后一次注册为准。</p>
+<p>2.DOM0级事件全部都是默认在冒泡阶段执行。</p>
+</li>
+<li><p>DOM2级事件</p>
+<p>我们在上面定义的跨浏览注册事件函数，就是一个DOM2级注册事件。DOM2级注册事件相比于DOM0级的优势就在于其可以多次注册，并且执行顺序与注册顺序一致。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'mybtn'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun1</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"1"</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun2</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"2"</span>);&#125;</span><br><span class="line">EventUtil.addEventListener(btn,<span class="string">"click"</span>,fun1);  <span class="comment">//注册第一个事件</span></span><br><span class="line">EventUtil.addEventListener(btn,<span class="string">"click"</span>,fun1); <span class="comment">//注册第二个事件，触发事件的时候会先弹出1在弹出2</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="6-事件对象"><a href="#6-事件对象" class="headerlink" title="6.  事件对象"></a>6.  事件对象</h4><p>在触发DOM上的某个事件时，会产生一个事件对象event，这个对象中包含着所有事件有关的信息。例如，单击事件中会包含鼠标的位置信息，键盘触发的事件中会包含按下的键位有关的信息。所有的浏览器都支持event，但支持的方式却有不同。</p>
+<ul>
+<li>标准浏览器中的事件对象             </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="center">类型</th>
+<th align="center">读写</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bubbles</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>返回布尔值，指示事件是否是起泡冒泡</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>返回布尔值，指示事件是否可拥可取消的默认动作</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回其事件监听器触发该事件的元素</td>
+</tr>
+<tr>
+<td>eventPhase</td>
+<td align="center">Intenger</td>
+<td align="center">只读</td>
+<td>返回事件传播的当前阶段</td>
+</tr>
+<tr>
+<td>target</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回触发此事件的元素（事件的目标节点）</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td align="center">Date</td>
+<td align="center">只读</td>
+<td>返回事件生成的日期和时间</td>
+</tr>
+<tr>
+<td>type</td>
+<td align="center">String</td>
+<td align="center">只读</td>
+<td>返回当前 Event 对象表示的事件的名称</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>该事件是否是浏览器生成(true代表是浏览器生成，false代表是开发人员创建)</td>
+</tr>
+<tr>
+<td>preventDefault</td>
+<td align="center">Function</td>
+<td align="center">只读</td>
+<td>取消事件的默认行为在<a href="http://www.w3school.com.cn/jsref/event_cancelable.asp" target="_blank" rel="noopener">cancelable</a>=true时有效</td>
+</tr>
+<tr>
+<td>stopPropagation</td>
+<td align="center">Function</td>
+<td align="center">只读</td>
+<td>取消事件的捕获或者冒泡行为在<a href="http://www.w3school.com.cn/jsref/event_bubbles.asp" target="_blank" rel="noopener">bubbles</a>=true时有效</td>
+</tr>
+</tbody></table>
+<p>​        在事件处理程序内部，对象this始终指向currentTarget的值，而target则只包含事件的实际目标。</p>
+<ul>
+<li>IE中的事件对象           </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="center">类型</th>
+<th align="center">读写</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cancelBubble</td>
+<td align="center">boolean</td>
+<td align="center">读/写</td>
+<td>返回布尔值，指示事件是否是起泡冒泡</td>
+</tr>
+<tr>
+<td>returnValue</td>
+<td align="center">boolean</td>
+<td align="center">读/写</td>
+<td>返回布尔值，指示事件是否可拥可取消的默认动作</td>
+</tr>
+<tr>
+<td>srcElement</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回其事件监听器触发该事件的元素。</td>
+</tr>
+<tr>
+<td>type</td>
+<td align="center">String</td>
+<td align="center">只读</td>
+<td>被触发事件的类型</td>
+</tr>
+</tbody></table>
+<p>  上面的这些属性，是任何一个事件均会具有的属性。</p>
+<p>  在IE中有些srcElement对应着target;</p>
+<p>  执行event.returnValue=false对应着event.preventDefault();</p>
+<p>  执行event.cancelBubble=true对应着event.stopPropagation();</p>
+<p>  同时对于一些相关属性IE 比如 relatedTarget属性对应IE中的fromElement和toElement.属性</p>
+<ul>
+<li><p>跨浏览器的事件对象</p>
+<p>由于IE和标准的事件对象不一致，所以跨浏览器的事件对象需要做一些处理。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil =  &#123;</span><br><span class="line">  <span class="comment">//注册事件，因为浏览器的兼容性考虑，注册事件一般都是注册在事件的捕获阶段</span></span><br><span class="line">  addEventListener: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">      element.addEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">      element.attachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = callback;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//获取事件</span></span><br><span class="line">  getEvent:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> event||<span class="built_in">window</span>.event;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//获取事件的触发目标</span></span><br><span class="line">  getTarget:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> event.target||event.srcElement;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//阻止事件的默认行为</span></span><br><span class="line">  preventDefault:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.preventDefault?event.preventDefault():event.returnValue=<span class="literal">false</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//阻止事件冒泡</span></span><br><span class="line">  stopPropagation:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.stopPropagation?event.stopPropagation:event.cancelBubble=<span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//撤销事件</span></span><br><span class="line">  removeEventListener: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.removeEventListener) &#123;</span><br><span class="line">      element.removeEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent) &#123;</span><br><span class="line">      element.detachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>每个事件在其被触发时，都有一些其特有的属性，比如键盘事件会有键位信息，鼠标事件会有会有位置信息。onmouseenter事件会有fromElement(IE)中，relatedTarget(非IE);onmouseover事件会有toElement(IE)中，relatedTarget(非IE).</p>
+</li>
+</ul>
+<h4 id="7-自定义事件"><a href="#7-自定义事件" class="headerlink" title="7. 自定义事件"></a>7. 自定义事件</h4><ul>
+<li><p>模拟鼠标事件</p>
+<p>非IE浏览器</p>
+<p>创建鼠标事件的方法是createEvent()传入字符串“MouseEvent”.返回的对象有initMouseEvent()方法,这个方法有15个参数，分别与鼠标事件中某个典型的属性一一对应。               </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”click”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>抽象视图：事件授予的视图，这个值几乎全是document.defaultView.</td>
+</tr>
+<tr>
+<td>detail</td>
+<td align="center">Intenger</td>
+<td>附加的事件信息这个初始化时一般应该默认为0。</td>
+</tr>
+<tr>
+<td>screenX</td>
+<td align="center">Intenger</td>
+<td>事件距离屏幕左边的X坐标</td>
+</tr>
+<tr>
+<td>screenY</td>
+<td align="center">Intenger</td>
+<td>事件距离屏幕上边的y坐标</td>
+</tr>
+<tr>
+<td>clientX</td>
+<td align="center">Intenger</td>
+<td>事件距离可视区域左边的X坐标</td>
+</tr>
+<tr>
+<td>clientY</td>
+<td align="center">Intenger</td>
+<td>事件距离可视区域上边的y坐标</td>
+</tr>
+<tr>
+<td>ctrlKey</td>
+<td align="center">Boolean</td>
+<td>代表ctrol键是否被按下，默认为false。</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td align="center">Boolean</td>
+<td>代表alt键是否被按下，默认为false。</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td align="center">Boolean</td>
+<td>Boolean类型 ： 代表shif键是否被按下，默认为false</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td align="center">Boolean</td>
+<td>代表meta key 是否被按下，默认是false</td>
+</tr>
+<tr>
+<td>button</td>
+<td align="center">Intenger</td>
+<td>表示被按下的鼠标键，默认是零</td>
+</tr>
+<tr>
+<td>relatedTarget</td>
+<td align="center">Elment</td>
+<td>事件的关联对象只有在模拟mouseover 和 mouseout时用到</td>
+</tr>
+<tr>
+<td>使用方法：</td>
+<td align="center"></td>
+<td></td>
+</tr>
+</tbody></table>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn=<span class="built_in">document</span>.getElementById(<span class="string">"mybtn"</span>);</span><br><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEvent(<span class="string">"MouseEvent"</span>);</span><br><span class="line">    event.initMouseEvent(<span class="string">"click"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="number">0</span>,<span class="literal">null</span>);</span><br><span class="line">btn.dispatchEvent(event);  <span class="comment">//在这一步会设置event.target,以及触发事件类型</span></span><br></pre></td></tr></table></figure>
+
+<p>  IE浏览器</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEventObject();</span><br><span class="line">event.screenX=<span class="number">100</span>;</span><br><span class="line">event.screenY=<span class="number">100</span>;</span><br><span class="line">event.clientX=<span class="number">100</span>;</span><br><span class="line">event.clientX=<span class="number">100</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">btn.fireEvent(<span class="string">"onclick"</span>,event);   <span class="comment">//在这一步会设置event.serElement,以及触发事件类型</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>模拟键盘事件</p>
+<p> 键盘模拟事件是在DOM3规范中定义的。火狐浏览器根据草案定义了DOM2级中模拟键盘事件。在这里，我们讲述的是DOM3级规范，DOM3级不提倡使用oneypress事件。</p>
+<p> DOM3标准</p>
+<p> 创建键盘事件的方法是createEvent()传入字符串“KeyboardEvent”.返回的对象有initKeyEvent()方法,这个方法有以下参数：           </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>被授予事件的是图. 通常值为：document.defaultView.</td>
+</tr>
+<tr>
+<td>key</td>
+<td align="center">string</td>
+<td>按下的键对应的code.</td>
+</tr>
+<tr>
+<td>location</td>
+<td align="center">integer</td>
+<td>按下键所在的位置. 0 ：默认键盘, 1 左侧位置, 2 右侧位置, 3 数字键盘区, 4 虚拟键盘区, or 5 游戏手柄.</td>
+</tr>
+<tr>
+<td>modifiers</td>
+<td align="center">Boolean</td>
+<td>一个有空格分开的修饰符列表.</td>
+</tr>
+<tr>
+<td>repeat</td>
+<td align="center">integer</td>
+<td>一行中某个键被按下的次数</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> textbox=<span class="built_in">document</span>.getElementById(<span class="string">"myTextBox"</span>),event;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"KeyboardEvent"</span>,<span class="number">3.0</span>))&#123;</span><br><span class="line">  event=<span class="built_in">document</span>.createEvent(<span class="string">"KeyboardEvent"</span>);</span><br><span class="line">  event.initKeyboardEvent(<span class="string">"keydown"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="string">"a"</span>,<span class="number">0</span>,<span class="string">"shift"</span>,<span class="number">0</span>);</span><br><span class="line">  textbox.dispatchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  并非所有的浏览器都实现了DOM3标准，下面看一下各个浏览器时怎么模拟鼠标事件。 </p>
+<p>  <strong>FireFox浏览器</strong></p>
+<pre><code>在FireFox中，调用createEvent()并传入KeyEvents就可以创建一个键盘事件。返回的事件对象会包含一个initKeyEvent()方法，这个方法接受以下10个参数：          </code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>被授予事件的是图. 通常值为：document.defaultView.</td>
+</tr>
+<tr>
+<td>ctrlKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了ctrl键位，默认值 false.</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了altl键位，默认值 false</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了shift键位，默认值 false.</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了meta键位，默认值 false.</td>
+</tr>
+<tr>
+<td>KeyCode</td>
+<td align="center">Intenger</td>
+<td>被按下或者被释放的键位. 这个参数对keydown和keyup有用</td>
+</tr>
+<tr>
+<td>charCode</td>
+<td align="center">Intenger</td>
+<td>通过按键生成的ASCII编码. 这个参数对keypress有用</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//只适用于FireFox浏览器，在火狐浏览器中会在文本框中显示A </span></span><br><span class="line"><span class="keyword">var</span> textbox=<span class="built_in">document</span>.getElementById(<span class="string">"myTextBox"</span>);</span><br><span class="line"><span class="comment">//创建事件对象</span></span><br><span class="line"><span class="keyword">var</span>  event=<span class="built_in">document</span>.createEvent(<span class="string">"keyEvents"</span>);</span><br><span class="line"><span class="comment">//初始化事件对象</span></span><br><span class="line">event.initKeyEvent(<span class="string">"keypress"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="number">65</span>,<span class="number">65</span>);</span><br><span class="line"><span class="comment">//触发事件</span></span><br><span class="line">textbox.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>非火狐非IE浏览器</strong> 在其他浏览器中，则需要创建一个通用事件，然后再向通用事件中添加键盘事件的特有信息。</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在其他浏览器中不能输入文本，这是因为非浏览器创建的事件并不能精确的模拟事件。</span></span><br><span class="line"><span class="comment">//创建事件对象</span></span><br><span class="line"><span class="keyword">var</span>  event=<span class="built_in">document</span>.createEvent(<span class="string">"Events"</span>);</span><br><span class="line"><span class="comment">//初始化事件对象</span></span><br><span class="line">event.initEvent(type,bubble,cancelable);</span><br><span class="line"><span class="comment">//初始化事件信息</span></span><br><span class="line">event.view=<span class="built_in">document</span>.defaultView;</span><br><span class="line">event.altKey=<span class="literal">false</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">event.keyCode=<span class="number">65</span>;</span><br><span class="line">event.charCode=<span class="number">65</span>;</span><br><span class="line"><span class="comment">//触发事件</span></span><br><span class="line">textbox.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>IE浏览器</strong>  IE浏览器创建键盘事件和创建鼠标事件有点类似。如下所示：</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEventObject();</span><br><span class="line">event.altKey=<span class="literal">false</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">event.shiftKey=<span class="literal">false</span>;</span><br><span class="line">event.keyCode=<span class="number">65</span>;</span><br><span class="line">textbox.fireEvent(<span class="string">"onkeydown"</span>,event);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>自定义DOM事件</p>
+<p>DOM3级还定义了”自定义事件”。自定义事件不同时DOM原生触发的，它的目的是让开发人员创建自己的事件。要创建新的自定义事件；</p>
+<p> <strong>非IE浏览器</strong> 可以调用createEvent(“CustomEvent”)返回的对象有一个名为initCustomEvent()方法，接受如下四个参数:          </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>detail</td>
+<td align="center">Boolean</td>
+<td>保存在event对象的detail属性中</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"inputText"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span>    </span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">"inputText"</span>);</span></span><br><span class="line"><span class="actionscript">      EventUtil.addEventListener(input,<span class="string">"myevent"</span>,<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span>&#123;</span></span><br><span class="line">        event=EventUtil.getEvent(event);</span><br><span class="line"><span class="actionscript">        alert(event.detail.message);   <span class="comment">//访问detail中的信息</span></span></span><br><span class="line"><span class="actionscript">      &#125;);<span class="comment">//注册时事件</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span>  button=<span class="built_in">document</span>.getElementById(<span class="string">"button"</span>);</span></span><br><span class="line"><span class="actionscript">      button.onclick=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"CustomEvents"</span>,<span class="string">"3.0"</span>))&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> event=<span class="built_in">document</span>.createEvent(<span class="string">"CustomEvent"</span>);</span></span><br><span class="line"><span class="actionscript">          event.initCustomEvent(<span class="string">"myevent"</span>,<span class="literal">true</span>,<span class="literal">false</span>,&#123;message:<span class="string">"helloworld"</span>&#125;);</span></span><br><span class="line">          input.dispatchEvent(event);</span><br><span class="line"><span class="actionscript">        &#125; <span class="comment">//通过button按钮触发事件</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  IE浏览器自定义事件</p>
+<p>   IE中document.createEventObject()方法不支持自定义的DOM事件。我们在有些前端框架中之所有能够实现自定义事件的各种浏览器兼容都是因为他们内部重写了一套事件机制来控制，才使得我们可以在各个浏览器上自定义事件。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>JS的防抖和节流</title>
+    <url>/2019/03/30/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
+    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
+<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
+<li><p>含义:</p>
+<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
+</li>
+<li><p>举个例子:</p>
+<p>比如有个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
+
+<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
+</li>
+<li><p>类型:</p>
+<ul>
+<li><p>延迟执行版</p>
+<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
+</li>
+<li><p>立即执行版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
+<li><p>含义</p>
+<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
+</li>
+<li><p>版本</p>
+<ul>
+<li><p>时间戳版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定时器版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Nginx配置Vue前后端分离项目</title>
+    <url>/2019/07/19/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+<a id="more"></a>
+<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>代码里的后悔药——Git</title>
+    <url>/2019/03/25/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html</url>
+    <content><![CDATA[<h2 id="代码里的后悔药—Git"><a href="#代码里的后悔药—Git" class="headerlink" title="代码里的后悔药—Git"></a>代码里的后悔药—Git</h2><h4 id="1-什么是Git"><a href="#1-什么是Git" class="headerlink" title="1. 什么是Git"></a>1. 什么是Git</h4><p>git是版本管理工具的一种，常见的版本管理工具还有<strong>CVS</strong>、<strong>SVN</strong>等等。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件</p>
+<h4 id="2-为什么要用Git"><a href="#2-为什么要用Git" class="headerlink" title="2. 为什么要用Git"></a>2. 为什么要用Git</h4><ul>
+<li>分布式版本管理工具，容灾性较强</li>
+<li>强大的分支和合并功能</li>
+<li>支持多人协同开发<a id="more"></a>
+<h4 id="3-Git和Github的关系"><a href="#3-Git和Github的关系" class="headerlink" title="3. Git和Github的关系"></a>3. Git和Github的关系</h4></li>
+</ul>
+<p>git是版本控制工具，而github则是一家以<strong>git</strong>作为唯一的版本库格式进行托管代码的托管平台，类似的托管平台还有<a href="https://about.gitlab.com" target="_blank" rel="noopener">gitlab</a>和<a href="https://gitee.com/" target="_blank" rel="noopener">码云gitee</a></p>
+<h4 id="4-Git的安装"><a href="#4-Git的安装" class="headerlink" title="4. Git的安装"></a>4. Git的安装</h4><p>去<a href="https://git-scm.com/" target="_blank" rel="noopener">git官网</a>下载对应的版本(Linux和Mac用户可以使用自带的软件管理工具进行安装) </p>
+<p>注：尽量不要使用git的GUI工具</p>
+<h4 id="5-Git的基本概念"><a href="#5-Git的基本概念" class="headerlink" title="5. Git的基本概念"></a>5. Git的基本概念</h4><ul>
+<li><h5 id="工作目录-Working-Directory"><a href="#工作目录-Working-Directory" class="headerlink" title="工作目录(Working Directory)"></a>工作目录(Working Directory)</h5><p>工作目录就是能在电脑上能看到的目录           </p>
+</li>
+<li><h5 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h5><p>暂存区又称缓存区，一般存放在项目文件夹的 <strong>.git</strong>目录下的<strong>index</strong>文件</p>
+</li>
+<li><h5 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h5><p>仓库又称版本库，git有本地仓库和远程仓库(即用来托管代码的服务器)之分。本地仓库一般存放在项目文件夹的<strong>.git</strong>目录中</p>
+<p><img src="https://img2018.cnblogs.com/blog/1090617/201810/1090617-20181008211557402-232838726.png" alt="工作区示意图"></p>
+</li>
+<li><h5 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h5><p>分支意味着你可以把你的工作从开发主线上分离开来，以免影响开发主线。</p>
+<p>一般项目中会有 <strong>主分支、开发分支、功能分支</strong> 等分支。Git非常鼓励使用分支。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14653704-1383d63bfa39e0bf?imageMogr2/auto-orient/strip%7CimageView2/2/w/885/format/webp" alt="分支示意图"></p>
+</li>
+</ul>
+<h4 id="6-Git的工作流程"><a href="#6-Git的工作流程" class="headerlink" title="6. Git的工作流程"></a>6. Git的工作流程</h4><blockquote>
+<p>Git管理的文件有三种状态: 已修改(modified)、已暂存(staged)和已提交(commited)</p>
+</blockquote>
+<h5 id="1-在工作目录中添加修改文件"><a href="#1-在工作目录中添加修改文件" class="headerlink" title="1. 在工作目录中添加修改文件"></a>1. 在工作目录中添加修改文件</h5><h5 id="2-将需要进行版本管理的文件放入暂存区"><a href="#2-将需要进行版本管理的文件放入暂存区" class="headerlink" title="2. 将需要进行版本管理的文件放入暂存区"></a>2. 将需要进行版本管理的文件放入暂存区</h5><h5 id="3-将暂存区的文件提交到git仓库"><a href="#3-将暂存区的文件提交到git仓库" class="headerlink" title="3. 将暂存区的文件提交到git仓库"></a>3. 将暂存区的文件提交到git仓库</h5><h4 id="7-Git的基本命令"><a href="#7-Git的基本命令" class="headerlink" title="7. Git的基本命令"></a>7. Git的基本命令</h4><ul>
+<li>初始化项目</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加文件到暂存区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add 文件路径</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>提交版本                 </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m "log"</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>版本回滚</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git reset --hard commitId     # 回退到指定版本，或者</span><br><span class="line">git reset --hard HEAD^        # 回退到上个版本</span><br><span class="line">git reset --hard HEAD~n       # 回退到前n个版本</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看仓库当前状态</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看具体修改内容</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看历史</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log      # 查看提交历史</span><br><span class="line">git reflog   # 查看命令历史</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>撤销修改</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -- file      # 撤销工作区中的修改</span><br><span class="line">git reset HEAD file       # 撤销暂存区中的修改    HEAD表示最新的版本</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rm file</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>远程仓库操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add 名字 &lt;repo address&gt;      # 添加远程仓库</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如:</span></span><br><span class="line">git remote add origin https://github.com/musistudio/MusicBox</span><br><span class="line">git push name branch                   # 推送到远程仓库</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如：</span></span><br><span class="line">git push -u origin master # -u参数会将本地的分支与远程的分支关联起来，origin代表提交到哪个仓库, master代表master分支</span><br><span class="line">git clone &lt;repo address&gt;               # 从远程库克隆</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如:</span></span><br><span class="line">git clone https://github.com/musistudio/MusicBox</span><br><span class="line">git remote -v                          # 查看远程库信息</span><br><span class="line">git checkout -b name origin/name       # 在本地创建和远程分支对应的分支</span><br><span class="line">git branch --set-upstream name origin/name # 建立本地分支和远程分支的关联</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分支操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch dev                 # 创建dev分支</span><br><span class="line">git checkout dev               # 切换到dev分支</span><br><span class="line"><span class="meta">#</span><span class="bash"> ==&gt; 上面两条命令等同于下面一条命令</span></span><br><span class="line">git branck checkout -b dev     # -b 参数表示创建并切换</span><br><span class="line">git branch                     # 查看分支</span><br><span class="line">git merge dev                  # 合并指定分支(dev)到当前分支</span><br><span class="line">git merge --no-ff -m "log" dev # 以普通模式合并分支，合并后有合并历史(禁用fast forward模式)</span><br><span class="line">git branch -d dev              # 删除指定分支(dev)</span><br><span class="line">git branch -D dev              # 丢弃没有合并的分支，使用-D强行删除</span><br><span class="line">git log --graph                # 查看分支合并图</span><br><span class="line">git rebase                     # 把本地未push的分叉提交历史整理成直线，使在查看历史提交的变化更容易</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>储存工作现场</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mmitgit stash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>标签操作</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag v1.0      # 给HEAD打一个v1,0的标签,也可以指定一个commit</span><br><span class="line">git tag           # 查看所有标签</span><br><span class="line">git tag -a &lt;tagname&gt; -m "log"  # 创建带有说明的标签</span><br><span class="line">git show &lt;tagname&gt;             # 查看标签的说明文字</span><br><span class="line">git tag -d &lt;tagname&gt;           # 删除本地标签</span><br><span class="line">git push origin &lt;tagname&gt;      # 向远程推送本地标签</span><br><span class="line">git push origin --tags         # 向远程推送所有未推送过的标签</span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt;  # 删除远程标签</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用阿里云oss部署Vue项目</title>
+    <url>/2019/11/09/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
+<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
+<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
+</ol>
+<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
+]]></content>
+  </entry>
+</search>
