@@ -32,6 +32,11 @@
 
   
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="alternate" href="/atom.xml" title="musi's life" type="application/atom+xml">
 </head>
 
@@ -43,7 +48,59 @@
       <section class="outer">
   
     <h1 class="page-type-title">标签</h1>
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+    <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oss/" rel="tag">oss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul> -->
+    <ul class="tag-list">
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/HTTP/" title="HTTP">
+            HTTP
+            </li>
+          </a>
+        
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/JavaScript/" title="JavaScript">
+            JavaScript
+            </li>
+          </a>
+        
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/git/" title="git">
+            git
+            </li>
+          </a>
+        
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/nginx/" title="nginx">
+            nginx
+            </li>
+          </a>
+        
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/oss/" title="oss">
+            oss
+            </li>
+          </a>
+        
+      
+         
+          <li class="tag-list-item">
+            <a class="tag-list-link" href="/tags/vue/" title="vue">
+            vue
+            </li>
+          </a>
+        
+      
+      </ul>
+    
   
 </section>
 
@@ -123,10 +180,6 @@
   <ul class="nav">
     <li class="nav-item">
       
-      <a class="nav-item-link nav-item-search"  title="搜索">
-        <i class="ri-search-line"></i>
-      </a>
-      
       
       <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
         <i class="ri-rss-line"></i>
@@ -147,6 +200,26 @@
         document.querySelector('.content').classList.remove('on');
         document.querySelector('.sidebar').classList.remove('on');
       }
+
+      // wiki折叠
+      const collapses = (document.querySelector('#wiki') && document.querySelector('#wiki').querySelectorAll('.collapse')) || [];
+      for(let i=0;i<collapses.length;i++) {
+        $(`#${collapses[i].id}`).on('hide.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-right', 'fa-hand-o-down')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder-open', 'fa-folder')
+          }
+        })
+        $(`#${collapses[i].id}`).on('show.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-down', 'fa-hand-o-right')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder', 'fa-folder-open')
+          }
+        })
+      }
+      
     </script>
     <div id="mask"></div>
 
@@ -179,7 +252,7 @@
 <script>
   try {
     var typed = new Typed("#subtitle", {
-      strings: ['知其雄，守其雌，为天下谿', '知其白，守其黑，为天下式', '知其荣，守其辱，为天下谷'],
+      strings: ['身在黑暗，心向光明', '历尽千帆，何不激起浪花一朵朵', '知其荣，守其辱，为天下谷'],
       startDelay: 0,
       typeSpeed: 200,
       loop: true,

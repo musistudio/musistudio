@@ -5,9 +5,9 @@
   <subtitle>the blog of musi</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2020-04-08T09:48:37.809Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="https://musii.life/"/>
+  <updated>2020-04-09T07:50:23.063Z</updated>
+  <id>https://musii.life/</id>
   
   <author>
     <name>musi</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>使用阿里云oss部署Vue项目</title>
-    <link href="http://yoursite.com/2019/11/09/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html"/>
-    <id>http://yoursite.com/2019/11/09/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</id>
+    <link href="https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html"/>
+    <id>https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</id>
     <published>2019-11-08T17:24:31.000Z</published>
-    <updated>2020-04-08T09:48:37.809Z</updated>
+    <updated>2020-04-09T07:50:23.063Z</updated>
     
     <summary type="html">
     
@@ -36,15 +36,21 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="oss" scheme="https://musii.life/tags/oss/"/>
+    
+      <category term="vue" scheme="https://musii.life/tags/vue/"/>
     
   </entry>
   
   <entry>
     <title>Nginx配置Vue前后端分离项目</title>
-    <link href="http://yoursite.com/2019/07/19/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html"/>
-    <id>http://yoursite.com/2019/07/19/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</id>
+    <link href="https://musii.life/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html"/>
+    <id>https://musii.life/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</id>
     <published>2019-07-18T16:03:15.000Z</published>
-    <updated>2020-04-08T12:19:09.266Z</updated>
+    <updated>2020-04-09T07:51:17.127Z</updated>
     
     <summary type="html">
     
@@ -53,15 +59,21 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="vue" scheme="https://musii.life/tags/vue/"/>
+    
+      <category term="nginx" scheme="https://musii.life/tags/nginx/"/>
     
   </entry>
   
   <entry>
     <title>JS中的事件机制</title>
-    <link href="http://yoursite.com/2019/06/17/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html"/>
-    <id>http://yoursite.com/2019/06/17/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</id>
+    <link href="https://musii.life/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html"/>
+    <id>https://musii.life/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</id>
     <published>2019-06-17T01:04:02.000Z</published>
-    <updated>2020-04-08T12:19:02.538Z</updated>
+    <updated>2020-04-09T07:51:07.580Z</updated>
     
     <summary type="html">
     
@@ -72,15 +84,19 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>JS的防抖和节流</title>
-    <link href="http://yoursite.com/2019/03/30/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html"/>
-    <id>http://yoursite.com/2019/03/30/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</id>
+    <link href="https://musii.life/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html"/>
+    <id>https://musii.life/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</id>
     <published>2019-03-30T14:29:53.000Z</published>
-    <updated>2020-04-08T12:18:52.543Z</updated>
+    <updated>2020-04-09T07:50:58.971Z</updated>
     
     <summary type="html">
     
@@ -91,15 +107,19 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
     
   </entry>
   
   <entry>
     <title>HTTP协议补充</title>
-    <link href="http://yoursite.com/2019/03/27/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html"/>
-    <id>http://yoursite.com/2019/03/27/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</id>
+    <link href="https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html"/>
+    <id>https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</id>
     <published>2019-03-27T02:44:31.000Z</published>
-    <updated>2020-04-08T12:18:43.698Z</updated>
+    <updated>2020-04-09T07:50:41.042Z</updated>
     
     <summary type="html">
     
@@ -134,15 +154,19 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="HTTP" scheme="https://musii.life/tags/HTTP/"/>
     
   </entry>
   
   <entry>
     <title>代码里的后悔药——Git</title>
-    <link href="http://yoursite.com/2019/03/25/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html"/>
-    <id>http://yoursite.com/2019/03/25/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html</id>
+    <link href="https://musii.life/code/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html"/>
+    <id>https://musii.life/code/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html</id>
     <published>2019-03-25T05:16:04.000Z</published>
-    <updated>2020-04-08T13:51:43.691Z</updated>
+    <updated>2020-04-09T07:50:12.556Z</updated>
     
     <summary type="html">
     
@@ -155,17 +179,19 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
     
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+      <category term="git" scheme="https://musii.life/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>HTTP协议初探</title>
-    <link href="http://yoursite.com/2019/03/24/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html"/>
-    <id>http://yoursite.com/2019/03/24/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</id>
+    <link href="https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html"/>
+    <id>https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</id>
     <published>2019-03-24T13:06:47.000Z</published>
-    <updated>2020-04-08T12:18:47.576Z</updated>
+    <updated>2020-04-09T07:50:37.901Z</updated>
     
     <summary type="html">
     
@@ -179,6 +205,10 @@
     </summary>
     
     
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="HTTP" scheme="https://musii.life/tags/HTTP/"/>
     
   </entry>
   

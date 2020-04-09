@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="musi, musii, musi&#39;s life" />
+   
+  <meta name="description" content="the blog of musi" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    JS中的事件机制 |  musi&#39;s life
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="alternate" href="/atom.xml" title="musi's life" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-JS中的事件机制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JS中的事件机制
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html" class="article-date">
+  <time datetime="2019-06-17T01:04:02.000Z" itemprop="datePublished">2019-06-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/code/">code</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
+<p>以下是一个简单的例子:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>点击按钮标准的事件触发分别经历以下三个阶段:</p>
+<p><img src="https://images0.cnblogs.com/blog2015/697856/201504/080003152437715.png" alt="图片"></p>
+<p>事件触发一次经历三个阶段，所以我们在一个元素上注册事件也就可以在对应阶段注册事件，移除事件一样。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//标准注册事件函数 target: 文档节点、document、window 或 XMLHttpRequest。type: 注册事件类型(不包含on)，listener: 事件的回调函数，useCapture:事件注册在捕获期间还是冒泡期间</span></span><br><span class="line">target.addEventListener(type, listener, useCapture); </span><br><span class="line"></span><br><span class="line"><span class="comment">//例如：给button注册onclick事件，要是在捕获阶段注册</span></span><br><span class="line">button.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//在某一个元素上撤销已注册的事件。 这里强调的是 这里的listener必须与已注册的listener是同一个</span></span><br><span class="line">target.removeEventListener(type, listener, useCapture);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-IE中的事件流"><a href="#2-IE中的事件流" class="headerlink" title="2. IE中的事件流"></a>2. IE中的事件流</h4><p>IE中的事件是非标准的，总共分为两个阶段: <strong>处于目标阶段</strong>、<strong>冒泡阶段</strong>。</p>
+<p>上面提到的例子在IE中执行时这样的:</p>
+<p><img src="https://images0.cnblogs.com/blog2015/697856/201504/080003359931643.png" alt="图片"></p>
+<p>IE中的事件注册与销毁事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IE注册事件函数 target: 文档节点、document、window 或 XMLHttpRequest。type: 注册事件类型(包含on) listener: 事件的回调函数 由于没有事件捕获阶段，所以没有useCapture参数</span></span><br><span class="line">target.attachEvent(type, listener);</span><br><span class="line"></span><br><span class="line">target.detachEvent(type,listener);   <span class="comment">//参数与注册参数相对应。</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-事件的执行顺序"><a href="#3-事件的执行顺序" class="headerlink" title="3. 事件的执行顺序"></a>3. 事件的执行顺序</h4><p>一般事件的执行顺序： 事件的捕获阶段==&gt;处于目标阶段==&gt;事件的冒泡阶段==&gt;事件的默认行为</p>
+<p>事件的默认行为是最后才执行的，所以我们可以阻止事件的默认行为。例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//阻止文本框获取焦点  </span></span><br><span class="line"><span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">"inputText"</span>);</span><br><span class="line">input.onmousedown=<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">  event=event||<span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">if</span>(event.preventDefault)&#123;  <span class="comment">//非IE浏览器阻止事件默认行为</span></span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    event.returnValue=<span class="literal">false</span>; <span class="comment">//IE浏览器阻止事件默认行为</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-跨浏览器的注册事件"><a href="#4-跨浏览器的注册事件" class="headerlink" title="4. 跨浏览器的注册事件"></a>4. 跨浏览器的注册事件</h4><p>上面我们提到IE是非标准的事件流，所以要跨浏览器注册事件的话需要一些处理，下面是个例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil =  &#123;</span><br><span class="line">  <span class="comment">//注册事件，因为浏览器的兼容性考虑，注册事件一般都是注册在事件的冒泡阶段</span></span><br><span class="line">  addEventListener: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">      <span class="comment">// 非IE</span></span><br><span class="line">      element.addEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">      <span class="comment">// IE</span></span><br><span class="line">      element.attachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = callback;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//撤销事件</span></span><br><span class="line">  removeEventListener: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.removeEventListener) &#123;</span><br><span class="line">      element.removeEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent) &#123;</span><br><span class="line">      element.detachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-DOM事件"><a href="#5-DOM事件" class="headerlink" title="5. DOM事件"></a>5. DOM事件</h4><ul>
+<li><p>DOM0级事件</p>
+<p>javaScript指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序的属性。这种为事件处理程序赋值的方法是在第四代Web浏览器中出现的，而且至今仍然为所有现在浏览器支持。原因主要有两点： <strong>简单</strong>、<strong>具有跨浏览器优势</strong>。 每个元素（window和document）都有自己的事件处理程序属性，这些属性通常全部小写，例如 onclick， onmousedown。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'mybtn'</span>);</span><br><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'click'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>局限性: </p>
+<p>1.某一个属性只能赋值给一个函数，也就导致在某一个元素上的某一个事件属性只能对应着一个函数。多次注册时，已最后一次注册为准。</p>
+<p>2.DOM0级事件全部都是默认在冒泡阶段执行。</p>
+</li>
+<li><p>DOM2级事件</p>
+<p>我们在上面定义的跨浏览注册事件函数，就是一个DOM2级注册事件。DOM2级注册事件相比于DOM0级的优势就在于其可以多次注册，并且执行顺序与注册顺序一致。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'mybtn'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun1</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"1"</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun2</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"2"</span>);&#125;</span><br><span class="line">EventUtil.addEventListener(btn,<span class="string">"click"</span>,fun1);  <span class="comment">//注册第一个事件</span></span><br><span class="line">EventUtil.addEventListener(btn,<span class="string">"click"</span>,fun1); <span class="comment">//注册第二个事件，触发事件的时候会先弹出1在弹出2</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="6-事件对象"><a href="#6-事件对象" class="headerlink" title="6.  事件对象"></a>6.  事件对象</h4><p>在触发DOM上的某个事件时，会产生一个事件对象event，这个对象中包含着所有事件有关的信息。例如，单击事件中会包含鼠标的位置信息，键盘触发的事件中会包含按下的键位有关的信息。所有的浏览器都支持event，但支持的方式却有不同。</p>
+<ul>
+<li>标准浏览器中的事件对象             </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="center">类型</th>
+<th align="center">读写</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bubbles</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>返回布尔值，指示事件是否是起泡冒泡</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>返回布尔值，指示事件是否可拥可取消的默认动作</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回其事件监听器触发该事件的元素</td>
+</tr>
+<tr>
+<td>eventPhase</td>
+<td align="center">Intenger</td>
+<td align="center">只读</td>
+<td>返回事件传播的当前阶段</td>
+</tr>
+<tr>
+<td>target</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回触发此事件的元素（事件的目标节点）</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td align="center">Date</td>
+<td align="center">只读</td>
+<td>返回事件生成的日期和时间</td>
+</tr>
+<tr>
+<td>type</td>
+<td align="center">String</td>
+<td align="center">只读</td>
+<td>返回当前 Event 对象表示的事件的名称</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td align="center">boolean</td>
+<td align="center">只读</td>
+<td>该事件是否是浏览器生成(true代表是浏览器生成，false代表是开发人员创建)</td>
+</tr>
+<tr>
+<td>preventDefault</td>
+<td align="center">Function</td>
+<td align="center">只读</td>
+<td>取消事件的默认行为在<a href="http://www.w3school.com.cn/jsref/event_cancelable.asp" target="_blank" rel="noopener">cancelable</a>=true时有效</td>
+</tr>
+<tr>
+<td>stopPropagation</td>
+<td align="center">Function</td>
+<td align="center">只读</td>
+<td>取消事件的捕获或者冒泡行为在<a href="http://www.w3school.com.cn/jsref/event_bubbles.asp" target="_blank" rel="noopener">bubbles</a>=true时有效</td>
+</tr>
+</tbody></table>
+<p>​        在事件处理程序内部，对象this始终指向currentTarget的值，而target则只包含事件的实际目标。</p>
+<ul>
+<li>IE中的事件对象           </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="center">类型</th>
+<th align="center">读写</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cancelBubble</td>
+<td align="center">boolean</td>
+<td align="center">读/写</td>
+<td>返回布尔值，指示事件是否是起泡冒泡</td>
+</tr>
+<tr>
+<td>returnValue</td>
+<td align="center">boolean</td>
+<td align="center">读/写</td>
+<td>返回布尔值，指示事件是否可拥可取消的默认动作</td>
+</tr>
+<tr>
+<td>srcElement</td>
+<td align="center">Element</td>
+<td align="center">只读</td>
+<td>返回其事件监听器触发该事件的元素。</td>
+</tr>
+<tr>
+<td>type</td>
+<td align="center">String</td>
+<td align="center">只读</td>
+<td>被触发事件的类型</td>
+</tr>
+</tbody></table>
+<p>  上面的这些属性，是任何一个事件均会具有的属性。</p>
+<p>  在IE中有些srcElement对应着target;</p>
+<p>  执行event.returnValue=false对应着event.preventDefault();</p>
+<p>  执行event.cancelBubble=true对应着event.stopPropagation();</p>
+<p>  同时对于一些相关属性IE 比如 relatedTarget属性对应IE中的fromElement和toElement.属性</p>
+<ul>
+<li><p>跨浏览器的事件对象</p>
+<p>由于IE和标准的事件对象不一致，所以跨浏览器的事件对象需要做一些处理。例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil =  &#123;</span><br><span class="line">  <span class="comment">//注册事件，因为浏览器的兼容性考虑，注册事件一般都是注册在事件的捕获阶段</span></span><br><span class="line">  addEventListener: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">      element.addEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">      element.attachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = callback;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//获取事件</span></span><br><span class="line">  getEvent:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> event||<span class="built_in">window</span>.event;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//获取事件的触发目标</span></span><br><span class="line">  getTarget:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> event.target||event.srcElement;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//阻止事件的默认行为</span></span><br><span class="line">  preventDefault:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.preventDefault?event.preventDefault():event.returnValue=<span class="literal">false</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//阻止事件冒泡</span></span><br><span class="line">  stopPropagation:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event.stopPropagation?event.stopPropagation:event.cancelBubble=<span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//撤销事件</span></span><br><span class="line">  removeEventListener: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (element.removeEventListener) &#123;</span><br><span class="line">      element.removeEventListener(type, callback, <span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent) &#123;</span><br><span class="line">      element.detachEvent(<span class="string">'on'</span> + type, callback);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      element[<span class="string">'on'</span> + type] = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>每个事件在其被触发时，都有一些其特有的属性，比如键盘事件会有键位信息，鼠标事件会有会有位置信息。onmouseenter事件会有fromElement(IE)中，relatedTarget(非IE);onmouseover事件会有toElement(IE)中，relatedTarget(非IE).</p>
+</li>
+</ul>
+<h4 id="7-自定义事件"><a href="#7-自定义事件" class="headerlink" title="7. 自定义事件"></a>7. 自定义事件</h4><ul>
+<li><p>模拟鼠标事件</p>
+<p>非IE浏览器</p>
+<p>创建鼠标事件的方法是createEvent()传入字符串“MouseEvent”.返回的对象有initMouseEvent()方法,这个方法有15个参数，分别与鼠标事件中某个典型的属性一一对应。               </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”click”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>抽象视图：事件授予的视图，这个值几乎全是document.defaultView.</td>
+</tr>
+<tr>
+<td>detail</td>
+<td align="center">Intenger</td>
+<td>附加的事件信息这个初始化时一般应该默认为0。</td>
+</tr>
+<tr>
+<td>screenX</td>
+<td align="center">Intenger</td>
+<td>事件距离屏幕左边的X坐标</td>
+</tr>
+<tr>
+<td>screenY</td>
+<td align="center">Intenger</td>
+<td>事件距离屏幕上边的y坐标</td>
+</tr>
+<tr>
+<td>clientX</td>
+<td align="center">Intenger</td>
+<td>事件距离可视区域左边的X坐标</td>
+</tr>
+<tr>
+<td>clientY</td>
+<td align="center">Intenger</td>
+<td>事件距离可视区域上边的y坐标</td>
+</tr>
+<tr>
+<td>ctrlKey</td>
+<td align="center">Boolean</td>
+<td>代表ctrol键是否被按下，默认为false。</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td align="center">Boolean</td>
+<td>代表alt键是否被按下，默认为false。</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td align="center">Boolean</td>
+<td>Boolean类型 ： 代表shif键是否被按下，默认为false</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td align="center">Boolean</td>
+<td>代表meta key 是否被按下，默认是false</td>
+</tr>
+<tr>
+<td>button</td>
+<td align="center">Intenger</td>
+<td>表示被按下的鼠标键，默认是零</td>
+</tr>
+<tr>
+<td>relatedTarget</td>
+<td align="center">Elment</td>
+<td>事件的关联对象只有在模拟mouseover 和 mouseout时用到</td>
+</tr>
+<tr>
+<td>使用方法：</td>
+<td align="center"></td>
+<td></td>
+</tr>
+</tbody></table>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn=<span class="built_in">document</span>.getElementById(<span class="string">"mybtn"</span>);</span><br><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEvent(<span class="string">"MouseEvent"</span>);</span><br><span class="line">    event.initMouseEvent(<span class="string">"click"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="number">0</span>,<span class="literal">null</span>);</span><br><span class="line">btn.dispatchEvent(event);  <span class="comment">//在这一步会设置event.target,以及触发事件类型</span></span><br></pre></td></tr></table></figure>
+
+<p>  IE浏览器</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEventObject();</span><br><span class="line">event.screenX=<span class="number">100</span>;</span><br><span class="line">event.screenY=<span class="number">100</span>;</span><br><span class="line">event.clientX=<span class="number">100</span>;</span><br><span class="line">event.clientX=<span class="number">100</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">btn.fireEvent(<span class="string">"onclick"</span>,event);   <span class="comment">//在这一步会设置event.serElement,以及触发事件类型</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>模拟键盘事件</p>
+<p> 键盘模拟事件是在DOM3规范中定义的。火狐浏览器根据草案定义了DOM2级中模拟键盘事件。在这里，我们讲述的是DOM3级规范，DOM3级不提倡使用oneypress事件。</p>
+<p> DOM3标准</p>
+<p> 创建键盘事件的方法是createEvent()传入字符串“KeyboardEvent”.返回的对象有initKeyEvent()方法,这个方法有以下参数：           </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>被授予事件的是图. 通常值为：document.defaultView.</td>
+</tr>
+<tr>
+<td>key</td>
+<td align="center">string</td>
+<td>按下的键对应的code.</td>
+</tr>
+<tr>
+<td>location</td>
+<td align="center">integer</td>
+<td>按下键所在的位置. 0 ：默认键盘, 1 左侧位置, 2 右侧位置, 3 数字键盘区, 4 虚拟键盘区, or 5 游戏手柄.</td>
+</tr>
+<tr>
+<td>modifiers</td>
+<td align="center">Boolean</td>
+<td>一个有空格分开的修饰符列表.</td>
+</tr>
+<tr>
+<td>repeat</td>
+<td align="center">integer</td>
+<td>一行中某个键被按下的次数</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> textbox=<span class="built_in">document</span>.getElementById(<span class="string">"myTextBox"</span>),event;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"KeyboardEvent"</span>,<span class="number">3.0</span>))&#123;</span><br><span class="line">  event=<span class="built_in">document</span>.createEvent(<span class="string">"KeyboardEvent"</span>);</span><br><span class="line">  event.initKeyboardEvent(<span class="string">"keydown"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="string">"a"</span>,<span class="number">0</span>,<span class="string">"shift"</span>,<span class="number">0</span>);</span><br><span class="line">  textbox.dispatchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  并非所有的浏览器都实现了DOM3标准，下面看一下各个浏览器时怎么模拟鼠标事件。 </p>
+<p>  <strong>FireFox浏览器</strong></p>
+<pre><code>在FireFox中，调用createEvent()并传入KeyEvents就可以创建一个键盘事件。返回的事件对象会包含一个initKeyEvent()方法，这个方法接受以下10个参数：          </code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>view</td>
+<td align="center">AbstractView</td>
+<td>被授予事件的是图. 通常值为：document.defaultView.</td>
+</tr>
+<tr>
+<td>ctrlKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了ctrl键位，默认值 false.</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了altl键位，默认值 false</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了shift键位，默认值 false.</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td align="center">Boolean</td>
+<td>表示是否按下了meta键位，默认值 false.</td>
+</tr>
+<tr>
+<td>KeyCode</td>
+<td align="center">Intenger</td>
+<td>被按下或者被释放的键位. 这个参数对keydown和keyup有用</td>
+</tr>
+<tr>
+<td>charCode</td>
+<td align="center">Intenger</td>
+<td>通过按键生成的ASCII编码. 这个参数对keypress有用</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//只适用于FireFox浏览器，在火狐浏览器中会在文本框中显示A </span></span><br><span class="line"><span class="keyword">var</span> textbox=<span class="built_in">document</span>.getElementById(<span class="string">"myTextBox"</span>);</span><br><span class="line"><span class="comment">//创建事件对象</span></span><br><span class="line"><span class="keyword">var</span>  event=<span class="built_in">document</span>.createEvent(<span class="string">"keyEvents"</span>);</span><br><span class="line"><span class="comment">//初始化事件对象</span></span><br><span class="line">event.initKeyEvent(<span class="string">"keypress"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="number">65</span>,<span class="number">65</span>);</span><br><span class="line"><span class="comment">//触发事件</span></span><br><span class="line">textbox.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>非火狐非IE浏览器</strong> 在其他浏览器中，则需要创建一个通用事件，然后再向通用事件中添加键盘事件的特有信息。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在其他浏览器中不能输入文本，这是因为非浏览器创建的事件并不能精确的模拟事件。</span></span><br><span class="line"><span class="comment">//创建事件对象</span></span><br><span class="line"><span class="keyword">var</span>  event=<span class="built_in">document</span>.createEvent(<span class="string">"Events"</span>);</span><br><span class="line"><span class="comment">//初始化事件对象</span></span><br><span class="line">event.initEvent(type,bubble,cancelable);</span><br><span class="line"><span class="comment">//初始化事件信息</span></span><br><span class="line">event.view=<span class="built_in">document</span>.defaultView;</span><br><span class="line">event.altKey=<span class="literal">false</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">event.keyCode=<span class="number">65</span>;</span><br><span class="line">event.charCode=<span class="number">65</span>;</span><br><span class="line"><span class="comment">//触发事件</span></span><br><span class="line">textbox.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>IE浏览器</strong>  IE浏览器创建键盘事件和创建鼠标事件有点类似。如下所示：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event=<span class="built_in">document</span>.createEventObject();</span><br><span class="line">event.altKey=<span class="literal">false</span>;</span><br><span class="line">event.ctrlKey=<span class="literal">false</span>;</span><br><span class="line">event.shiftKey=<span class="literal">false</span>;</span><br><span class="line">event.keyCode=<span class="number">65</span>;</span><br><span class="line">textbox.fireEvent(<span class="string">"onkeydown"</span>,event);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>自定义DOM事件</p>
+<p>DOM3级还定义了”自定义事件”。自定义事件不同时DOM原生触发的，它的目的是让开发人员创建自己的事件。要创建新的自定义事件；</p>
+<p> <strong>非IE浏览器</strong> 可以调用createEvent(“CustomEvent”)返回的对象有一个名为initCustomEvent()方法，接受如下四个参数:          </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="center">类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="center">String</td>
+<td>要触发的事件类型,例如”keydown”.</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td align="center">Boolean</td>
+<td>表示该事件是否能够被取消，针对鼠标事件模拟，该值应该被设置为true。</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td align="center">Boolean</td>
+<td>表示该事件是被取消</td>
+</tr>
+<tr>
+<td>detail</td>
+<td align="center">Boolean</td>
+<td>保存在event对象的detail属性中</td>
+</tr>
+</tbody></table>
+<p>  使用方法:</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"button"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"inputText"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span>    </span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">"inputText"</span>);</span></span><br><span class="line"><span class="actionscript">      EventUtil.addEventListener(input,<span class="string">"myevent"</span>,<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span>&#123;</span></span><br><span class="line">        event=EventUtil.getEvent(event);</span><br><span class="line"><span class="actionscript">        alert(event.detail.message);   <span class="comment">//访问detail中的信息</span></span></span><br><span class="line"><span class="actionscript">      &#125;);<span class="comment">//注册时事件</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span>  button=<span class="built_in">document</span>.getElementById(<span class="string">"button"</span>);</span></span><br><span class="line"><span class="actionscript">      button.onclick=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span>(<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"CustomEvents"</span>,<span class="string">"3.0"</span>))&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> event=<span class="built_in">document</span>.createEvent(<span class="string">"CustomEvent"</span>);</span></span><br><span class="line"><span class="actionscript">          event.initCustomEvent(<span class="string">"myevent"</span>,<span class="literal">true</span>,<span class="literal">false</span>,&#123;message:<span class="string">"helloworld"</span>&#125;);</span></span><br><span class="line">          input.dispatchEvent(event);</span><br><span class="line"><span class="actionscript">        &#125; <span class="comment">//通过button按钮触发事件</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  IE浏览器自定义事件</p>
+<p>   IE中document.createEventObject()方法不支持自定义的DOM事件。我们在有些前端框架中之所有能够实现自定义事件的各种浏览器兼容都是因为他们内部重写了一套事件机制来控制，才使得我们可以在各个浏览器上自定义事件。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  <!-- 
+  
+  <nav class="article-nav">
+    
+      <a href="/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Nginx配置Vue前后端分离项目
+          
+        </div>
+      </a>
+    
+    
+      <a href="/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JS的防抖和节流</div>
+      </a>
+    
+  </nav>
+
+
+   -->
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        musi
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/side.png" alt="musi&#39;s life" style="border-radius: 50%;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/wiki">wiki</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+
+      // wiki折叠
+      const collapses = (document.querySelector('#wiki') && document.querySelector('#wiki').querySelectorAll('.collapse')) || [];
+      for(let i=0;i<collapses.length;i++) {
+        $(`#${collapses[i].id}`).on('hide.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-right', 'fa-hand-o-down')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder-open', 'fa-folder')
+          }
+        })
+        $(`#${collapses[i].id}`).on('show.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-down', 'fa-hand-o-right')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder', 'fa-folder-open')
+          }
+        })
+      }
+      
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['身在黑暗，心向光明', '历尽千帆，何不激起浪花一朵朵', '知其荣，守其辱，为天下谷'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
