@@ -33,7 +33,7 @@
   overflow-y: scroll;
   margin-top: -16px;
 }
-.local-search-result .local-search-close {
+.local-search-close {
   top: 3.85rem !important;
   right: 2.25rem !important;
   color: #000 !important;
