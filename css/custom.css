@@ -17,6 +17,27 @@
 .card .card-header button:hover {
   color: #916dd5 !important;
 }
+#local-search-input {
+  width: 100%;
+  border: 1px dashed #333;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 5px;
+  outline: none;
+}
+.local-search-result {
+  background: #a2d5f2;
+  padding: 0 10px;
+  border-radius: 6px;
+  max-height: 120px;
+  overflow-y: scroll;
+  margin-top: -16px;
+}
+.local-search-result .local-search-close {
+  top: 3.85rem !important;
+  right: 2.25rem !important;
+  color: #000 !important;
+}
 @media (min-width: 768px) {
   .outer,
   .wrap {
