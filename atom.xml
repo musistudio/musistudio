@@ -45,27 +45,6 @@
   </entry>
   
   <entry>
-    <title>使用QQ空间作为博客图床</title>
-    <link href="https://musii.life/code/%E4%BD%BF%E7%94%A8QQ%E7%A9%BA%E9%97%B4%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html"/>
-    <id>https://musii.life/code/%E4%BD%BF%E7%94%A8QQ%E7%A9%BA%E9%97%B4%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</id>
-    <published>2020-04-10T03:11:01.000Z</published>
-    <updated>2020-04-10T03:49:23.163Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;博客站点配置&quot;&gt;&lt;a href=&quot;#博客站点配置&quot; class=&quot;headerlink&quot; title=&quot;博客站点配置&quot;&gt;&lt;/a&gt;博客站点配置&lt;/h4&gt;&lt;p&gt;因为QQ空间图片开启了防盗链，所以需要配置一下站点使其在加载图片的时候绕过防盗链规则。具体做法如下：&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="code" scheme="https://musii.life/categories/code/"/>
-    
-    
-      <category term="图床" scheme="https://musii.life/tags/%E5%9B%BE%E5%BA%8A/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用阿里云oss部署Vue项目</title>
     <link href="https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html"/>
     <id>https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</id>
