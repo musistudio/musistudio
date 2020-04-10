@@ -283,28 +283,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Nginx配置Vue前后端分离项目</title>
-    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
-<a id="more"></a>
-<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>nginx</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JS中的事件机制</title>
     <url>/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
@@ -744,6 +722,28 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx配置Vue前后端分离项目</title>
+    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+<a id="more"></a>
+<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
