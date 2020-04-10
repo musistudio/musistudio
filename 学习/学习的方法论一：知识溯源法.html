@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    Nginx配置Vue前后端分离项目 |  musi&#39;s life
+    学习的方法论一：知识溯源法 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-Nginx配置Vue前后端分离项目" class="article article-type-post" itemscope
+  <article id="post-学习的方法论一：知识溯源法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Nginx配置Vue前后端分离项目
+  学习的方法论一：知识溯源法
 </h1>
  
 
@@ -65,12 +65,12 @@
 
     
     <div class="article-meta">
-      <a href="/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html" class="article-date">
-  <time datetime="2019-07-18T16:03:15.000Z" itemprop="datePublished">2019-07-19</time>
+      <a href="/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html" class="article-date">
+  <time datetime="2020-04-10T05:35:41.000Z" itemprop="datePublished">2020-04-10</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/code/">code</a>
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
   </div>
 
       
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">215</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -114,17 +114,54 @@
       
 
       
-      <h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+      <blockquote>
+<p>有一千个读者，就有一千个哈姆雷特</p>
+</blockquote>
+<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
+<blockquote>
+<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
+</blockquote>
+<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
 <a id="more"></a>
-<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
+<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
+<ol>
+<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
+<blockquote>
+<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
+</blockquote>
+<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
+</li>
+<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
+<blockquote>
+<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
+</blockquote>
+<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
+<blockquote>
+<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
+</blockquote>
+<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
+<blockquote>
+<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
+</blockquote>
+</li>
+<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
+<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
+<blockquote>
+<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
+</blockquote>
+<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
+</li>
+<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
+<blockquote>
+<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
+</blockquote>
+<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
+</li>
+</ol>
+<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
 
-<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -192,14 +229,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">方法论</a></li></ul>
 
 
     </footer>
@@ -210,19 +247,10 @@
   
   <nav class="article-nav">
     
-      <a href="/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            使用阿里云oss部署Vue项目
-          
-        </div>
-      </a>
     
-    
-      <a href="/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html" class="article-nav-link">
+      <a href="/code/%E4%BD%BF%E7%94%A8QQ%E7%A9%BA%E9%97%B4%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">JS中的事件机制</div>
+        <div class="article-nav-title">使用QQ空间作为博客图床</div>
       </a>
     
   </nav>
