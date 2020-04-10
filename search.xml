@@ -1,98 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HTTP协议初探</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
-    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
-<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
-<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
+    <title>HTTP协议补充</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
+    <content><![CDATA[<blockquote>
+<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
 </blockquote>
-<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
-<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
-<a id="more"></a></li>
-<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
-</li>
-<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
-<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
-</li>
-<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
 <ol>
-<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
-<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
-<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
-<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
-</ol>
-<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
+<li><p>HTTP协议格式</p>
+<p>HTTP协议的格式大致可划分成一下几个部分</p>
+<ul>
+<li>Request<ul>
+<li>Request line<ul>
+<li>method</li>
+<li>path</li>
+<li>Version</li>
+</ul>
 </li>
-<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
-<ol>
-<li><p>Host头域</p>
-<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
+<li>head</li>
+<li>body</li>
+</ul>
 </li>
-<li><p>Referer头域</p>
-<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
+<li>Response<ul>
+<li>Response line<ul>
+<li>version</li>
+<li>Status code</li>
+<li>Statis text</li>
+</ul>
 </li>
-<li><p>User-Agent头域</p>
-<p>User-Agent头域的内容包含发出请求的用户信息</p>
-</li>
-<li><p>Cache-Control头域</p>
-<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
-</li>
-<li><p>Date头域</p>
-<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
-</li>
-</ol>
-</li>
-<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
-<li><p>连接：Connection</p>
-<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
-<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
-<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
-</li>
-<li><p>消息：Message</p>
-<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
-</li>
-<li><p>请求：Request</p>
-<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
-</li>
-<li><p>响应：Response</p>
-<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
-</li>
-<li><p>资源：Resource</p>
-<p>由URI标识的网络数据对象或服务</p>
-</li>
-<li><p>实体：Entity</p>
-<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
-</li>
-<li><p>客户机：Client</p>
-<p>一个为发送请求目的而建立连接的应用程序</p>
-</li>
-<li><p>用户代理：UserAgent</p>
-<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
-</li>
-<li><p>服务器：Server</p>
-<p>一个接受连接并对请求返回信息的应用程序。</p>
-</li>
-<li><p>源服务器：Originserver</p>
-<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
-</li>
-<li><p>代理：Proxy</p>
-<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
-<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
-</li>
-<li><p>网关：Gateway</p>
-<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
-<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
-</li>
-<li><p>通道：Tunnel</p>
-<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
-</li>
-<li><p>缓存：Cache</p>
-<p>反应信息的局域存储。</p>
-</li>
-</ol>
+<li>head</li>
+<li>body<a id="more"></a></li>
+</ul>
 </li>
 </ul>
+</li>
+<li><p>HTTP Method(方法)</p>
+<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+<li>TRACE</li>
+</ul>
+<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
+<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
+<p>CONNECT多用于HTTPS和WebSocket</p>
+<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
+</li>
+<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
+<p>常见的状态码有以下几种:</p>
+<ul>
+<li>1xx: 临时回应，表示客户端请继续</li>
+<li>2xx: 请求成功<ul>
+<li>200: 请求成功</li>
+</ul>
+</li>
+<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
+<li>301&amp;302：永久性与临时性跳转</li>
+<li>304：客户端缓存没有更新</li>
+</ul>
+</li>
+<li>4xx: 客户端请求错误<ul>
+<li>403：无权限</li>
+<li>404：表示请求的页面不存在</li>
+<li>418：这是一个彩蛋</li>
+</ul>
+</li>
+<li>5xx: 服务端请求错误<ul>
+<li>500: 服务端错误</li>
+<li>503: 服务端暂时性错误，可以稍后再试</li>
+</ul>
+</li>
+</ul>
+<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
+<p>2xx系列的状态码通常是网页请求成功的标志</p>
+<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
+<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
+</li>
+<li><p>HTTP Head(HTTP头)</p>
+<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
+<p>Request Header              </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Request Header</th>
+<th align="center">规定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accept</td>
+<td align="center">浏览器端接收的格式</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">浏览器接收的编码方式</td>
+</tr>
+<tr>
+<td align="center">Accept_Language</td>
+<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>code</category>
@@ -611,111 +624,98 @@
       </tags>
   </entry>
   <entry>
-    <title>HTTP协议补充</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
-    <content><![CDATA[<blockquote>
-<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
+    <title>HTTP协议初探</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
+    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
+<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
+<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
 </blockquote>
+<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
+<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
+<a id="more"></a></li>
+<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
+</li>
+<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
+<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
+</li>
+<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
 <ol>
-<li><p>HTTP协议格式</p>
-<p>HTTP协议的格式大致可划分成一下几个部分</p>
-<ul>
-<li>Request<ul>
-<li>Request line<ul>
-<li>method</li>
-<li>path</li>
-<li>Version</li>
-</ul>
+<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
+<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
+<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
+<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
+</ol>
+<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
 </li>
-<li>head</li>
-<li>body</li>
-</ul>
+<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
+<ol>
+<li><p>Host头域</p>
+<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
 </li>
-<li>Response<ul>
-<li>Response line<ul>
-<li>version</li>
-<li>Status code</li>
-<li>Statis text</li>
-</ul>
+<li><p>Referer头域</p>
+<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
 </li>
-<li>head</li>
-<li>body<a id="more"></a></li>
-</ul>
+<li><p>User-Agent头域</p>
+<p>User-Agent头域的内容包含发出请求的用户信息</p>
 </li>
-</ul>
+<li><p>Cache-Control头域</p>
+<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
 </li>
-<li><p>HTTP Method(方法)</p>
-<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
-<ul>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-<li>PUT</li>
-<li>DELETE</li>
-<li>CONNECT</li>
-<li>OPTIONS</li>
-<li>TRACE</li>
-</ul>
-<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
-<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
-<p>CONNECT多用于HTTPS和WebSocket</p>
-<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
-</li>
-<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
-<p>常见的状态码有以下几种:</p>
-<ul>
-<li>1xx: 临时回应，表示客户端请继续</li>
-<li>2xx: 请求成功<ul>
-<li>200: 请求成功</li>
-</ul>
-</li>
-<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
-<li>301&amp;302：永久性与临时性跳转</li>
-<li>304：客户端缓存没有更新</li>
-</ul>
-</li>
-<li>4xx: 客户端请求错误<ul>
-<li>403：无权限</li>
-<li>404：表示请求的页面不存在</li>
-<li>418：这是一个彩蛋</li>
-</ul>
-</li>
-<li>5xx: 服务端请求错误<ul>
-<li>500: 服务端错误</li>
-<li>503: 服务端暂时性错误，可以稍后再试</li>
-</ul>
-</li>
-</ul>
-<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
-<p>2xx系列的状态码通常是网页请求成功的标志</p>
-<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
-<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
-</li>
-<li><p>HTTP Head(HTTP头)</p>
-<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
-<p>Request Header              </p>
+<li><p>Date头域</p>
+<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
 </li>
 </ol>
-<table>
-<thead>
-<tr>
-<th align="center">Request Header</th>
-<th align="center">规定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Accept</td>
-<td align="center">浏览器端接收的格式</td>
-</tr>
-<tr>
-<td align="center">Accept-Encoding</td>
-<td align="center">浏览器接收的编码方式</td>
-</tr>
-<tr>
-<td align="center">Accept_Language</td>
-<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
-</tr>
-</tbody></table>
+</li>
+<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
+<li><p>连接：Connection</p>
+<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
+<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
+<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
+</li>
+<li><p>消息：Message</p>
+<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
+</li>
+<li><p>请求：Request</p>
+<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
+</li>
+<li><p>响应：Response</p>
+<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
+</li>
+<li><p>资源：Resource</p>
+<p>由URI标识的网络数据对象或服务</p>
+</li>
+<li><p>实体：Entity</p>
+<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
+</li>
+<li><p>客户机：Client</p>
+<p>一个为发送请求目的而建立连接的应用程序</p>
+</li>
+<li><p>用户代理：UserAgent</p>
+<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
+</li>
+<li><p>服务器：Server</p>
+<p>一个接受连接并对请求返回信息的应用程序。</p>
+</li>
+<li><p>源服务器：Originserver</p>
+<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
+</li>
+<li><p>代理：Proxy</p>
+<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
+<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
+</li>
+<li><p>网关：Gateway</p>
+<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
+<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
+</li>
+<li><p>通道：Tunnel</p>
+<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
+</li>
+<li><p>缓存：Cache</p>
+<p>反应信息的局域存储。</p>
+</li>
+</ol>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>code</category>
@@ -747,27 +747,80 @@
       </tags>
   </entry>
   <entry>
-    <title>使用QQ空间作为博客图床</title>
-    <url>/code/%E4%BD%BF%E7%94%A8QQ%E7%A9%BA%E9%97%B4%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
-    <content><![CDATA[<h4 id="博客站点配置"><a href="#博客站点配置" class="headerlink" title="博客站点配置"></a>博客站点配置</h4><p>因为QQ空间图片开启了防盗链，所以需要配置一下站点使其在加载图片的时候绕过防盗链规则。具体做法如下：</p>
+    <title>学习的方法论一：知识溯源法</title>
+    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
+    <content><![CDATA[<blockquote>
+<p>有一千个读者，就有一千个哈姆雷特</p>
+</blockquote>
+<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
+<blockquote>
+<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
+</blockquote>
+<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
 <a id="more"></a>
 
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 禁止浏览器在加载图片的时候发送referrer就行了，具体做法就是在html里加入如下代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"referrer"</span> <span class="attr">content</span>=<span class="string">"no-referrer"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="使用QQ空间相册"><a href="#使用QQ空间相册" class="headerlink" title="使用QQ空间相册"></a>使用QQ空间相册</h4><p>在QQ空间新建一个仅自己可见的相册，以作为博客图床的专属相册。上传图片后点击刚上传的图片在控制台使用如下代码可获取图片的URL</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> oInput = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>)</span><br><span class="line">oInput.value = <span class="built_in">document</span>.querySelector(<span class="string">'div#js-img-border'</span>).querySelector(<span class="string">'img'</span>).src</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(oInput)</span><br><span class="line">oInput.select()</span><br><span class="line"><span class="built_in">document</span>.execCommand(<span class="string">"Copy"</span>)</span><br><span class="line">oInput.style.display = <span class="string">'none'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">'div#js-img-border'</span>).querySelector(<span class="string">'img'</span>).src)</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://m.qpic.cn/psc?/V11yVUef4alO4B/S5z.*ov051w3o7gBaJERRpiYqkYfOpuL0bayK8OVs3gZVLgTJ8aTfKhY34T26RARQ9SA*GcHehUlox4pvelPQ.8D*jQngOF*DuXfm38U0M4!/b&bo=wQc4BAAAAAARF9o!&rf=viewer_4&t=5" alt="使用示意图"></p>
-<h4 id="为什么使用QQ空间作为博客图床？"><a href="#为什么使用QQ空间作为博客图床？" class="headerlink" title="为什么使用QQ空间作为博客图床？"></a>为什么使用QQ空间作为博客图床？</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 个人站点，托管在github上，github网速慢且连通性差。会增加网站加载时间。</span><br><span class="line">2. 个人站点，没钱使用各大对象存储服务。</span><br><span class="line">3. QQ空间自带相册服务，且使用方便，也方便移动端上传</span><br></pre></td></tr></table></figure>
-
-
-
+<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
+<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
+<ol>
+<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
+<blockquote>
+<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
+</blockquote>
+<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
+</li>
+<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
+<blockquote>
+<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
+</blockquote>
+<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
+<blockquote>
+<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
+</blockquote>
+<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
+<blockquote>
+<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
+</blockquote>
+</li>
+<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
+<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
+<blockquote>
+<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
+</blockquote>
+<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
+</li>
+<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
+<blockquote>
+<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
+</blockquote>
+<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
+</li>
+</ol>
+<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>方法论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用阿里云oss部署Vue项目</title>
+    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
+<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
+<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
+</ol>
+<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
 ]]></content>
       <categories>
         <category>code</category>
       </categories>
       <tags>
-        <tag>图床</tag>
+        <tag>vue</tag>
+        <tag>oss</tag>
       </tags>
   </entry>
   <entry>
@@ -871,80 +924,27 @@
       </tags>
   </entry>
   <entry>
-    <title>学习的方法论一：知识溯源法</title>
-    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
-    <content><![CDATA[<blockquote>
-<p>有一千个读者，就有一千个哈姆雷特</p>
-</blockquote>
-<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
-<blockquote>
-<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
-</blockquote>
-<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
+    <title>使用QQ空间作为博客图床</title>
+    <url>/code/%E4%BD%BF%E7%94%A8QQ%E7%A9%BA%E9%97%B4%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
+    <content><![CDATA[<h4 id="博客站点配置"><a href="#博客站点配置" class="headerlink" title="博客站点配置"></a>博客站点配置</h4><p>因为QQ空间图片开启了防盗链，所以需要配置一下站点使其在加载图片的时候绕过防盗链规则。具体做法如下：</p>
 <a id="more"></a>
 
-<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
-<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
-<ol>
-<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
-<blockquote>
-<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
-</blockquote>
-<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
-</li>
-<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
-<blockquote>
-<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
-</blockquote>
-<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
-<blockquote>
-<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
-</blockquote>
-<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
-<blockquote>
-<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
-</blockquote>
-</li>
-<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
-<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
-<blockquote>
-<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
-</blockquote>
-<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
-</li>
-<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
-<blockquote>
-<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
-</blockquote>
-<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
-</li>
-</ol>
-<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>方法论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用阿里云oss部署Vue项目</title>
-    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
-<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
-<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
-<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
-</ol>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 禁止浏览器在加载图片的时候发送referrer就行了，具体做法就是在html里加入如下代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"referrer"</span> <span class="attr">content</span>=<span class="string">"no-referrer"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用QQ空间相册"><a href="#使用QQ空间相册" class="headerlink" title="使用QQ空间相册"></a>使用QQ空间相册</h4><p>在QQ空间新建一个仅自己可见的相册，以作为博客图床的专属相册。上传图片后点击刚上传的图片在控制台使用如下代码可获取图片的URL</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> oInput = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>)</span><br><span class="line">oInput.value = <span class="built_in">document</span>.querySelector(<span class="string">'div#js-img-border'</span>).querySelector(<span class="string">'img'</span>).src</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(oInput)</span><br><span class="line">oInput.select()</span><br><span class="line"><span class="built_in">document</span>.execCommand(<span class="string">"Copy"</span>)</span><br><span class="line">oInput.style.display = <span class="string">'none'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.querySelector(<span class="string">'div#js-img-border'</span>).querySelector(<span class="string">'img'</span>).src)</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://m.qpic.cn/psc?/V11yVUef4alO4B/S5z.*ov051w3o7gBaJERRpiYqkYfOpuL0bayK8OVs3gZVLgTJ8aTfKhY34T26RARQ9SA*GcHehUlox4pvelPQ.8D*jQngOF*DuXfm38U0M4!/b&bo=wQc4BAAAAAARF9o!&rf=viewer_4&t=5" alt="使用示意图"></p>
+<h4 id="为什么使用QQ空间作为博客图床？"><a href="#为什么使用QQ空间作为博客图床？" class="headerlink" title="为什么使用QQ空间作为博客图床？"></a>为什么使用QQ空间作为博客图床？</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 个人站点，托管在github上，github网速慢且连通性差。会增加网站加载时间。</span><br><span class="line">2. 个人站点，没钱使用各大对象存储服务。</span><br><span class="line">3. QQ空间自带相册服务，且使用方便，也方便移动端上传</span><br></pre></td></tr></table></figure>
+
+
+
 ]]></content>
       <categories>
         <category>code</category>
       </categories>
       <tags>
-        <tag>vue</tag>
-        <tag>oss</tag>
+        <tag>图床</tag>
       </tags>
   </entry>
 </search>
