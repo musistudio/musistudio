@@ -102,187 +102,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HTTP协议补充</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
-    <content><![CDATA[<blockquote>
-<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
-</blockquote>
-<ol>
-<li><p>HTTP协议格式</p>
-<p>HTTP协议的格式大致可划分成一下几个部分</p>
-<ul>
-<li>Request<ul>
-<li>Request line<ul>
-<li>method</li>
-<li>path</li>
-<li>Version</li>
-</ul>
-</li>
-<li>head</li>
-<li>body</li>
-</ul>
-</li>
-<li>Response<ul>
-<li>Response line<ul>
-<li>version</li>
-<li>Status code</li>
-<li>Statis text</li>
-</ul>
-</li>
-<li>head</li>
-<li>body<a id="more"></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>HTTP Method(方法)</p>
-<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
-<ul>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-<li>PUT</li>
-<li>DELETE</li>
-<li>CONNECT</li>
-<li>OPTIONS</li>
-<li>TRACE</li>
-</ul>
-<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
-<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
-<p>CONNECT多用于HTTPS和WebSocket</p>
-<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
-</li>
-<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
-<p>常见的状态码有以下几种:</p>
-<ul>
-<li>1xx: 临时回应，表示客户端请继续</li>
-<li>2xx: 请求成功<ul>
-<li>200: 请求成功</li>
-</ul>
-</li>
-<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
-<li>301&amp;302：永久性与临时性跳转</li>
-<li>304：客户端缓存没有更新</li>
-</ul>
-</li>
-<li>4xx: 客户端请求错误<ul>
-<li>403：无权限</li>
-<li>404：表示请求的页面不存在</li>
-<li>418：这是一个彩蛋</li>
-</ul>
-</li>
-<li>5xx: 服务端请求错误<ul>
-<li>500: 服务端错误</li>
-<li>503: 服务端暂时性错误，可以稍后再试</li>
-</ul>
-</li>
-</ul>
-<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
-<p>2xx系列的状态码通常是网页请求成功的标志</p>
-<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
-<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
-</li>
-<li><p>HTTP Head(HTTP头)</p>
-<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
-<p>Request Header              </p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">Request Header</th>
-<th align="center">规定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Accept</td>
-<td align="center">浏览器端接收的格式</td>
-</tr>
-<tr>
-<td align="center">Accept-Encoding</td>
-<td align="center">浏览器接收的编码方式</td>
-</tr>
-<tr>
-<td align="center">Accept_Language</td>
-<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JS的防抖和节流</title>
-    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
-    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
-<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
-</blockquote>
-<a id="more"></a>
-<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
-<li><p>含义:</p>
-<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
-</li>
-<li><p>举个例子:</p>
-<p>比如有个函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
-
-<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
-
-<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
-</li>
-<li><p>类型:</p>
-<ul>
-<li><p>延迟执行版</p>
-<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
-</li>
-<li><p>立即执行版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
-<li><p>含义</p>
-<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
-</li>
-<li><p>版本</p>
-<ul>
-<li><p>时间戳版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定时器版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JS中的事件机制</title>
     <url>/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
@@ -725,25 +544,70 @@
       </tags>
   </entry>
   <entry>
-    <title>Nginx配置Vue前后端分离项目</title>
-    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+    <title>JS的防抖和节流</title>
+    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
+    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
+<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
+</blockquote>
 <a id="more"></a>
-<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
+<li><p>含义:</p>
+<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
+</li>
+<li><p>举个例子:</p>
+<p>比如有个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
 
-<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
+</li>
+<li><p>类型:</p>
+<ul>
+<li><p>延迟执行版</p>
+<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
+</li>
+<li><p>立即执行版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
+<li><p>含义</p>
+<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
+</li>
+<li><p>版本</p>
+<ul>
+<li><p>时间戳版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定时器版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
+]]></content>
       <categories>
         <category>code</category>
       </categories>
       <tags>
-        <tag>nginx</tag>
-        <tag>vue</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -847,6 +711,120 @@
       </tags>
   </entry>
   <entry>
+    <title>HTTP协议补充</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
+    <content><![CDATA[<blockquote>
+<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
+</blockquote>
+<ol>
+<li><p>HTTP协议格式</p>
+<p>HTTP协议的格式大致可划分成一下几个部分</p>
+<ul>
+<li>Request<ul>
+<li>Request line<ul>
+<li>method</li>
+<li>path</li>
+<li>Version</li>
+</ul>
+</li>
+<li>head</li>
+<li>body</li>
+</ul>
+</li>
+<li>Response<ul>
+<li>Response line<ul>
+<li>version</li>
+<li>Status code</li>
+<li>Statis text</li>
+</ul>
+</li>
+<li>head</li>
+<li>body<a id="more"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HTTP Method(方法)</p>
+<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+<li>TRACE</li>
+</ul>
+<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
+<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
+<p>CONNECT多用于HTTPS和WebSocket</p>
+<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
+</li>
+<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
+<p>常见的状态码有以下几种:</p>
+<ul>
+<li>1xx: 临时回应，表示客户端请继续</li>
+<li>2xx: 请求成功<ul>
+<li>200: 请求成功</li>
+</ul>
+</li>
+<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
+<li>301&amp;302：永久性与临时性跳转</li>
+<li>304：客户端缓存没有更新</li>
+</ul>
+</li>
+<li>4xx: 客户端请求错误<ul>
+<li>403：无权限</li>
+<li>404：表示请求的页面不存在</li>
+<li>418：这是一个彩蛋</li>
+</ul>
+</li>
+<li>5xx: 服务端请求错误<ul>
+<li>500: 服务端错误</li>
+<li>503: 服务端暂时性错误，可以稍后再试</li>
+</ul>
+</li>
+</ul>
+<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
+<p>2xx系列的状态码通常是网页请求成功的标志</p>
+<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
+<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
+</li>
+<li><p>HTTP Head(HTTP头)</p>
+<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
+<p>Request Header              </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Request Header</th>
+<th align="center">规定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accept</td>
+<td align="center">浏览器端接收的格式</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">浏览器接收的编码方式</td>
+</tr>
+<tr>
+<td align="center">Accept_Language</td>
+<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用阿里云oss部署Vue项目</title>
     <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
     <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
@@ -861,8 +839,30 @@
         <category>code</category>
       </categories>
       <tags>
-        <tag>vue</tag>
         <tag>oss</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx配置Vue前后端分离项目</title>
+    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+<a id="more"></a>
+<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>nginx</tag>
       </tags>
   </entry>
 </search>

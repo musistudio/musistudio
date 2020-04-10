@@ -39,9 +39,9 @@
       <category term="code" scheme="https://musii.life/categories/code/"/>
     
     
-      <category term="vue" scheme="https://musii.life/tags/vue/"/>
-    
       <category term="oss" scheme="https://musii.life/tags/oss/"/>
+    
+      <category term="vue" scheme="https://musii.life/tags/vue/"/>
     
   </entry>
   
@@ -62,9 +62,9 @@
       <category term="code" scheme="https://musii.life/categories/code/"/>
     
     
-      <category term="nginx" scheme="https://musii.life/tags/nginx/"/>
-    
       <category term="vue" scheme="https://musii.life/tags/vue/"/>
+    
+      <category term="nginx" scheme="https://musii.life/tags/nginx/"/>
     
   </entry>
   
