@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    也谈Unicode和UTF-8 |  musi&#39;s life
+    JavaScript的前世今生 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-也谈Unicode和UTF-8" class="article article-type-post" itemscope
+  <article id="post-JavaScript的前世今生" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  也谈Unicode和UTF-8
+  JavaScript的前世今生
 </h1>
  
 
@@ -65,12 +65,12 @@
 
     
     <div class="article-meta">
-      <a href="/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html" class="article-date">
-  <time datetime="2020-04-22T02:32:45.000Z" itemprop="datePublished">2020-04-22</time>
+      <a href="/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html" class="article-date">
+  <time datetime="2020-04-24T00:14:03.000Z" itemprop="datePublished">2020-04-24</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/code/">code</a>
+    <a class="article-category-link" href="/categories/wiki/">wiki</a>
   </div>
 
       
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">763</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -114,32 +114,71 @@
       
 
       
-      <blockquote>
-<p>最近在学习字符集相关的内容，遂以此文进行记录。</p>
-</blockquote>
-<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><ol>
-<li><p>起源</p>
-<p>大家都知道计算机起源于美国，而美国人一开始通信用的是<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>字符，其包含所有大小写字母和常用的英文标点符号，足够美国人使用。后来计算机在其他国家普及，由于语种多样性ASCII字符不再满足需要。于是便有了欧洲的ISO 8859以及中文的GBK编码。但这样就有一个问题，美国的计算机接受到来自中国的电子邮件后无法正常显示内容。为了解决这种各国编码规范不统一的问题，<a href="https://en.wikipedia.org/wiki/The%20Unicode%20Consortium" target="_blank" rel="noopener">The Unicode Consortium</a>指定了Unicode(也叫国际码)标准。</p>
-</li>
-<li><p>编码方式</p>
-<p>当前的Unicode使用16位的编码空间，每个字符占2字节，理论上最多可表示65536个字符。基本满足各种语言的使用。基本多文种平面的字符的编码为U+hhhh，每个h代表一个十六进制的数字。</p>
-</li>
-</ol>
-<a id="more"></a>
-<h4 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h4><ol>
-<li><p>起源</p>
-<p>在实际传输过程中，由于不同系统平台的设计不确定性，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为 <strong>Unicode转换格式</strong>（Unicode Transformation Format，简称为 UTF）。而UTF-8就是8位的unicode转换格式。</p>
-</li>
-<li><p>编码方式</p>
-<p>以8位为单元对UCS进行编码，每个使用UTF-8存储的字符，除了第一个自己外，其余字节的头两个比特都是以“10”开始，使文字处理器能够较快的找出每个字符的开始位置。为了兼容ASCII，UTF-8选择以可变长度存储Unicode。转换关系图如下：</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-22_19-25-08.jpg" alt=""></p>
-</li>
-<li><p>Unicode转UTF-8</p>
-<p>已知“严”的unicode是4E25(100111000100101)， 根据上表，可以发现4E25处在第三行的<br>范围内(U+0800-U+FFFF), 因此“严”的UTF-8编码需要三个字节，即格式是<br>“1110xxxx 10xxxxxx 10xxxxxx”。 然后, 从“严”的最后一个二进制位开始，依次从后向前<br>填入格式中的x，多出的位补0。 这样就得到了“严”的UTF-8编码是”11100100 10111000<br>10100101”, 转换成十六进制就是E4B8A5。</p>
-<p>附JavaScript实现代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeUTF8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(str.codePointAt().toString(<span class="number">16</span>), <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">let</span> bCodes = str.codePointAt().toString(<span class="number">2</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> byte, template, result = <span class="string">''</span>, temp;</span><br><span class="line">    <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'007F'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'0xxxxxxx'</span>;</span><br><span class="line">        byte = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'07FF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'110xxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'FFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">3</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">4</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'11110xxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">5</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'3FFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'111110xx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'7FFFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1111110x10xxxxxx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    template = template.split(<span class="string">''</span>).reverse().map(<span class="function"><span class="params">t</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="string">'x'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCodes.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> bCodes.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    temp = <span class="built_in">parseInt</span>(template.reverse().join(<span class="string">''</span>), <span class="number">2</span>).toString(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">let</span> len = temp.length / byte</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;=byte;i++) &#123;</span><br><span class="line">        result += <span class="string">'\\x'</span> + temp.slice((i<span class="number">-1</span>)*len, i*len)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> encoding = <span class="function"><span class="params">str</span> =&gt;</span> str.split(<span class="string">''</span>).map(<span class="function"><span class="params">s</span> =&gt;</span> encodeUTF8(s)).join(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(encoding(<span class="string">'严厉'</span>))</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+      <h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
+<li>JavaScript由Brendan Eich发明，并首次应用于Netscape Navigator 2浏览器中。当时命名为LiveScript，为了赶Java的热度，后改名为JavaScript。当时它的主要目的用于验证表单数据(当时网速的限制了与服务端的交互速度)。</li>
+<li>微软在IE3中加入了名为JScript的JavaScript实现。</li>
+<li>由于当时并没有标准规定JavaScript的语法和特性，从而导致两个不同版本的JavaScript并存。于是在1997年，以JavasScript1.1为蓝本的建议被提交给了ECMA(欧洲计算机制造商协会)。该协会指定TC39(39号技术委员会)负责，于是出现了名为ECMAScript的语言标准(EMNA-262)，同年年底，ECMAScript1.0发布。</li>
+<li>1998年6月ECMA发布ECMAScript2.0，该版主要是为了与ISO/IEC-16262保持严格一致，没有作任何新增、修改或删除处理。</li>
+<li>1999年12月，ECMAScript发布ECMAScript3.0，修改的内容涉及字符串处理、错误定义和数值输出，新增了对正则表达式、新控制语句和try-catch异常处理的支持。ECMAScript3.0标志着ECMAScript成为了一门真正的编程语言。</li>
+<li>2000年，ECMAScript4.0开始着手实现，但由于该版本改动幅度较大(包含强类型变量、新语句和新数据结构、真正的类和经典继承，还定义了与数据交互的新方式)，TC39下属的一个小组提出了一个名为ECMAScript3.1的替代性建议，ECMAScript3.1只进行小幅修订，能够在现有的JavaScript引擎基础上实现。最终ECMAScript4.0被放弃，ECMAScript3.1成为ECMAScript5.0并于2009年12月发布。ECMAScript5新增原生JSON对象(用于解析和序列化JSON数据)、继承的方法和高级属性定义，另外还包含一种严格模式。</li>
+<li>2011年6月，ECMAScript5.1版发布，成为国际标准。</li>
+<li>2015年6月，ECMAScript6版发布，成为国际标准。</li>
+</ul>
+<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>虽然JavaScript和ECMAScript通常都被人们用来表达相同的含义，但JavaScript的含义要比ECMAScript多得多。一个完整的JavaScript应该有以下三个部分组成：</p>
+<ul>
+<li>语法和语义(ECMAScript)</li>
+<li>文档对象模型(DOM)</li>
+<li>浏览器对象模型(BOM)</li>
+</ul>
+<h4 id="ECMAScript"><a href="#ECMAScript" class="headerlink" title="ECMAScript"></a>ECMAScript</h4><p>ECMAScript与web浏览器没有依赖关系，实际上ECMAScript定义的只是这门语言的基础，在此基础之上可以构建更完善的脚本语言。web浏览器只是ECMAScript实现可能的宿主环境之一。宿主环境不仅提供基本的ECMAScript实现，同时也会提供该语言的扩展，以便语言与环境之间进行交互。其他宿主环境包括Node和Adobe Flash。ECMAScript就是对实现该标准规定的各个方面内容的语言的描述。除了JavaScript，Adobe ActionScript也实现了ECMAScript。      </p>
+<p>ECMA-262标准规定了这门语言的下列组成部分：</p>
+<ul>
+<li>语法</li>
+<li>类型</li>
+<li>语句</li>
+<li>关键字</li>
+<li>保留字</li>
+<li>操作符</li>
+<li>对象</li>
+</ul>
+<h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
+<img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
+
+<h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
+<h5 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h5><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
+<ul>
+<li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
+<li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
+<li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
+<li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
+</ul>
+<h5 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h5><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
+<ul>
+<li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
+<li>DOM验证(DOM Validation):：验证文档的方法</li>
+</ul>
+<h5 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h5><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
+<ul>
+<li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
+<li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
+<li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
+</ul>
+<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
+<ul>
+<li>弹出新浏览器窗口功能</li>
+<li>移动、缩放和关闭浏览器窗口的功能</li>
+<li>提供浏览器详细信息的navigator对象</li>
+<li>提供浏览器所加载页面的详细信息的location对象</li>
+<li>提供用户显示器分辨率详细信息的screen对象</li>
+<li>对cookies的支持</li>
+<li>像XMLHttpRequest和IE的ActiveXObject这样的自定义对象        </li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li>JavaScript高级程序设计(第3版)</li>
+</ul>
 
       
       <!-- reward -->
@@ -208,15 +247,13 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/charset/" rel="tag">charset</a></li></ul>
-
 
     </footer>
 
@@ -226,19 +263,10 @@
   
   <nav class="article-nav">
     
-      <a href="/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            JavaScript的前世今生
-          
-        </div>
-      </a>
     
-    
-      <a href="/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html" class="article-nav-link">
+      <a href="/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">使用阿里云代码托管平台托管博客图床</div>
+        <div class="article-nav-title">也谈Unicode和UTF-8</div>
       </a>
     
   </nav>

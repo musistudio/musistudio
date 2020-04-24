@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-04-22T11:32:15.411Z</updated>
+  <updated>2020-04-24T10:49:01.807Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript的前世今生</title>
+    <link href="https://musii.life/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html"/>
+    <id>https://musii.life/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</id>
+    <published>2020-04-24T00:14:03.000Z</published>
+    <updated>2020-04-24T10:49:01.807Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;JavaScript简史&quot;&gt;&lt;a href=&quot;#JavaScript简史&quot; class=&quot;headerlink&quot; title=&quot;JavaScript简史&quot;&gt;&lt;/a&gt;JavaScript简史&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;JavaScript由Brendan
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>也谈Unicode和UTF-8</title>
