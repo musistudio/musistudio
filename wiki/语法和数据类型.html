@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.6k</span>
+            <span class="post-count">2.4k</span>
         </span>
     </span>
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6 分钟</span>
+            <span class="post-count">9 分钟</span>
         </span>
     </span>
 </div>
@@ -214,6 +214,51 @@
 <p>在涉及其他运算符时，JavaScript会将字符串隐式转换成数字</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> - <span class="number">1</span>);    <span class="comment">// 36，类型为数字</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量是在脚本中实际提供的固定值而不是变量，通常有以下类型的字面量：</p>
+<ul>
+<li><h5 id="数组字面量-Array-Literals"><a href="#数组字面量-Array-Literals" class="headerlink" title="数组字面量(Array Literals)"></a>数组字面量(Array Literals)</h5><p>数组字面量是0个或多个表达式的列表，每个表达式代表一个数组元素，并使用方括号<code>[]</code>括起来。使用数组字面量创建数组时，将使用指定的值作为其元素进行初始化，并且将其长度设置为指定的参数个数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, ,<span class="number">3</span>];</span><br><span class="line">nums[<span class="number">0</span>];    <span class="comment">// 1</span></span><br><span class="line">nums[<span class="number">1</span>];    <span class="comment">// undefined</span></span><br><span class="line">nums[<span class="number">2</span>];    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="布尔字面量-Boolean-Literals"><a href="#布尔字面量-Boolean-Literals" class="headerlink" title="布尔字面量(Boolean Literals)"></a>布尔字面量(Boolean Literals)</h4><p>有且仅有两个值：<code>true</code>和<code>false</code>。</p>
+</li>
+<li><h4 id="浮点数字面量-Float-point-Literals"><a href="#浮点数字面量-Float-point-Literals" class="headerlink" title="浮点数字面量(Float-point Literals)"></a>浮点数字面量(Float-point Literals)</h4><p>浮点数字面量可以有以下部分组成:</p>
+<ul>
+<li>一个带正负号(<code>+</code>、<code>-</code>)的十进制整数</li>
+<li>小数点<code>.</code></li>
+<li>小数部分(由一串十进制数表示)</li>
+<li>指数部分，即<code>e</code>或<code>E</code>后跟一个整数，该整数可以带正负号。</li>
+</ul>
+<p>浮点数字面量必须至少包含一位数字，并带有小数点或<code>e</code>。语法类似:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(+|-)][digits].[digits][(E|e)[(+|-)]digits]</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="数字字面量-Numeric-Literals"><a href="#数字字面量-Numeric-Literals" class="headerlink" title="数字字面量(Numeric Literals)"></a>数字字面量(Numeric Literals)</h4><p>Number和BigInt类型可以使用十进制、十六进制、八进制和二进制表示。</p>
+<ul>
+<li>十进制的数字字面量是由前缀不为0的一串数字序列组成</li>
+<li>八进制的数字字面量是由前缀为<code>0</code>或者前缀为<code>0O</code>的只包含0-7的数字组成</li>
+<li>十六进制的数字字面量是由前缀为<code>0x</code>并且包含0-9和a-f的序列组成</li>
+<li>二进制的数字字面量是由前缀为<code>0b</code>并且只包含0-1的数字序列组成</li>
+</ul>
+</li>
+<li><h4 id="对象字面量-Object-Literals"><a href="#对象字面量-Object-Literals" class="headerlink" title="对象字面量(Object Literals)"></a>对象字面量(Object Literals)</h4><p>对象字面量是使用花括号<code>{}</code>括起来的0或多对<strong>属性名：属性值</strong>对的元素列表。不要在语句的开头使用对象字面量语法，这位被认为是一个块的开始</p>
+<h6 id="增强的对象字面量-Enhanced-Object-literals"><a href="#增强的对象字面量-Enhanced-Object-literals" class="headerlink" title="增强的对象字面量(Enhanced Object literals)"></a>增强的对象字面量(Enhanced Object literals)</h6><p>在ES2015中，对象字面量扩展了支持在创建时设置原型，简写了<code>foo: foo</code>形式的属性赋值和方法定义，支持父方法调用，以及使用表达式动态计算属性名。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  __proto__: theProtoObj,</span><br><span class="line">  handler, <span class="comment">// =&gt; handler: handler</span></span><br><span class="line">  toString() &#123;&#125;, <span class="comment">// =&gt; toString: function() &#123;&#125;</span></span><br><span class="line">  [<span class="string">'prop_'</span> + <span class="function">(<span class="params">(</span>) =&gt;</span> <span class="number">42</span>)()]: <span class="number">42</span> <span class="comment">// 动态计算属性名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="正则表达式字面量-RegExp-Literals"><a href="#正则表达式字面量-RegExp-Literals" class="headerlink" title="正则表达式字面量(RegExp Literals)"></a>正则表达式字面量(RegExp Literals)</h4><p>正则表达式字面量是被斜杠<code>/</code>围成的表达式，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="字符串字面量-String-Literals"><a href="#字符串字面量-String-Literals" class="headerlink" title="字符串字面量(String Literals)"></a>字符串字面量(String Literals)</h4><p>字符串字面量是由双引号<code>&quot;</code>或单引号<code>&#39;</code>括起来的0个或多个字符，字符被限制在相同类型的引号之间。例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'test'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>ES2015还提供了一种模板字面量(template literals)，模板字面量使用反引号(<strong>`</strong>)，其为构造字符串提供了语法糖，还可以在模板字符串前添加一个tag来自定义模板字符串的解析过程，以预防注入攻击或建立基于字符串的高级数据抽象。例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'bob'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);    <span class="comment">// Hello, bob</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
+</ul>
 
       
       <!-- reward -->

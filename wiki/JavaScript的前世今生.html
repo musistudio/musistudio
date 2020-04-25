@@ -137,32 +137,32 @@
 <li>操作符</li>
 <li>对象</li>
 </ul>
-<h4 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h4><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
 <img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
 
 <h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
-<h5 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h5><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
+<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
 <ul>
 <li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
 <li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
 <li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
 <li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
 </ul>
-<h5 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h5><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
+<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
 <ul>
 <li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
 <li>DOM验证(DOM Validation):：验证文档的方法</li>
 </ul>
-<h5 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h5><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
+<h4 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h4><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
 <ul>
 <li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
 <li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
 <li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
 </ul>
-<h4 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h4><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
 <ul>
 <li>弹出新浏览器窗口功能</li>
 <li>移动、缩放和关闭浏览器窗口的功能</li>
