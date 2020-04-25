@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-04-24T10:49:01.807Z</updated>
+  <updated>2020-04-25T13:20:29.920Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>语法和数据类型</title>
+    <link href="https://musii.life/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html"/>
+    <id>https://musii.life/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</id>
+    <published>2020-04-25T02:10:04.000Z</published>
+    <updated>2020-04-25T13:20:29.920Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;JavaScript语法&quot;&gt;&lt;a href=&quot;#JavaScript语法&quot; class=&quot;headerlink&quot; title=&quot;JavaScript语法&quot;&gt;&lt;/a&gt;JavaScript语法&lt;/h2&gt;&lt;h4 id=&quot;大小写敏感&quot;&gt;&lt;a href=&quot;#大小写敏感&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript的前世今生</title>
