@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-04-26T02:28:28.692Z</updated>
+  <updated>2020-04-26T09:30:30.517Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>循环与迭代</title>
+    <link href="https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html"/>
+    <id>https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html</id>
+    <published>2020-04-26T08:22:52.000Z</published>
+    <updated>2020-04-26T09:30:30.517Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;JavaScript提供了以下循环语句：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h4 id=&quot;for语句&quot;&gt;&lt;a href=&quot;#for语句&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>流程控制与错误处理</title>
