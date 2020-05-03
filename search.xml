@@ -216,73 +216,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JS的防抖和节流</title>
-    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
-    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
-<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
-</blockquote>
-<a id="more"></a>
-<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
-<li><p>含义:</p>
-<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
-</li>
-<li><p>举个例子:</p>
-<p>比如有个函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
-
-<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
-
-<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
-</li>
-<li><p>类型:</p>
-<ul>
-<li><p>延迟执行版</p>
-<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
-</li>
-<li><p>立即执行版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
-<li><p>含义</p>
-<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
-</li>
-<li><p>版本</p>
-<ul>
-<li><p>时间戳版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定时器版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JS中的事件机制</title>
     <url>/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
@@ -725,6 +658,73 @@
       </tags>
   </entry>
   <entry>
+    <title>JS的防抖和节流</title>
+    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
+    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
+<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
+<li><p>含义:</p>
+<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
+</li>
+<li><p>举个例子:</p>
+<p>比如有个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
+
+<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
+</li>
+<li><p>类型:</p>
+<ul>
+<li><p>延迟执行版</p>
+<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
+</li>
+<li><p>立即执行版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
+<li><p>含义</p>
+<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
+</li>
+<li><p>版本</p>
+<ul>
+<li><p>时间戳版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定时器版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript模块</title>
     <url>/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</url>
     <content><![CDATA[]]></content>
@@ -758,9 +758,74 @@
       </tags>
   </entry>
   <entry>
-    <title>Promises</title>
-    <url>/wiki/Promises.html</url>
-    <content><![CDATA[]]></content>
+    <title>JavaScript的前世今生</title>
+    <url>/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</url>
+    <content><![CDATA[<h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
+<li>JavaScript由Brendan Eich发明，并首次应用于Netscape Navigator 2浏览器中。当时命名为LiveScript，为了赶Java的热度，后改名为JavaScript。当时它的主要目的用于验证表单数据(当时网速的限制了与服务端的交互速度)。</li>
+<li>微软在IE3中加入了名为JScript的JavaScript实现。</li>
+<li>由于当时并没有标准规定JavaScript的语法和特性，从而导致两个不同版本的JavaScript并存。于是在1997年，以JavasScript1.1为蓝本的建议被提交给了ECMA(欧洲计算机制造商协会)。该协会指定TC39(39号技术委员会)负责，于是出现了名为ECMAScript的语言标准(EMNA-262)，同年年底，ECMAScript1.0发布。</li>
+<li>1998年6月ECMA发布ECMAScript2.0，该版主要是为了与ISO/IEC-16262保持严格一致，没有作任何新增、修改或删除处理。</li>
+<li>1999年12月，ECMAScript发布ECMAScript3.0，修改的内容涉及字符串处理、错误定义和数值输出，新增了对正则表达式、新控制语句和try-catch异常处理的支持。ECMAScript3.0标志着ECMAScript成为了一门真正的编程语言。</li>
+<li>2000年，ECMAScript4.0开始着手实现，但由于该版本改动幅度较大(包含强类型变量、新语句和新数据结构、真正的类和经典继承，还定义了与数据交互的新方式)，TC39下属的一个小组提出了一个名为ECMAScript3.1的替代性建议，ECMAScript3.1只进行小幅修订，能够在现有的JavaScript引擎基础上实现。最终ECMAScript4.0被放弃，ECMAScript3.1成为ECMAScript5.0并于2009年12月发布。ECMAScript5新增原生JSON对象(用于解析和序列化JSON数据)、继承的方法和高级属性定义，另外还包含一种严格模式。</li>
+<li>2011年6月，ECMAScript5.1版发布，成为国际标准。</li>
+<li>2015年6月，ECMAScript6版发布，成为国际标准。</li>
+</ul>
+<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>虽然JavaScript和ECMAScript通常都被人们用来表达相同的含义，但JavaScript的含义要比ECMAScript多得多。一个完整的JavaScript应该有以下三个部分组成：</p>
+<ul>
+<li>语法和语义(ECMAScript)</li>
+<li>文档对象模型(DOM)</li>
+<li>浏览器对象模型(BOM)</li>
+</ul>
+<h4 id="ECMAScript"><a href="#ECMAScript" class="headerlink" title="ECMAScript"></a>ECMAScript</h4><p>ECMAScript与web浏览器没有依赖关系，实际上ECMAScript定义的只是这门语言的基础，在此基础之上可以构建更完善的脚本语言。web浏览器只是ECMAScript实现可能的宿主环境之一。宿主环境不仅提供基本的ECMAScript实现，同时也会提供该语言的扩展，以便语言与环境之间进行交互。其他宿主环境包括Node和Adobe Flash。ECMAScript就是对实现该标准规定的各个方面内容的语言的描述。除了JavaScript，Adobe ActionScript也实现了ECMAScript。      </p>
+<p>ECMA-262标准规定了这门语言的下列组成部分：</p>
+<ul>
+<li>语法</li>
+<li>类型</li>
+<li>语句</li>
+<li>关键字</li>
+<li>保留字</li>
+<li>操作符</li>
+<li>对象</li>
+</ul>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
+<img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
+
+<h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
+<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
+<ul>
+<li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
+<li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
+<li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
+<li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
+</ul>
+<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
+<ul>
+<li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
+<li>DOM验证(DOM Validation):：验证文档的方法</li>
+</ul>
+<h4 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h4><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
+<ul>
+<li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
+<li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
+<li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
+</ul>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
+<ul>
+<li>弹出新浏览器窗口功能</li>
+<li>移动、缩放和关闭浏览器窗口的功能</li>
+<li>提供浏览器详细信息的navigator对象</li>
+<li>提供浏览器所加载页面的详细信息的location对象</li>
+<li>提供用户显示器分辨率详细信息的screen对象</li>
+<li>对cookies的支持</li>
+<li>像XMLHttpRequest和IE的ActiveXObject这样的自定义对象        </li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li>JavaScript高级程序设计(第3版)</li>
+</ul>
+]]></content>
       <categories>
         <category>wiki</category>
       </categories>
@@ -803,6 +868,17 @@
       </categories>
       <tags>
         <tag>charset</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Promises</title>
+    <url>/wiki/Promises.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -906,6 +982,52 @@
       </tags>
   </entry>
   <entry>
+    <title>使用阿里云代码托管平台托管博客图床</title>
+    <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
+    <content><![CDATA[<blockquote>
+<p>无折腾，不青春</p>
+</blockquote>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>博客的图床在试过QQ空间相册(防盗链)，百度网盘(时间限制)之后，发现还是需要一个稳定点的图床比较好。github够稳定但是网速是在不敢恭维，突然想起之前在做<a href="https://github.com/musistudio/wukong-robot-install-script" target="_blank" rel="noopener">wukong-robot-install-script</a>的时候我用用过<a href="https://code.aliyun.com/" target="_blank" rel="noopener">阿里云的代码托管平台</a>进行仓库加速，使用的时候速度的确挺快的。那能不能使用这个来托管博客的图床呢？</p>
+<a id="more"></a>
+
+<h4 id="折腾开始"><a href="#折腾开始" class="headerlink" title="折腾开始"></a>折腾开始</h4><ol>
+<li><p>首先打开阿里云的代码托管平台，使用阿里云账号登录后新建一个项目。名称随意，描述随意，可见等级选Public。如下图所示:<br><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-09-52.jpg" alt="新建项目示意图"></p>
+</li>
+<li><p>项目建好后在首页点击设置进入账户设置页，然后点击SSH公钥选项将自己电脑的公钥粘贴到这里。如果不知道怎么操作网页上有操作指示</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-13-21.jpg" alt="上传公钥示意图"></p>
+</li>
+<li><p>公钥上传好后打开刚刚新建的项目，复制该链接clone到电脑本地，git的具体操作这里不再赘述。</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-16-03.jpg" alt=""></p>
+</li>
+<li><p>以后要上传图片的时候将图片复制到这里然后再提交一次Push就可以啦。为方便Typora食用，我写了个自动上传脚本，代码如下:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "------welcom to use upload-image programme------"</span><br><span class="line">echo "maked by musi"</span><br><span class="line">DIR="$( cd "$( dirname "$0"  )" &amp;&amp; pwd  )"</span><br><span class="line">cd $DIR</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    echo $i</span><br><span class="line">    cp $i ./</span><br><span class="line">done</span><br><span class="line">git add .</span><br><span class="line">git commit -m"auto upload by upload-image.sh"</span><br><span class="line">git push</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    array=(`echo $i | tr '/' ' '` )  </span><br><span class="line">    lens=$&#123;#array[*]&#125;</span><br><span class="line">    echo "https://code.aliyun.com/qingshanglishao/images/raw/master/"$&#123;array[$lens-1]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>再配置一下Typora就能很方便的食用啦</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_10-40-32.jpg" alt="Typora配置示意图"></p>
+</li>
+</ol>
+<h4 id="折腾结束"><a href="#折腾结束" class="headerlink" title="折腾结束"></a>折腾结束</h4><p>正所谓工欲善其事必先利其器，有一套顺手的工具是写好博客的开始。如果你有什么食用顺手的工具欢迎在下方评论与我交流。</p>
+]]></content>
+      <categories>
+        <category>折腾</category>
+      </categories>
+      <tags>
+        <tag>图床</tag>
+        <tag>阿里云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>元编程</title>
+    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用阿里云oss部署Vue项目</title>
     <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
     <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
@@ -925,93 +1047,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript的前世今生</title>
-    <url>/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</url>
-    <content><![CDATA[<h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
-<li>JavaScript由Brendan Eich发明，并首次应用于Netscape Navigator 2浏览器中。当时命名为LiveScript，为了赶Java的热度，后改名为JavaScript。当时它的主要目的用于验证表单数据(当时网速的限制了与服务端的交互速度)。</li>
-<li>微软在IE3中加入了名为JScript的JavaScript实现。</li>
-<li>由于当时并没有标准规定JavaScript的语法和特性，从而导致两个不同版本的JavaScript并存。于是在1997年，以JavasScript1.1为蓝本的建议被提交给了ECMA(欧洲计算机制造商协会)。该协会指定TC39(39号技术委员会)负责，于是出现了名为ECMAScript的语言标准(EMNA-262)，同年年底，ECMAScript1.0发布。</li>
-<li>1998年6月ECMA发布ECMAScript2.0，该版主要是为了与ISO/IEC-16262保持严格一致，没有作任何新增、修改或删除处理。</li>
-<li>1999年12月，ECMAScript发布ECMAScript3.0，修改的内容涉及字符串处理、错误定义和数值输出，新增了对正则表达式、新控制语句和try-catch异常处理的支持。ECMAScript3.0标志着ECMAScript成为了一门真正的编程语言。</li>
-<li>2000年，ECMAScript4.0开始着手实现，但由于该版本改动幅度较大(包含强类型变量、新语句和新数据结构、真正的类和经典继承，还定义了与数据交互的新方式)，TC39下属的一个小组提出了一个名为ECMAScript3.1的替代性建议，ECMAScript3.1只进行小幅修订，能够在现有的JavaScript引擎基础上实现。最终ECMAScript4.0被放弃，ECMAScript3.1成为ECMAScript5.0并于2009年12月发布。ECMAScript5新增原生JSON对象(用于解析和序列化JSON数据)、继承的方法和高级属性定义，另外还包含一种严格模式。</li>
-<li>2011年6月，ECMAScript5.1版发布，成为国际标准。</li>
-<li>2015年6月，ECMAScript6版发布，成为国际标准。</li>
-</ul>
-<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>虽然JavaScript和ECMAScript通常都被人们用来表达相同的含义，但JavaScript的含义要比ECMAScript多得多。一个完整的JavaScript应该有以下三个部分组成：</p>
-<ul>
-<li>语法和语义(ECMAScript)</li>
-<li>文档对象模型(DOM)</li>
-<li>浏览器对象模型(BOM)</li>
-</ul>
-<h4 id="ECMAScript"><a href="#ECMAScript" class="headerlink" title="ECMAScript"></a>ECMAScript</h4><p>ECMAScript与web浏览器没有依赖关系，实际上ECMAScript定义的只是这门语言的基础，在此基础之上可以构建更完善的脚本语言。web浏览器只是ECMAScript实现可能的宿主环境之一。宿主环境不仅提供基本的ECMAScript实现，同时也会提供该语言的扩展，以便语言与环境之间进行交互。其他宿主环境包括Node和Adobe Flash。ECMAScript就是对实现该标准规定的各个方面内容的语言的描述。除了JavaScript，Adobe ActionScript也实现了ECMAScript。      </p>
-<p>ECMA-262标准规定了这门语言的下列组成部分：</p>
-<ul>
-<li>语法</li>
-<li>类型</li>
-<li>语句</li>
-<li>关键字</li>
-<li>保留字</li>
-<li>操作符</li>
-<li>对象</li>
-</ul>
-<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
-<img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
-
-<h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
-<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
-<ul>
-<li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
-<li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
-<li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
-<li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
-</ul>
-<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
-<ul>
-<li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
-<li>DOM验证(DOM Validation):：验证文档的方法</li>
-</ul>
-<h4 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h4><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
-<ul>
-<li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
-<li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
-<li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
-</ul>
-<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
-<ul>
-<li>弹出新浏览器窗口功能</li>
-<li>移动、缩放和关闭浏览器窗口的功能</li>
-<li>提供浏览器详细信息的navigator对象</li>
-<li>提供浏览器所加载页面的详细信息的location对象</li>
-<li>提供用户显示器分辨率详细信息的screen对象</li>
-<li>对cookies的支持</li>
-<li>像XMLHttpRequest和IE的ActiveXObject这样的自定义对象        </li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li>JavaScript高级程序设计(第3版)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>元编程</title>
-    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>处理对象</title>
     <url>/wiki/%E5%A4%84%E7%90%86%E5%AF%B9%E8%B1%A1.html</url>
     <content><![CDATA[]]></content>
@@ -1020,64 +1055,6 @@
       </categories>
       <tags>
         <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学习的方法论一：知识溯源法</title>
-    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
-    <content><![CDATA[<blockquote>
-<p>有一千个读者，就有一千个哈姆雷特</p>
-</blockquote>
-<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
-<blockquote>
-<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
-</blockquote>
-<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
-<a id="more"></a>
-
-<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
-<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
-<ol>
-<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
-<blockquote>
-<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
-</blockquote>
-<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
-</li>
-<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
-<blockquote>
-<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
-</blockquote>
-<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
-<blockquote>
-<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
-</blockquote>
-<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
-<blockquote>
-<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
-</blockquote>
-</li>
-<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
-<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
-<blockquote>
-<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
-</blockquote>
-<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
-</li>
-<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
-<blockquote>
-<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
-</blockquote>
-<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
-</li>
-</ol>
-<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>方法论</tag>
       </tags>
   </entry>
   <entry>
@@ -1205,41 +1182,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用阿里云代码托管平台托管博客图床</title>
-    <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
-    <content><![CDATA[<blockquote>
-<p>无折腾，不青春</p>
-</blockquote>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>博客的图床在试过QQ空间相册(防盗链)，百度网盘(时间限制)之后，发现还是需要一个稳定点的图床比较好。github够稳定但是网速是在不敢恭维，突然想起之前在做<a href="https://github.com/musistudio/wukong-robot-install-script" target="_blank" rel="noopener">wukong-robot-install-script</a>的时候我用用过<a href="https://code.aliyun.com/" target="_blank" rel="noopener">阿里云的代码托管平台</a>进行仓库加速，使用的时候速度的确挺快的。那能不能使用这个来托管博客的图床呢？</p>
-<a id="more"></a>
-
-<h4 id="折腾开始"><a href="#折腾开始" class="headerlink" title="折腾开始"></a>折腾开始</h4><ol>
-<li><p>首先打开阿里云的代码托管平台，使用阿里云账号登录后新建一个项目。名称随意，描述随意，可见等级选Public。如下图所示:<br><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-09-52.jpg" alt="新建项目示意图"></p>
-</li>
-<li><p>项目建好后在首页点击设置进入账户设置页，然后点击SSH公钥选项将自己电脑的公钥粘贴到这里。如果不知道怎么操作网页上有操作指示</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-13-21.jpg" alt="上传公钥示意图"></p>
-</li>
-<li><p>公钥上传好后打开刚刚新建的项目，复制该链接clone到电脑本地，git的具体操作这里不再赘述。</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-16-03.jpg" alt=""></p>
-</li>
-<li><p>以后要上传图片的时候将图片复制到这里然后再提交一次Push就可以啦。为方便Typora食用，我写了个自动上传脚本，代码如下:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "------welcom to use upload-image programme------"</span><br><span class="line">echo "maked by musi"</span><br><span class="line">DIR="$( cd "$( dirname "$0"  )" &amp;&amp; pwd  )"</span><br><span class="line">cd $DIR</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    echo $i</span><br><span class="line">    cp $i ./</span><br><span class="line">done</span><br><span class="line">git add .</span><br><span class="line">git commit -m"auto upload by upload-image.sh"</span><br><span class="line">git push</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    array=(`echo $i | tr '/' ' '` )  </span><br><span class="line">    lens=$&#123;#array[*]&#125;</span><br><span class="line">    echo "https://code.aliyun.com/qingshanglishao/images/raw/master/"$&#123;array[$lens-1]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>再配置一下Typora就能很方便的食用啦</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_10-40-32.jpg" alt="Typora配置示意图"></p>
-</li>
-</ol>
-<h4 id="折腾结束"><a href="#折腾结束" class="headerlink" title="折腾结束"></a>折腾结束</h4><p>正所谓工欲善其事必先利其器，有一套顺手的工具是写好博客的开始。如果你有什么食用顺手的工具欢迎在下方评论与我交流。</p>
-]]></content>
-      <categories>
-        <category>折腾</category>
-      </categories>
-      <tags>
-        <tag>图床</tag>
-        <tag>阿里云</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>带键集合</title>
     <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
     <content><![CDATA[]]></content>
@@ -1251,103 +1193,61 @@
       </tags>
   </entry>
   <entry>
-    <title>文本格式化</title>
-    <url>/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html</url>
-    <content><![CDATA[<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>JavaScript的String类型用于表示文本型的数据，它由无符号整数值(UTF-16)作为元素而组成的集合。字符串在中的每个元素在字符串中占据一个位置。</p>
-<h4 id="String字面量"><a href="#String字面量" class="headerlink" title="String字面量"></a>String字面量</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用单引号或双引号创建简单字符串</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'string'</span>;    <span class="comment">// string</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"test"</span>;      <span class="comment">// test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用转义字符创建复杂字符串</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="string">'\'test\''</span>;  <span class="comment">// 'test'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制转义序列</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="string">'\xA9'</span>;      <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode转移序列</span></span><br><span class="line"><span class="keyword">let</span> e = <span class="string">'\u00A9'</span>;    <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode字元溢出</span></span><br><span class="line"><span class="comment">// 在ES6中，通过Unicode代码点转义，可以使用十六进制数对任意字符进行转义，这使得使用Unicode转义表示大于0x10FFFF的字符成为可能</span></span><br><span class="line"><span class="string">'\u&#123;2F804&#125;'</span></span><br><span class="line"><span class="string">'\uD874\uDc04'</span>    <span class="comment">// 简单的Unicode转义需要拆分为相应的两个小于0x10FFFF的部分</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h4><p><code>String</code>对象是对原始string类型的封装。</p>
-<p>String对象方法：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>charAt</code>、<code>charCodeAt</code>、<code>codePointAt</code></td>
-<td>返回字符串指定位置的字符或者字符编码</td>
-</tr>
-<tr>
-<td><code>indexOf</code>、<code>lastIndexOf</code></td>
-<td>分别返回字符串中指定字串的位置或者最后位置</td>
-</tr>
-<tr>
-<td><code>startsWith</code>、<code>endsWith</code>、<code>includes</code></td>
-<td>返回字符串是否以指定字符开头、结束包含指定的字符串</td>
-</tr>
-<tr>
-<td><code>concat</code></td>
-<td>连接两个字符串并返回新的字符串</td>
-</tr>
-<tr>
-<td><code>fromCharCode</code>、<code>fromCodePoint</code></td>
-<td>从指定的Unicode值序列构造一个字符串，这是String类方法，不是实例方法</td>
-</tr>
-<tr>
-<td><code>split</code></td>
-<td>通过将字符串分离成一个个子串来把一个String对象分割到一个字符串数组中</td>
-</tr>
-<tr>
-<td><code>slice</code></td>
-<td>从一个字符串提取片段并作为新字符串返回</td>
-</tr>
-<tr>
-<td><code>substring</code>、<code>substr</code></td>
-<td>分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集</td>
-</tr>
-<tr>
-<td><code>match</code>、<code>replace</code>、<code>search</code></td>
-<td>通过正则表达式来工作</td>
-</tr>
-<tr>
-<td><code>toLowerCase</code>、<code>toUpperCase</code></td>
-<td>分别返回字符串的小写表示和大写表示</td>
-</tr>
-<tr>
-<td><code>normalize</code></td>
-<td>按照指定的一种Unicode正规形式将当前字符串正规化</td>
-</tr>
-<tr>
-<td><code>repeat</code></td>
-<td>将字符串内容重复指定次数后返回</td>
-</tr>
-<tr>
-<td><code>trim</code></td>
-<td>去掉字符串开头和结尾的空格</td>
-</tr>
-</tbody></table>
-<h4 id="多行模板字符串"><a href="#多行模板字符串" class="headerlink" title="多行模板字符串"></a>多行模板字符串</h4><p>模板字符串是一种允许内嵌表达式的String字面量，其使用<strong>``</strong>符号表示。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">`a is</span></span><br><span class="line"><span class="string">b`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);              <span class="comment">// a is \r\nb</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">'b'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`a is <span class="subst">$&#123;x&#125;</span>`</span>);    <span class="comment">// a is b</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><code>Intl</code>对象是ECMAScript国际化API的命名空间，它提供了语言敏感的字符串比较、数字格式化和日期时间格式化功能。<code>Collator</code>、<code>NumberFormat</code>和<code>DateTimeFormat</code>对象的构造函数是<code>Intl</code>对象的属性。</p>
-<h4 id="日期和时间格式化"><a href="#日期和时间格式化" class="headerlink" title="日期和时间格式化"></a>日期和时间格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> msPerDay = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">// July 17, 2014 00:00:00 UTC</span></span><br><span class="line"><span class="keyword">let</span> july172014 = <span class="keyword">new</span> <span class="built_in">Date</span>(msPerDay * (<span class="number">44</span> * <span class="number">365</span> + <span class="number">11</span> + <span class="number">197</span>));</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  year: <span class="string">'2-digit'</span>,</span><br><span class="line">  month: <span class="string">'2-digit'</span>,</span><br><span class="line">  day: <span class="string">'2-digit'</span>,</span><br><span class="line">  hour: <span class="string">'2-digit'</span>,</span><br><span class="line">  minute: <span class="string">'2-digit'</span>,</span><br><span class="line">  timeZoneName: <span class="string">'short'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> americanDateTime = <span class="keyword">new</span> <span class="built_in">Intl</span>.DateTimeFormat(<span class="string">'en-US'</span>, options).format;</span><br><span class="line"><span class="built_in">console</span>.log(americanDateTime(july172014));    <span class="comment">// 07/17/14, 08:00 AM GMT+8</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> gasPrice = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'en-US'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'USD'</span>,</span><br><span class="line">  minimunFractionDigits: <span class="number">3</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(gasPrice.format(<span class="number">5.259</span>));    <span class="comment">// $5.26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hanDecimalRMBInChina = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'zh-CN-u-nu-hanidec'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'CNY'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(hanDecimalRMBInChina.format(<span class="string">'1314.52'</span>));    <span class="comment">// ¥一,三一四.五二</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="定序"><a href="#定序" class="headerlink" title="定序"></a>定序</h4><p><code>Collator</code>通常用于字符串比较和排序</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 德语中有两种不同的排序方式 电话本（phonebook） 和 字典（dictionary）. 电话本排序强调发音, 比如在排序前 “ä”, “ö”等被扩展为 “ae”, “oe”等发音</span></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Hochberg"</span>, <span class="string">"Hönigswald"</span>, <span class="string">"Holzman"</span>];</span><br><span class="line"><span class="keyword">let</span> germanPhonebook = <span class="keyword">new</span> <span class="built_in">Intl</span>.Collator(<span class="string">"de-DE-u-co-phonebk"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(names.sort(germanPhonebook.compare).join(<span class="string">", "</span>));    <span class="comment">// Hochberg, Hönigswald, Holzman</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><blockquote>
-<p>正则表达式是用于匹配字符串中字符组合的模式。在JavaScript中正则表达式也是对象。</p>
+    <title>学习的方法论一：知识溯源法</title>
+    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
+    <content><![CDATA[<blockquote>
+<p>有一千个读者，就有一千个哈姆雷特</p>
 </blockquote>
-<h4 id="创建正则表达式"><a href="#创建正则表达式" class="headerlink" title="创建正则表达式"></a>创建正则表达式</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在JavaScript中创建正则表达式有两种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用正则表达式字面量，如果表达式不变该方法拥有较好的性能</span></span><br><span class="line"><span class="keyword">let</span> re = <span class="regexp">/ab+c/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用RegExp的构造函数</span></span><br><span class="line"><span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'ab+c'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
+<blockquote>
+<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
+</blockquote>
+<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
+<a id="more"></a>
 
-<h4 id="编写一个正则表达式的模式"><a href="#编写一个正则表达式的模式" class="headerlink" title="编写一个正则表达式的模式"></a>编写一个正则表达式的模式</h4><p>一个正则表达式的模式是由简单字符所构成的<code>/abc/</code>，或是简单和特殊字符的组合<code>/ab*c/</code>。</p>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Text_formatting" target="_blank" rel="noopener">MDN</a></li>
-</ul>
+<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
+<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
+<ol>
+<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
+<blockquote>
+<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
+</blockquote>
+<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
+</li>
+<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
+<blockquote>
+<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
+</blockquote>
+<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
+<blockquote>
+<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
+</blockquote>
+<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
+<blockquote>
+<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
+</blockquote>
+</li>
+<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
+<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
+<blockquote>
+<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
+</blockquote>
+<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
+</li>
+<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
+<blockquote>
+<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
+</blockquote>
+<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
+</li>
+</ol>
+<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
 ]]></content>
       <categories>
-        <category>wiki</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>w-JavaScript</tag>
+        <tag>方法论</tag>
       </tags>
   </entry>
   <entry>
@@ -1466,129 +1366,97 @@
       </tags>
   </entry>
   <entry>
-    <title>数字与日期</title>
-    <url>/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</url>
-    <content><![CDATA[<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
-<ul>
-<li><p>十进制数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二进制数</p>
-<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>八进制数</p>
-<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+    <title>文本格式化</title>
+    <url>/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html</url>
+    <content><![CDATA[<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>JavaScript的String类型用于表示文本型的数据，它由无符号整数值(UTF-16)作为元素而组成的集合。字符串在中的每个元素在字符串中占据一个位置。</p>
+<h4 id="String字面量"><a href="#String字面量" class="headerlink" title="String字面量"></a>String字面量</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用单引号或双引号创建简单字符串</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'string'</span>;    <span class="comment">// string</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"test"</span>;      <span class="comment">// test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用转义字符创建复杂字符串</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="string">'\'test\''</span>;  <span class="comment">// 'test'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制转义序列</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="string">'\xA9'</span>;      <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode转移序列</span></span><br><span class="line"><span class="keyword">let</span> e = <span class="string">'\u00A9'</span>;    <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode字元溢出</span></span><br><span class="line"><span class="comment">// 在ES6中，通过Unicode代码点转义，可以使用十六进制数对任意字符进行转义，这使得使用Unicode转义表示大于0x10FFFF的字符成为可能</span></span><br><span class="line"><span class="string">'\u&#123;2F804&#125;'</span></span><br><span class="line"><span class="string">'\uD874\uDc04'</span>    <span class="comment">// 简单的Unicode转义需要拆分为相应的两个小于0x10FFFF的部分</span></span><br></pre></td></tr></table></figure>
 
-<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>十六进制数</p>
-<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h4><p><code>String</code>对象是对原始string类型的封装。</p>
+<p>String对象方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>charAt</code>、<code>charCodeAt</code>、<code>codePointAt</code></td>
+<td>返回字符串指定位置的字符或者字符编码</td>
+</tr>
+<tr>
+<td><code>indexOf</code>、<code>lastIndexOf</code></td>
+<td>分别返回字符串中指定字串的位置或者最后位置</td>
+</tr>
+<tr>
+<td><code>startsWith</code>、<code>endsWith</code>、<code>includes</code></td>
+<td>返回字符串是否以指定字符开头、结束包含指定的字符串</td>
+</tr>
+<tr>
+<td><code>concat</code></td>
+<td>连接两个字符串并返回新的字符串</td>
+</tr>
+<tr>
+<td><code>fromCharCode</code>、<code>fromCodePoint</code></td>
+<td>从指定的Unicode值序列构造一个字符串，这是String类方法，不是实例方法</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>通过将字符串分离成一个个子串来把一个String对象分割到一个字符串数组中</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td>从一个字符串提取片段并作为新字符串返回</td>
+</tr>
+<tr>
+<td><code>substring</code>、<code>substr</code></td>
+<td>分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集</td>
+</tr>
+<tr>
+<td><code>match</code>、<code>replace</code>、<code>search</code></td>
+<td>通过正则表达式来工作</td>
+</tr>
+<tr>
+<td><code>toLowerCase</code>、<code>toUpperCase</code></td>
+<td>分别返回字符串的小写表示和大写表示</td>
+</tr>
+<tr>
+<td><code>normalize</code></td>
+<td>按照指定的一种Unicode正规形式将当前字符串正规化</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>将字符串内容重复指定次数后返回</td>
+</tr>
+<tr>
+<td><code>trim</code></td>
+<td>去掉字符串开头和结尾的空格</td>
+</tr>
+</tbody></table>
+<h4 id="多行模板字符串"><a href="#多行模板字符串" class="headerlink" title="多行模板字符串"></a>多行模板字符串</h4><p>模板字符串是一种允许内嵌表达式的String字面量，其使用<strong>``</strong>符号表示。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">`a is</span></span><br><span class="line"><span class="string">b`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);              <span class="comment">// a is \r\nb</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">'b'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`a is <span class="subst">$&#123;x&#125;</span>`</span>);    <span class="comment">// a is b</span></span><br></pre></td></tr></table></figure>
 
-</li>
+
+
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><code>Intl</code>对象是ECMAScript国际化API的命名空间，它提供了语言敏感的字符串比较、数字格式化和日期时间格式化功能。<code>Collator</code>、<code>NumberFormat</code>和<code>DateTimeFormat</code>对象的构造函数是<code>Intl</code>对象的属性。</p>
+<h4 id="日期和时间格式化"><a href="#日期和时间格式化" class="headerlink" title="日期和时间格式化"></a>日期和时间格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> msPerDay = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">// July 17, 2014 00:00:00 UTC</span></span><br><span class="line"><span class="keyword">let</span> july172014 = <span class="keyword">new</span> <span class="built_in">Date</span>(msPerDay * (<span class="number">44</span> * <span class="number">365</span> + <span class="number">11</span> + <span class="number">197</span>));</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  year: <span class="string">'2-digit'</span>,</span><br><span class="line">  month: <span class="string">'2-digit'</span>,</span><br><span class="line">  day: <span class="string">'2-digit'</span>,</span><br><span class="line">  hour: <span class="string">'2-digit'</span>,</span><br><span class="line">  minute: <span class="string">'2-digit'</span>,</span><br><span class="line">  timeZoneName: <span class="string">'short'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> americanDateTime = <span class="keyword">new</span> <span class="built_in">Intl</span>.DateTimeFormat(<span class="string">'en-US'</span>, options).format;</span><br><span class="line"><span class="built_in">console</span>.log(americanDateTime(july172014));    <span class="comment">// 07/17/14, 08:00 AM GMT+8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> gasPrice = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'en-US'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'USD'</span>,</span><br><span class="line">  minimunFractionDigits: <span class="number">3</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(gasPrice.format(<span class="number">5.259</span>));    <span class="comment">// $5.26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hanDecimalRMBInChina = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'zh-CN-u-nu-hanidec'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'CNY'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(hanDecimalRMBInChina.format(<span class="string">'1314.52'</span>));    <span class="comment">// ¥一,三一四.五二</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="定序"><a href="#定序" class="headerlink" title="定序"></a>定序</h4><p><code>Collator</code>通常用于字符串比较和排序</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 德语中有两种不同的排序方式 电话本（phonebook） 和 字典（dictionary）. 电话本排序强调发音, 比如在排序前 “ä”, “ö”等被扩展为 “ae”, “oe”等发音</span></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Hochberg"</span>, <span class="string">"Hönigswald"</span>, <span class="string">"Holzman"</span>];</span><br><span class="line"><span class="keyword">let</span> germanPhonebook = <span class="keyword">new</span> <span class="built_in">Intl</span>.Collator(<span class="string">"de-DE-u-co-phonebk"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(names.sort(germanPhonebook.compare).join(<span class="string">", "</span>));    <span class="comment">// Hochberg, Hönigswald, Holzman</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><blockquote>
+<p>正则表达式是用于匹配字符串中字符组合的模式。在JavaScript中正则表达式也是对象。</p>
+</blockquote>
+<h4 id="创建正则表达式"><a href="#创建正则表达式" class="headerlink" title="创建正则表达式"></a>创建正则表达式</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在JavaScript中创建正则表达式有两种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用正则表达式字面量，如果表达式不变该方法拥有较好的性能</span></span><br><span class="line"><span class="keyword">let</span> re = <span class="regexp">/ab+c/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用RegExp的构造函数</span></span><br><span class="line"><span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'ab+c'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写一个正则表达式的模式"><a href="#编写一个正则表达式的模式" class="headerlink" title="编写一个正则表达式的模式"></a>编写一个正则表达式的模式</h4><p>一个正则表达式的模式是由简单字符所构成的<code>/abc/</code>，或是简单和特殊字符的组合<code>/ab*c/</code>。</p>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Text_formatting" target="_blank" rel="noopener">MDN</a></li>
 </ul>
-<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.MAX_VALUE</td>
-<td align="center">可表示的最大值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_VALUE</td>
-<td align="center">可表示的最小值</td>
-</tr>
-<tr>
-<td align="center">Number.NaN</td>
-<td align="center">特指“非数字”</td>
-</tr>
-<tr>
-<td align="center">Number.NEGATIVE_INFINITY</td>
-<td align="center">特指“负无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.POSITIVE_INFINITY</td>
-<td align="center">特指“正无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.EPSILON</td>
-<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_SAFE_INTEGER</td>
-<td align="center">JavaScript最小安全整数</td>
-</tr>
-<tr>
-<td align="center">Number.MAX_SAFE_INTEGER</td>
-<td align="center">JavaScript最大安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.parseFloat()</td>
-<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.parseInt()</td>
-<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.isFinite()</td>
-<td align="center">判断传入的值是否为有限数字</td>
-</tr>
-<tr>
-<td align="center">Number.isInteger()</td>
-<td align="center">判断传入的值是否为整数</td>
-</tr>
-<tr>
-<td align="center">Number.isNaN()</td>
-<td align="center">判断传入的值是否为<code>NaN</code></td>
-</tr>
-<tr>
-<td align="center">Number.isSafeInteger()</td>
-<td align="center">判断传入的值是否为安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>原型上的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">toExponential()</td>
-<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
-</tr>
-<tr>
-<td align="center">toFixed()</td>
-<td align="center">返回指定小数位数的表示形式</td>
-</tr>
-<tr>
-<td align="center">toPrecision()</td>
-<td align="center">返回一个指定精度的数字</td>
-</tr>
-</tbody></table>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
 ]]></content>
       <categories>
         <category>wiki</category>
@@ -1682,17 +1550,6 @@
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迭代器与生成器</title>
-    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>wiki</category>
       </categories>
@@ -2164,6 +2021,149 @@
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数字与日期</title>
+    <url>/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</url>
+    <content><![CDATA[<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
+<ul>
+<li><p>十进制数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二进制数</p>
+<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>八进制数</p>
+<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>十六进制数</p>
+<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.MAX_VALUE</td>
+<td align="center">可表示的最大值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_VALUE</td>
+<td align="center">可表示的最小值</td>
+</tr>
+<tr>
+<td align="center">Number.NaN</td>
+<td align="center">特指“非数字”</td>
+</tr>
+<tr>
+<td align="center">Number.NEGATIVE_INFINITY</td>
+<td align="center">特指“负无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.POSITIVE_INFINITY</td>
+<td align="center">特指“正无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.EPSILON</td>
+<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_SAFE_INTEGER</td>
+<td align="center">JavaScript最小安全整数</td>
+</tr>
+<tr>
+<td align="center">Number.MAX_SAFE_INTEGER</td>
+<td align="center">JavaScript最大安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.parseFloat()</td>
+<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.parseInt()</td>
+<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.isFinite()</td>
+<td align="center">判断传入的值是否为有限数字</td>
+</tr>
+<tr>
+<td align="center">Number.isInteger()</td>
+<td align="center">判断传入的值是否为整数</td>
+</tr>
+<tr>
+<td align="center">Number.isNaN()</td>
+<td align="center">判断传入的值是否为<code>NaN</code></td>
+</tr>
+<tr>
+<td align="center">Number.isSafeInteger()</td>
+<td align="center">判断传入的值是否为安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>原型上的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">toExponential()</td>
+<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
+</tr>
+<tr>
+<td align="center">toFixed()</td>
+<td align="center">返回指定小数位数的表示形式</td>
+</tr>
+<tr>
+<td align="center">toPrecision()</td>
+<td align="center">返回一个指定精度的数字</td>
+</tr>
+</tbody></table>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迭代器与生成器</title>
+    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>wiki</category>
       </categories>
