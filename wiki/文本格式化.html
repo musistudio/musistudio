@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    数字与日期 |  musi&#39;s life
+    文本格式化 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-数字与日期" class="article article-type-post" itemscope
+  <article id="post-文本格式化" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  数字与日期
+  文本格式化
 </h1>
  
 
@@ -65,8 +65,8 @@
 
     
     <div class="article-meta">
-      <a href="/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html" class="article-date">
-  <time datetime="2020-05-03T12:54:05.000Z" itemprop="datePublished">2020-05-03</time>
+      <a href="/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html" class="article-date">
+  <time datetime="2020-05-03T13:56:32.000Z" itemprop="datePublished">2020-05-03</time>
 </a>
       
       
@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">747</span>
+            <span class="post-count">855</span>
         </span>
     </span>
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -110,127 +110,91 @@
       
 
       
-      <h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
-<ul>
-<li><p>十进制数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二进制数</p>
-<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>八进制数</p>
-<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+      <h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>JavaScript的String类型用于表示文本型的数据，它由无符号整数值(UTF-16)作为元素而组成的集合。字符串在中的每个元素在字符串中占据一个位置。</p>
+<h4 id="String字面量"><a href="#String字面量" class="headerlink" title="String字面量"></a>String字面量</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用单引号或双引号创建简单字符串</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'string'</span>;    <span class="comment">// string</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"test"</span>;      <span class="comment">// test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用转义字符创建复杂字符串</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="string">'\'test\''</span>;  <span class="comment">// 'test'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制转义序列</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="string">'\xA9'</span>;      <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode转移序列</span></span><br><span class="line"><span class="keyword">let</span> e = <span class="string">'\u00A9'</span>;    <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode字元溢出</span></span><br><span class="line"><span class="comment">// 在ES6中，通过Unicode代码点转义，可以使用十六进制数对任意字符进行转义，这使得使用Unicode转义表示大于0x10FFFF的字符成为可能</span></span><br><span class="line"><span class="string">'\u&#123;2F804&#125;'</span></span><br><span class="line"><span class="string">'\uD874\uDc04'</span>    <span class="comment">// 简单的Unicode转义需要拆分为相应的两个小于0x10FFFF的部分</span></span><br></pre></td></tr></table></figure>
 
-<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>十六进制数</p>
-<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h4><p><code>String</code>对象是对原始string类型的封装。</p>
+<p>String对象方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>charAt</code>、<code>charCodeAt</code>、<code>codePointAt</code></td>
+<td>返回字符串指定位置的字符或者字符编码</td>
+</tr>
+<tr>
+<td><code>indexOf</code>、<code>lastIndexOf</code></td>
+<td>分别返回字符串中指定字串的位置或者最后位置</td>
+</tr>
+<tr>
+<td><code>startsWith</code>、<code>endsWith</code>、<code>includes</code></td>
+<td>返回字符串是否以指定字符开头、结束包含指定的字符串</td>
+</tr>
+<tr>
+<td><code>concat</code></td>
+<td>连接两个字符串并返回新的字符串</td>
+</tr>
+<tr>
+<td><code>fromCharCode</code>、<code>fromCodePoint</code></td>
+<td>从指定的Unicode值序列构造一个字符串，这是String类方法，不是实例方法</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>通过将字符串分离成一个个子串来把一个String对象分割到一个字符串数组中</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td>从一个字符串提取片段并作为新字符串返回</td>
+</tr>
+<tr>
+<td><code>substring</code>、<code>substr</code></td>
+<td>分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集</td>
+</tr>
+<tr>
+<td><code>match</code>、<code>replace</code>、<code>search</code></td>
+<td>通过正则表达式来工作</td>
+</tr>
+<tr>
+<td><code>toLowerCase</code>、<code>toUpperCase</code></td>
+<td>分别返回字符串的小写表示和大写表示</td>
+</tr>
+<tr>
+<td><code>normalize</code></td>
+<td>按照指定的一种Unicode正规形式将当前字符串正规化</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>将字符串内容重复指定次数后返回</td>
+</tr>
+<tr>
+<td><code>trim</code></td>
+<td>去掉字符串开头和结尾的空格</td>
+</tr>
+</tbody></table>
+<h4 id="多行模板字符串"><a href="#多行模板字符串" class="headerlink" title="多行模板字符串"></a>多行模板字符串</h4><p>模板字符串是一种允许内嵌表达式的String字面量，其使用<strong>``</strong>符号表示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">`a is</span></span><br><span class="line"><span class="string">b`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);              <span class="comment">// a is \r\nb</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">'b'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`a is <span class="subst">$&#123;x&#125;</span>`</span>);    <span class="comment">// a is b</span></span><br></pre></td></tr></table></figure>
 
-</li>
+
+
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><code>Intl</code>对象是ECMAScript国际化API的命名空间，它提供了语言敏感的字符串比较、数字格式化和日期时间格式化功能。<code>Collator</code>、<code>NumberFormat</code>和<code>DateTimeFormat</code>对象的构造函数是<code>Intl</code>对象的属性。</p>
+<h4 id="日期和时间格式化"><a href="#日期和时间格式化" class="headerlink" title="日期和时间格式化"></a>日期和时间格式化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> msPerDay = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">// July 17, 2014 00:00:00 UTC</span></span><br><span class="line"><span class="keyword">let</span> july172014 = <span class="keyword">new</span> <span class="built_in">Date</span>(msPerDay * (<span class="number">44</span> * <span class="number">365</span> + <span class="number">11</span> + <span class="number">197</span>));</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  year: <span class="string">'2-digit'</span>,</span><br><span class="line">  month: <span class="string">'2-digit'</span>,</span><br><span class="line">  day: <span class="string">'2-digit'</span>,</span><br><span class="line">  hour: <span class="string">'2-digit'</span>,</span><br><span class="line">  minute: <span class="string">'2-digit'</span>,</span><br><span class="line">  timeZoneName: <span class="string">'short'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> americanDateTime = <span class="keyword">new</span> <span class="built_in">Intl</span>.DateTimeFormat(<span class="string">'en-US'</span>, options).format;</span><br><span class="line"><span class="built_in">console</span>.log(americanDateTime(july172014));    <span class="comment">// 07/17/14, 08:00 AM GMT+8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> gasPrice = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'en-US'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'USD'</span>,</span><br><span class="line">  minimunFractionDigits: <span class="number">3</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(gasPrice.format(<span class="number">5.259</span>));    <span class="comment">// $5.26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hanDecimalRMBInChina = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'zh-CN-u-nu-hanidec'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'CNY'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(hanDecimalRMBInChina.format(<span class="string">'1314.52'</span>));    <span class="comment">// ¥一,三一四.五二</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="定序"><a href="#定序" class="headerlink" title="定序"></a>定序</h4><p><code>Collator</code>通常用于字符串比较和排序</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 德语中有两种不同的排序方式 电话本（phonebook） 和 字典（dictionary）. 电话本排序强调发音, 比如在排序前 “ä”, “ö”等被扩展为 “ae”, “oe”等发音</span></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Hochberg"</span>, <span class="string">"Hönigswald"</span>, <span class="string">"Holzman"</span>];</span><br><span class="line"><span class="keyword">let</span> germanPhonebook = <span class="keyword">new</span> <span class="built_in">Intl</span>.Collator(<span class="string">"de-DE-u-co-phonebk"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(names.sort(germanPhonebook.compare).join(<span class="string">", "</span>));    <span class="comment">// Hochberg, Hönigswald, Holzman</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Text_formatting" target="_blank" rel="noopener">MDN</a></li>
 </ul>
-<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.MAX_VALUE</td>
-<td align="center">可表示的最大值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_VALUE</td>
-<td align="center">可表示的最小值</td>
-</tr>
-<tr>
-<td align="center">Number.NaN</td>
-<td align="center">特指“非数字”</td>
-</tr>
-<tr>
-<td align="center">Number.NEGATIVE_INFINITY</td>
-<td align="center">特指“负无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.POSITIVE_INFINITY</td>
-<td align="center">特指“正无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.EPSILON</td>
-<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_SAFE_INTEGER</td>
-<td align="center">JavaScript最小安全整数</td>
-</tr>
-<tr>
-<td align="center">Number.MAX_SAFE_INTEGER</td>
-<td align="center">JavaScript最大安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.parseFloat()</td>
-<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.parseInt()</td>
-<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.isFinite()</td>
-<td align="center">判断传入的值是否为有限数字</td>
-</tr>
-<tr>
-<td align="center">Number.isInteger()</td>
-<td align="center">判断传入的值是否为整数</td>
-</tr>
-<tr>
-<td align="center">Number.isNaN()</td>
-<td align="center">判断传入的值是否为<code>NaN</code></td>
-</tr>
-<tr>
-<td align="center">Number.isSafeInteger()</td>
-<td align="center">判断传入的值是否为安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>原型上的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">toExponential()</td>
-<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
-</tr>
-<tr>
-<td align="center">toFixed()</td>
-<td align="center">返回指定小数位数的表示形式</td>
-</tr>
-<tr>
-<td align="center">toPrecision()</td>
-<td align="center">返回一个指定精度的数字</td>
-</tr>
-</tbody></table>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
 
       
       <!-- reward -->
@@ -299,7 +263,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,19 +279,19 @@
   
   <nav class="article-nav">
     
-      <a href="/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html" class="article-nav-link">
+      <a href="/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            文本格式化
+            索引集合
           
         </div>
       </a>
     
     
-      <a href="/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html" class="article-nav-link">
+      <a href="/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">表达式与运算符</div>
+        <div class="article-nav-title">数字与日期</div>
       </a>
     
   </nav>
