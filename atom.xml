@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-05-02T15:39:20.170Z</updated>
+  <updated>2020-05-03T10:02:05.869Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>表达式与运算符</title>
+    <link href="https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html"/>
+    <id>https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html</id>
+    <published>2020-05-03T00:27:44.000Z</published>
+    <updated>2020-05-03T10:02:05.869Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;h4 id=&quot;赋值运算符&quot;&gt;&lt;a href=&quot;#赋值运算符&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>函数</title>
