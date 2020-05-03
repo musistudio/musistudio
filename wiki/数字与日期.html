@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="baidu-site-verification" content="waHQhRn0Yd" />
+  <meta name="referrer" content="no-referrer" />
+   
+  <meta name="keywords" content="musi, 慕司, musii, musi&#39;s life" />
+   
+  <meta name="description" content="the blog of musi" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>
+    数字与日期 |  musi&#39;s life
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="alternate" href="/atom.xml" title="musi's life" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-数字与日期" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  数字与日期
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html" class="article-date">
+  <time datetime="2020-05-03T12:54:05.000Z" itemprop="datePublished">2020-05-03</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">747</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">2 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
+<ul>
+<li><p>十进制数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二进制数</p>
+<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>八进制数</p>
+<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>十六进制数</p>
+<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.MAX_VALUE</td>
+<td align="center">可表示的最大值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_VALUE</td>
+<td align="center">可表示的最小值</td>
+</tr>
+<tr>
+<td align="center">Number.NaN</td>
+<td align="center">特指“非数字”</td>
+</tr>
+<tr>
+<td align="center">Number.NEGATIVE_INFINITY</td>
+<td align="center">特指“负无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.POSITIVE_INFINITY</td>
+<td align="center">特指“正无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.EPSILON</td>
+<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_SAFE_INTEGER</td>
+<td align="center">JavaScript最小安全整数</td>
+</tr>
+<tr>
+<td align="center">Number.MAX_SAFE_INTEGER</td>
+<td align="center">JavaScript最大安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.parseFloat()</td>
+<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.parseInt()</td>
+<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.isFinite()</td>
+<td align="center">判断传入的值是否为有限数字</td>
+</tr>
+<tr>
+<td align="center">Number.isInteger()</td>
+<td align="center">判断传入的值是否为整数</td>
+</tr>
+<tr>
+<td align="center">Number.isNaN()</td>
+<td align="center">判断传入的值是否为<code>NaN</code></td>
+</tr>
+<tr>
+<td align="center">Number.isSafeInteger()</td>
+<td align="center">判断传入的值是否为安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>原型上的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">toExponential()</td>
+<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
+</tr>
+<tr>
+<td align="center">toFixed()</td>
+<td align="center">返回指定小数位数的表示形式</td>
+</tr>
+<tr>
+<td align="center">toPrecision()</td>
+<td align="center">返回一个指定精度的数字</td>
+</tr>
+</tbody></table>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  <!-- 
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">表达式与运算符</div>
+      </a>
+    
+  </nav>
+
+
+   -->
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'MW6bR7WF9Kpm6AMnLuN65aOC-gzGzoHsz',
+        app_key: 'afI22BXuDWgP8nqP1Lhy720E',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'true',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        musi
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/side.png" alt="musi&#39;s life" style="border-radius: 50%;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/wiki">wiki</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+
+      // wiki折叠
+      const collapses = (document.querySelector('#wiki') && document.querySelector('#wiki').querySelectorAll('.collapse')) || [];
+      for(let i=0;i<collapses.length;i++) {
+        $(`#${collapses[i].id}`).on('hide.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-right', 'fa-hand-o-down')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder-open', 'fa-folder')
+          }
+        })
+        $(`#${collapses[i].id}`).on('show.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-down', 'fa-hand-o-right')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder', 'fa-folder-open')
+          }
+        })
+      }
+      
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['身在黑暗，心向光明', '历尽千帆，何不激起浪花一朵朵', '知其荣，守其辱，为天下谷'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>

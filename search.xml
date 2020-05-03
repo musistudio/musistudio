@@ -658,82 +658,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript的前世今生</title>
-    <url>/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</url>
-    <content><![CDATA[<h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
-<li>JavaScript由Brendan Eich发明，并首次应用于Netscape Navigator 2浏览器中。当时命名为LiveScript，为了赶Java的热度，后改名为JavaScript。当时它的主要目的用于验证表单数据(当时网速的限制了与服务端的交互速度)。</li>
-<li>微软在IE3中加入了名为JScript的JavaScript实现。</li>
-<li>由于当时并没有标准规定JavaScript的语法和特性，从而导致两个不同版本的JavaScript并存。于是在1997年，以JavasScript1.1为蓝本的建议被提交给了ECMA(欧洲计算机制造商协会)。该协会指定TC39(39号技术委员会)负责，于是出现了名为ECMAScript的语言标准(EMNA-262)，同年年底，ECMAScript1.0发布。</li>
-<li>1998年6月ECMA发布ECMAScript2.0，该版主要是为了与ISO/IEC-16262保持严格一致，没有作任何新增、修改或删除处理。</li>
-<li>1999年12月，ECMAScript发布ECMAScript3.0，修改的内容涉及字符串处理、错误定义和数值输出，新增了对正则表达式、新控制语句和try-catch异常处理的支持。ECMAScript3.0标志着ECMAScript成为了一门真正的编程语言。</li>
-<li>2000年，ECMAScript4.0开始着手实现，但由于该版本改动幅度较大(包含强类型变量、新语句和新数据结构、真正的类和经典继承，还定义了与数据交互的新方式)，TC39下属的一个小组提出了一个名为ECMAScript3.1的替代性建议，ECMAScript3.1只进行小幅修订，能够在现有的JavaScript引擎基础上实现。最终ECMAScript4.0被放弃，ECMAScript3.1成为ECMAScript5.0并于2009年12月发布。ECMAScript5新增原生JSON对象(用于解析和序列化JSON数据)、继承的方法和高级属性定义，另外还包含一种严格模式。</li>
-<li>2011年6月，ECMAScript5.1版发布，成为国际标准。</li>
-<li>2015年6月，ECMAScript6版发布，成为国际标准。</li>
-</ul>
-<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>虽然JavaScript和ECMAScript通常都被人们用来表达相同的含义，但JavaScript的含义要比ECMAScript多得多。一个完整的JavaScript应该有以下三个部分组成：</p>
-<ul>
-<li>语法和语义(ECMAScript)</li>
-<li>文档对象模型(DOM)</li>
-<li>浏览器对象模型(BOM)</li>
-</ul>
-<h4 id="ECMAScript"><a href="#ECMAScript" class="headerlink" title="ECMAScript"></a>ECMAScript</h4><p>ECMAScript与web浏览器没有依赖关系，实际上ECMAScript定义的只是这门语言的基础，在此基础之上可以构建更完善的脚本语言。web浏览器只是ECMAScript实现可能的宿主环境之一。宿主环境不仅提供基本的ECMAScript实现，同时也会提供该语言的扩展，以便语言与环境之间进行交互。其他宿主环境包括Node和Adobe Flash。ECMAScript就是对实现该标准规定的各个方面内容的语言的描述。除了JavaScript，Adobe ActionScript也实现了ECMAScript。      </p>
-<p>ECMA-262标准规定了这门语言的下列组成部分：</p>
-<ul>
-<li>语法</li>
-<li>类型</li>
-<li>语句</li>
-<li>关键字</li>
-<li>保留字</li>
-<li>操作符</li>
-<li>对象</li>
-</ul>
-<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
-<img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
-
-<h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
-<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
-<ul>
-<li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
-<li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
-<li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
-<li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
-</ul>
-<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
-<ul>
-<li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
-<li>DOM验证(DOM Validation):：验证文档的方法</li>
-</ul>
-<h4 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h4><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
-<ul>
-<li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
-<li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
-<li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
-</ul>
-<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
-<ul>
-<li>弹出新浏览器窗口功能</li>
-<li>移动、缩放和关闭浏览器窗口的功能</li>
-<li>提供浏览器详细信息的navigator对象</li>
-<li>提供浏览器所加载页面的详细信息的location对象</li>
-<li>提供用户显示器分辨率详细信息的screen对象</li>
-<li>对cookies的支持</li>
-<li>像XMLHttpRequest和IE的ActiveXObject这样的自定义对象        </li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li>JavaScript高级程序设计(第3版)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JS的防抖和节流</title>
     <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
     <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
@@ -860,6 +784,82 @@
       </tags>
   </entry>
   <entry>
+    <title>JavaScript的前世今生</title>
+    <url>/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</url>
+    <content><![CDATA[<h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
+<li>JavaScript由Brendan Eich发明，并首次应用于Netscape Navigator 2浏览器中。当时命名为LiveScript，为了赶Java的热度，后改名为JavaScript。当时它的主要目的用于验证表单数据(当时网速的限制了与服务端的交互速度)。</li>
+<li>微软在IE3中加入了名为JScript的JavaScript实现。</li>
+<li>由于当时并没有标准规定JavaScript的语法和特性，从而导致两个不同版本的JavaScript并存。于是在1997年，以JavasScript1.1为蓝本的建议被提交给了ECMA(欧洲计算机制造商协会)。该协会指定TC39(39号技术委员会)负责，于是出现了名为ECMAScript的语言标准(EMNA-262)，同年年底，ECMAScript1.0发布。</li>
+<li>1998年6月ECMA发布ECMAScript2.0，该版主要是为了与ISO/IEC-16262保持严格一致，没有作任何新增、修改或删除处理。</li>
+<li>1999年12月，ECMAScript发布ECMAScript3.0，修改的内容涉及字符串处理、错误定义和数值输出，新增了对正则表达式、新控制语句和try-catch异常处理的支持。ECMAScript3.0标志着ECMAScript成为了一门真正的编程语言。</li>
+<li>2000年，ECMAScript4.0开始着手实现，但由于该版本改动幅度较大(包含强类型变量、新语句和新数据结构、真正的类和经典继承，还定义了与数据交互的新方式)，TC39下属的一个小组提出了一个名为ECMAScript3.1的替代性建议，ECMAScript3.1只进行小幅修订，能够在现有的JavaScript引擎基础上实现。最终ECMAScript4.0被放弃，ECMAScript3.1成为ECMAScript5.0并于2009年12月发布。ECMAScript5新增原生JSON对象(用于解析和序列化JSON数据)、继承的方法和高级属性定义，另外还包含一种严格模式。</li>
+<li>2011年6月，ECMAScript5.1版发布，成为国际标准。</li>
+<li>2015年6月，ECMAScript6版发布，成为国际标准。</li>
+</ul>
+<h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>虽然JavaScript和ECMAScript通常都被人们用来表达相同的含义，但JavaScript的含义要比ECMAScript多得多。一个完整的JavaScript应该有以下三个部分组成：</p>
+<ul>
+<li>语法和语义(ECMAScript)</li>
+<li>文档对象模型(DOM)</li>
+<li>浏览器对象模型(BOM)</li>
+</ul>
+<h4 id="ECMAScript"><a href="#ECMAScript" class="headerlink" title="ECMAScript"></a>ECMAScript</h4><p>ECMAScript与web浏览器没有依赖关系，实际上ECMAScript定义的只是这门语言的基础，在此基础之上可以构建更完善的脚本语言。web浏览器只是ECMAScript实现可能的宿主环境之一。宿主环境不仅提供基本的ECMAScript实现，同时也会提供该语言的扩展，以便语言与环境之间进行交互。其他宿主环境包括Node和Adobe Flash。ECMAScript就是对实现该标准规定的各个方面内容的语言的描述。除了JavaScript，Adobe ActionScript也实现了ECMAScript。      </p>
+<p>ECMA-262标准规定了这门语言的下列组成部分：</p>
+<ul>
+<li>语法</li>
+<li>类型</li>
+<li>语句</li>
+<li>关键字</li>
+<li>保留字</li>
+<li>操作符</li>
+<li>对象</li>
+</ul>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>文档对象模型(Document Object Model)是针对XML但经过扩展用于HTML的API。DOM把整个页面映射为一个多层节点结构。由于IE4和Netscape navigator4分别支持不同形式的DHTML(Dynamic HTML)导致web跨平台的天性受到影响，于是负责Web通信标准的W3C(World Wide Web Consortium,万维网联盟)开始着手规划DOM。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Sample Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在DOM中，上面的代码可以通过下面的分层节点图表示。</p>
+<img src="https://code.aliyun.com/qingshanglishao/images/raw/master/节点图.png" alt="节点图" style="zoom:50%;" />
+
+<h5 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h5><p>DOM1级(DOM Level 1)在1998年10月成为W3C的推荐标准，由DOM核心(DOM Core)和DOM HTML两个模块组成。DOM核心规定如何映射基于XML的文档结构，DOM HTML添加了针对HTML的对象和方法。</p>
+<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来的基础上有扩充了鼠标和用户界面事件、范围、遍历(迭代DOM文档的方法)等细分模块，同时增加了对CSS的支持。DOM2引入了下列新模块:</p>
+<ul>
+<li>DOM视图(DOM Views)：定义了跟踪不同文档视图的接口</li>
+<li>DOM事件(DOM Events)：定义了事件和事件处理的接口</li>
+<li>DOM样式(DOM Style)：定义了基于CSS为元素样式应用的接口</li>
+<li>DOM遍历和范围(DOM Traversal and Range)：定义了遍历和操作文档树的接口</li>
+</ul>
+<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3对DOM核心进行了扩展，开始支持XML1.0规范，涉及XML Infoset、XPath和XML Base，同时也级进一步扩展了DOM，引入了下列模块:</p>
+<ul>
+<li>DOM加载和保存(DOM Load and Save)：以同一方式加载和保存文档的方法</li>
+<li>DOM验证(DOM Validation):：验证文档的方法</li>
+</ul>
+<h4 id="其他DOM标准"><a href="#其他DOM标准" class="headerlink" title="其他DOM标准"></a>其他DOM标准</h4><p>除了DOM核心和DOM HTML接口之外，另外几种语言还发布了只针对自己的DOM标准。如：</p>
+<ul>
+<li>SVG(Scalable Vector Graphic,可伸缩矢量图) 1.0</li>
+<li>MathML(Mathematical Markup Language,数学标记语言) 1.0</li>
+<li>SMIL(Synchronized Multimedia Integration Language,同步多媒体集成语言)</li>
+</ul>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><p>浏览器对象模型(Browser Object Model)，开发人员使用BOM可以控制浏览器显示的页面以外的部分。在HTML5中吧很多BOM功能写入规范。BOM只处理浏览器窗口和框架，但人们也把一些针对浏览器的JavaScript扩展也作为BOM的一部分，下面就是这些扩展：</p>
+<ul>
+<li>弹出新浏览器窗口功能</li>
+<li>移动、缩放和关闭浏览器窗口的功能</li>
+<li>提供浏览器详细信息的navigator对象</li>
+<li>提供浏览器所加载页面的详细信息的location对象</li>
+<li>提供用户显示器分辨率详细信息的screen对象</li>
+<li>对cookies的支持</li>
+<li>像XMLHttpRequest和IE的ActiveXObject这样的自定义对象        </li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li>JavaScript高级程序设计(第3版)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代码里的后悔药——Git</title>
     <url>/code/%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E5%90%8E%E6%82%94%E8%8D%AF%E2%80%94%E2%80%94Git.html</url>
     <content><![CDATA[<h2 id="代码里的后悔药—Git"><a href="#代码里的后悔药—Git" class="headerlink" title="代码里的后悔药—Git"></a>代码里的后悔药—Git</h2><h4 id="1-什么是Git"><a href="#1-什么是Git" class="headerlink" title="1. 什么是Git"></a>1. 什么是Git</h4><p>git是版本管理工具的一种，常见的版本管理工具还有<strong>CVS</strong>、<strong>SVN</strong>等等。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件</p>
@@ -979,95 +979,38 @@
       </tags>
   </entry>
   <entry>
-    <title>循环与迭代</title>
-    <url>/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html</url>
-    <content><![CDATA[<p>JavaScript提供了以下循环语句：</p>
-<ul>
-<li><h4 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a><code>for</code>语句</h4><p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>([initialExpression]; [condition]; [incrementExpression])</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+    <title>使用阿里云代码托管平台托管博客图床</title>
+    <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
+    <content><![CDATA[<blockquote>
+<p>无折腾，不青春</p>
+</blockquote>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>博客的图床在试过QQ空间相册(防盗链)，百度网盘(时间限制)之后，发现还是需要一个稳定点的图床比较好。github够稳定但是网速是在不敢恭维，突然想起之前在做<a href="https://github.com/musistudio/wukong-robot-install-script" target="_blank" rel="noopener">wukong-robot-install-script</a>的时候我用用过<a href="https://code.aliyun.com/" target="_blank" rel="noopener">阿里云的代码托管平台</a>进行仓库加速，使用的时候速度的确挺快的。那能不能使用这个来托管博客的图床呢？</p>
+<a id="more"></a>
 
-<p>当一个<code>for</code>语句执行的时候，会发生以下过程：</p>
-<ol>
-<li>如果存在初始化表达式<code>initialExpression</code>则会被执行，该表达式通常会初始化一个或多个循环计数器，还可以声明变量。</li>
-<li>计算<code>condition</code>表达式的值，如果<code>condition</code>的值是true，则执行循环中的语句，如果是false，则终止循环。如果<code>condition</code>表达式被忽略了，则值默认为true。</li>
-<li>循环中的<code>statement</code>被执行，如果有多个<code>statement</code>，可以使用代码块<code>{}</code>包裹起来。</li>
-<li>如果存在更新表达式<code>incrementExpression</code>则执行。</li>
-<li>回到步骤2。</li>
+<h4 id="折腾开始"><a href="#折腾开始" class="headerlink" title="折腾开始"></a>折腾开始</h4><ol>
+<li><p>首先打开阿里云的代码托管平台，使用阿里云账号登录后新建一个项目。名称随意，描述随意，可见等级选Public。如下图所示:<br><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-09-52.jpg" alt="新建项目示意图"></p>
+</li>
+<li><p>项目建好后在首页点击设置进入账户设置页，然后点击SSH公钥选项将自己电脑的公钥粘贴到这里。如果不知道怎么操作网页上有操作指示</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-13-21.jpg" alt="上传公钥示意图"></p>
+</li>
+<li><p>公钥上传好后打开刚刚新建的项目，复制该链接clone到电脑本地，git的具体操作这里不再赘述。</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-16-03.jpg" alt=""></p>
+</li>
+<li><p>以后要上传图片的时候将图片复制到这里然后再提交一次Push就可以啦。为方便Typora食用，我写了个自动上传脚本，代码如下:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "------welcom to use upload-image programme------"</span><br><span class="line">echo "maked by musi"</span><br><span class="line">DIR="$( cd "$( dirname "$0"  )" &amp;&amp; pwd  )"</span><br><span class="line">cd $DIR</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    echo $i</span><br><span class="line">    cp $i ./</span><br><span class="line">done</span><br><span class="line">git add .</span><br><span class="line">git commit -m"auto upload by upload-image.sh"</span><br><span class="line">git push</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    array=(`echo $i | tr '/' ' '` )  </span><br><span class="line">    lens=$&#123;#array[*]&#125;</span><br><span class="line">    echo "https://code.aliyun.com/qingshanglishao/images/raw/master/"$&#123;array[$lens-1]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>再配置一下Typora就能很方便的食用啦</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_10-40-32.jpg" alt="Typora配置示意图"></p>
+</li>
 </ol>
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do...while语句"></a><code>do...while</code>语句</h3><p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">  statement</span><br><span class="line"><span class="keyword">while</span>(condition)</span><br></pre></td></tr></table></figure>
-
-<p><code>statement</code>在检查<code>condition</code>之前会被执行一次，如果<code>condition</code>的值为true，则会再次执行<code>statement</code>，直到<code>condition</code>的值为false。</p>
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i++);</span><br><span class="line">&#125; <span class="keyword">while</span>(i &lt; <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a><code>while</code>语句</h3><p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
-
-<p>条件检测会在每次<code>statement</code>执行前发生，如果<code>condition</code>返回为true，<code>statement</code>会被再次执行并紧接着再次检测<code>condition</code>，如果<code>condition</code>为false，则退出循环。</p>
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (n &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  n++;</span><br><span class="line">  x += n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="labeled语句"><a href="#labeled语句" class="headerlink" title="labeled语句"></a><code>labeled</code>语句</h3><p><code>label</code>提供了带有标识符的语句，可以在程序的其他位置引用它。可以使用<code>label</code>标识循环，然后使用<code>break</code>或者<code>continue</code>语句让程序在指定处中断或是继续循环。</p>
-<p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">label: </span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
-
-<p><code>label</code>的值可以是非保留字的任意标识符，例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">markLoop:</span><br><span class="line"><span class="keyword">while</span> (theMark === <span class="literal">true</span>) &#123;</span><br><span class="line">   doSomething();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a><code>break</code>语句</h3><p><code>break</code>语句可以用来终止循环和<code>switch</code>分支语句，或者链接到<code>label</code>语句。</p>
-<ul>
-<li>当<code>break</code>后不带<code>label</code>时，它会立即终止当前所在的循环或<code>switch</code>语句。</li>
-<li>当<code>break</code>后带<code>label</code>时，它会终止指定的带<code>label</code>的语句。</li>
-</ul>
-<p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">break</span> [label];</span><br></pre></td></tr></table></figure>
-
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> z = <span class="number">0</span></span><br><span class="line">labelCancelLoops: <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"外部循环: "</span> + x);</span><br><span class="line">  x += <span class="number">1</span>;</span><br><span class="line">  z = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"内部循环: "</span> + z);</span><br><span class="line">    z += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (z === <span class="number">10</span> &amp;&amp; x === <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span> labelCancelLoops;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (z === <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a><code>continue</code>语句</h3><p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">continue</span> [label];</span><br></pre></td></tr></table></figure>
-
-<p><code>continue</code>语句可以重新启动(跳过代码块的剩余部分并进入下一个循环)一个<code>while</code>、<code>do-while</code>、<code>for</code>或者<code>label</code>语句。</p>
-<ul>
-<li>当使用不带<code>label</code>的<code>continue</code>语句时，终止当前这次的循环并执行下一次循环。</li>
-<li>当使用带<code>label</code>的<code>continue</code>语句时，它会应用于<code>lebel</code>标识的循环语句。</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  i++;</span><br><span class="line">  <span class="keyword">if</span> (i === <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  n += i;</span><br><span class="line">  <span class="built_in">console</span>.log(n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1,3,7,12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> j = <span class="number">10</span>;</span><br><span class="line">checkiandj:</span><br><span class="line">  <span class="keyword">while</span> (i &lt; <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">    i += <span class="number">1</span>;</span><br><span class="line">    checkj:</span><br><span class="line">      <span class="keyword">while</span> (j &gt; <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(j);</span><br><span class="line">        j -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> ((j % <span class="number">2</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span> checkj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(j + <span class="string">' is odd.'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'i = '</span> + i);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'j = '</span> + j);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="for-in语句"><a href="#for-in语句" class="headerlink" title="for...in语句"></a><code>for...in</code>语句</h3><p><code>for...in</code>语句指定一个变量名来迭代对象上的所有可枚举属性的属性名。</p>
-<p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable <span class="keyword">in</span> object)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
-
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dump_props</span>(<span class="params">obj, obj_name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    result += obj_name + <span class="string">'.'</span> + i + <span class="string">' = '</span> + obj[i] + <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  result += <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>若使用<code>for...in</code>语句迭代数组，则有可能除了数字索引之外，还有其他自定义的属性。因此不建议使用<code>for...in</code>语句迭代数组。</p>
-</li>
-<li><h3 id="for-of语句"><a href="#for-of语句" class="headerlink" title="for...of语句"></a><code>for...of</code>语句</h3><p><code>for...of</code>语句在可迭代对象(<code>Array</code>、<code>Map</code>、<code>Set</code>、<code>arguments</code>等)上创建一个循环，并为每个属性不同的值调用一次迭代(迭代的是属性值)。</p>
-<p>形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable <span class="keyword">of</span> object)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
-
-<p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>];</span><br><span class="line">arr.foo = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> arr) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(i); <span class="comment">// logs "0", "1", "2", "foo"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> arr) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(i); <span class="comment">// logs 3, 5, 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement" target="_blank" rel="noopener">MDN</a></li>
-</ul>
+<h4 id="折腾结束"><a href="#折腾结束" class="headerlink" title="折腾结束"></a>折腾结束</h4><p>正所谓工欲善其事必先利其器，有一套顺手的工具是写好博客的开始。如果你有什么食用顺手的工具欢迎在下方评论与我交流。</p>
 ]]></content>
       <categories>
-        <category>wiki</category>
+        <category>折腾</category>
       </categories>
       <tags>
-        <tag>w-JavaScript</tag>
+        <tag>图床</tag>
+        <tag>阿里云</tag>
       </tags>
   </entry>
   <entry>
@@ -1184,133 +1127,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用阿里云代码托管平台托管博客图床</title>
-    <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
-    <content><![CDATA[<blockquote>
-<p>无折腾，不青春</p>
-</blockquote>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>博客的图床在试过QQ空间相册(防盗链)，百度网盘(时间限制)之后，发现还是需要一个稳定点的图床比较好。github够稳定但是网速是在不敢恭维，突然想起之前在做<a href="https://github.com/musistudio/wukong-robot-install-script" target="_blank" rel="noopener">wukong-robot-install-script</a>的时候我用用过<a href="https://code.aliyun.com/" target="_blank" rel="noopener">阿里云的代码托管平台</a>进行仓库加速，使用的时候速度的确挺快的。那能不能使用这个来托管博客的图床呢？</p>
-<a id="more"></a>
-
-<h4 id="折腾开始"><a href="#折腾开始" class="headerlink" title="折腾开始"></a>折腾开始</h4><ol>
-<li><p>首先打开阿里云的代码托管平台，使用阿里云账号登录后新建一个项目。名称随意，描述随意，可见等级选Public。如下图所示:<br><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-09-52.jpg" alt="新建项目示意图"></p>
-</li>
-<li><p>项目建好后在首页点击设置进入账户设置页，然后点击SSH公钥选项将自己电脑的公钥粘贴到这里。如果不知道怎么操作网页上有操作指示</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-13-21.jpg" alt="上传公钥示意图"></p>
-</li>
-<li><p>公钥上传好后打开刚刚新建的项目，复制该链接clone到电脑本地，git的具体操作这里不再赘述。</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_11-16-03.jpg" alt=""></p>
-</li>
-<li><p>以后要上传图片的时候将图片复制到这里然后再提交一次Push就可以啦。为方便Typora食用，我写了个自动上传脚本，代码如下:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "------welcom to use upload-image programme------"</span><br><span class="line">echo "maked by musi"</span><br><span class="line">DIR="$( cd "$( dirname "$0"  )" &amp;&amp; pwd  )"</span><br><span class="line">cd $DIR</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    echo $i</span><br><span class="line">    cp $i ./</span><br><span class="line">done</span><br><span class="line">git add .</span><br><span class="line">git commit -m"auto upload by upload-image.sh"</span><br><span class="line">git push</span><br><span class="line">for i in "$@"; do</span><br><span class="line">    array=(`echo $i | tr '/' ' '` )  </span><br><span class="line">    lens=$&#123;#array[*]&#125;</span><br><span class="line">    echo "https://code.aliyun.com/qingshanglishao/images/raw/master/"$&#123;array[$lens-1]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>再配置一下Typora就能很方便的食用啦</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-11_10-40-32.jpg" alt="Typora配置示意图"></p>
-</li>
-</ol>
-<h4 id="折腾结束"><a href="#折腾结束" class="headerlink" title="折腾结束"></a>折腾结束</h4><p>正所谓工欲善其事必先利其器，有一套顺手的工具是写好博客的开始。如果你有什么食用顺手的工具欢迎在下方评论与我交流。</p>
-]]></content>
-      <categories>
-        <category>折腾</category>
-      </categories>
-      <tags>
-        <tag>图床</tag>
-        <tag>阿里云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>流程控制与错误处理</title>
-    <url>/wiki/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86.html</url>
-    <content><![CDATA[<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>在JavaScript中，分号<code>;</code>用于分割代码中的语句，任何表达式(expression)也是语句(statement)。</p>
-<h4 id="语句块"><a href="#语句块" class="headerlink" title="语句块"></a>语句块</h4><p>最基本的语句是块语句，用于对语句进行分组，该块有一对大括号<code>{}</code>进行定界:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>语句块通常和流程控制语句(<code>if</code>、<code>for</code>、<code>while</code>)一起使用，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(x++);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在ES6之前，JavaScript没有块级作用域，在块中引入的变量的作用域是包含函数或者脚本，并且设置他们的效果将持续到块本身之外，如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x);    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>在ES6之后，可以使用<code>let</code>或<code>const</code>声明块级作用域变量。</p>
-<h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p>条件语句是一组在指定条件为<code>true</code>时执行的语句，JavaScript支持两个条件语句：<code>if...else</code>和<code>switch</code></p>
-<ul>
-<li><h6 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if...else语句"></a><code>if...else</code>语句</h6><p>如果条件为真，则使用<code>if</code>语句执行一条语句，如果条件为假，则使用可选的<code>else</code>子句执行一条语句。语法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件) &#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里的条件可以是任何计算结果为布尔值的表达式，如果结果为<code>true</code>则执行语句1，如果条件为<code>false</code>则执行语句2，语句1和语句2可以是任何语句，包括进一步嵌套<code>if</code>语句。JavaScript中的<code>else if</code>是<code>else</code>语句和<code>if</code>语句嵌套的结果。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件<span class="number">1</span>) &#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件<span class="number">2</span>) &#123;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件<span class="number">3</span>) &#123;</span><br><span class="line">  语句<span class="number">3</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  语句<span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果需要在条件表达式中使用赋值，通常的做法是在赋值周围加上其他括号，如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>((x = y)) &#123;</span><br><span class="line">  语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Boolean转换为false的值:</p>
-<ul>
-<li>false</li>
-<li>undefined</li>
-<li>null</li>
-<li>0</li>
-<li>NaN</li>
-<li>空字符串<code>&quot; &quot;</code></li>
-</ul>
-<p>其他值包括所有对象都或被转为<code>true</code>。注意原始的布尔类型和布尔对象的区别：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span>(b)             <span class="comment">// =&gt; true，b是一个对象</span></span><br><span class="line"><span class="keyword">if</span>(b === <span class="literal">true</span>)    <span class="comment">// =&gt; false</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a><code>switch</code>语句</h4><p><code>switch</code>语句允许一个程序求一个表达式的值并且尝试去匹配表达式的值到一个<code>case</code>标签，如果匹配成功，则执行相关语句：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (expression) &#123;</span><br><span class="line">  <span class="keyword">case</span> label_1:</span><br><span class="line">    statements_1</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">  <span class="keyword">case</span> label_2:</span><br><span class="line">    statements_2</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">    …</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    statements_def</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>程序会首先查找一个与<code>expression</code>匹配的<code>case</code>语句，然后将控制权转移到该子句并执行相关的语句。如果没有匹配值，则程序会去查找<code>default</code>字句，如果找到了<code>default</code>字句则执行相关的语句，如果没有找到，程序会执行<code>switch</code>后面的语句，<code>default</code>语句通常出现在<code>switch</code>语句的最后面，当然这不是必须的。</p>
-<p>每个<code>case</code>语句会关联一个可选的<code>break</code>语句，保证在匹配的语句被执行完成后可以跳出<code>switch</code>语句并继续执行后面的语句，如果<code>break</code>被忽略，则程序将继续执行<code>switch</code>语句中的下一个<code>case</code>语句</p>
-</li>
-</ul>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>在JavaScript中可以使用<code>throw</code>语句引发异常，并使用<code>try...catch</code>语句捕获处理它。</p>
-<h4 id="异常类型"><a href="#异常类型" class="headerlink" title="异常类型"></a>异常类型</h4><p>JavaScript可以抛出任意对象作为异常，但不是所有对象都能产生相同结果。尽管抛出数字或字符串作为异常信息非常常见，但是用下列其中一种异常类型来创建将更加高效：</p>
-<ul>
-<li>ECMAScript exceptions</li>
-<li>DOMException and DOMError</li>
-</ul>
-<h3 id="throw语句"><a href="#throw语句" class="headerlink" title="throw语句"></a><code>throw</code>语句</h3><p>使用<code>throw</code>语句引发异常，并制定要抛出的异常的值：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="string">'Error'</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="try-catch语句"><a href="#try-catch语句" class="headerlink" title="try...catch语句"></a><code>try...catch</code>语句</h3><p><code>try...catch</code>语句标记一块待尝试的语句，并制定一个或多个引发异常的响应，如果引发一个异常，那么就可以使用<code>try...catch</code>语句捕获它。</p>
-<p><code>try...catch</code>语句包含一个<code>try</code>代码块，可以有一个或多个语句。零个或一个<code>catch</code>代码块，包含<code>try</code>语句块中引发异常时需要执行的语句。如果<code>try</code>中的代码块没有抛出异常，则<code>catch</code>代码块被跳过。<code>finally</code>代码块总会在<code>try</code>和<code>catch</code>代码块之后执行。</p>
-<ul>
-<li><code>catch</code>代码块：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (catchID) &#123;</span><br><span class="line">  statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>catch</code>块指定了一个标识符(catchID)来存放抛出语句指定的值，可以用这个标识符来获取抛出的异常信息。在插入<code>trrow</code>块中创建这个标识符，标识符只存在与<code>catch</code>块的存续期间内，当<code>catch</code>块执行完成时，标识符不在可用。</p>
-<ul>
-<li><p><code>finally</code>代码块</p>
-<p><code>finally</code>语句块无论是否抛出异常都会执行，如果抛出了一个异常，就算没有异常处理也会执行。如果<code>finally</code>块返回一个值，则这个值将会成为整个<code>try...catch...finally</code>流程的返回值，不管在<code>try</code>或<code>catch</code>中是否有任何的return语句。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;<span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'finally'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo());    <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
-
-<p>在<code>try</code>或者<code>catch</code>里使用return语句，其会作为整个<code>try...catch...finally</code>流程的返回值，而不会中断流程的执行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo());    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<p>如果在<code>finally</code>块中有定义return，则会覆盖其他的返回值。</p>
-</li>
-</ul>
-<ul>
-<li><p>使用<code>Error</code>对象</p>
-<p>根据错误类型，可以使用<code>name</code>和<code>message</code>获取更精炼的信息。<code>name</code>提供了常规的错误类(如<code>DOMException</code>或<code>Error</code>)，<code>message</code>提供了一条从错误对象转换成从字符串的简明信息。如果要抛出自己的异常，可以利用这些属性，使用<code>Error</code>的构造函数：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomethingErrorProne</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ourCodeMakesAMistake()) &#123;</span><br><span class="line">    <span class="keyword">throw</span> (<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'The message'</span>));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    doSomethingToGetAJavascriptError();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  doSomethingErrorProne();</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;               </span><br><span class="line">  <span class="built_in">console</span>.error(e.name);    <span class="comment">// 'Error'</span></span><br><span class="line">  <span class="built_in">console</span>.error(e.message); <span class="comment">// 'The message', or a JavaScript error message</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学习的方法论一：知识溯源法</title>
     <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
     <content><![CDATA[<blockquote>
@@ -1366,6 +1182,98 @@
       </categories>
       <tags>
         <tag>方法论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>循环与迭代</title>
+    <url>/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html</url>
+    <content><![CDATA[<p>JavaScript提供了以下循环语句：</p>
+<ul>
+<li><h4 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a><code>for</code>语句</h4><p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>([initialExpression]; [condition]; [incrementExpression])</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+
+<p>当一个<code>for</code>语句执行的时候，会发生以下过程：</p>
+<ol>
+<li>如果存在初始化表达式<code>initialExpression</code>则会被执行，该表达式通常会初始化一个或多个循环计数器，还可以声明变量。</li>
+<li>计算<code>condition</code>表达式的值，如果<code>condition</code>的值是true，则执行循环中的语句，如果是false，则终止循环。如果<code>condition</code>表达式被忽略了，则值默认为true。</li>
+<li>循环中的<code>statement</code>被执行，如果有多个<code>statement</code>，可以使用代码块<code>{}</code>包裹起来。</li>
+<li>如果存在更新表达式<code>incrementExpression</code>则执行。</li>
+<li>回到步骤2。</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do...while语句"></a><code>do...while</code>语句</h3><p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">  statement</span><br><span class="line"><span class="keyword">while</span>(condition)</span><br></pre></td></tr></table></figure>
+
+<p><code>statement</code>在检查<code>condition</code>之前会被执行一次，如果<code>condition</code>的值为true，则会再次执行<code>statement</code>，直到<code>condition</code>的值为false。</p>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i++);</span><br><span class="line">&#125; <span class="keyword">while</span>(i &lt; <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a><code>while</code>语句</h3><p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (condition)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+
+<p>条件检测会在每次<code>statement</code>执行前发生，如果<code>condition</code>返回为true，<code>statement</code>会被再次执行并紧接着再次检测<code>condition</code>，如果<code>condition</code>为false，则退出循环。</p>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (n &lt; <span class="number">3</span>) &#123;</span><br><span class="line">  n++;</span><br><span class="line">  x += n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="labeled语句"><a href="#labeled语句" class="headerlink" title="labeled语句"></a><code>labeled</code>语句</h3><p><code>label</code>提供了带有标识符的语句，可以在程序的其他位置引用它。可以使用<code>label</code>标识循环，然后使用<code>break</code>或者<code>continue</code>语句让程序在指定处中断或是继续循环。</p>
+<p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">label: </span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+
+<p><code>label</code>的值可以是非保留字的任意标识符，例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">markLoop:</span><br><span class="line"><span class="keyword">while</span> (theMark === <span class="literal">true</span>) &#123;</span><br><span class="line">   doSomething();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a><code>break</code>语句</h3><p><code>break</code>语句可以用来终止循环和<code>switch</code>分支语句，或者链接到<code>label</code>语句。</p>
+<ul>
+<li>当<code>break</code>后不带<code>label</code>时，它会立即终止当前所在的循环或<code>switch</code>语句。</li>
+<li>当<code>break</code>后带<code>label</code>时，它会终止指定的带<code>label</code>的语句。</li>
+</ul>
+<p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">break</span> [label];</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> z = <span class="number">0</span></span><br><span class="line">labelCancelLoops: <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"外部循环: "</span> + x);</span><br><span class="line">  x += <span class="number">1</span>;</span><br><span class="line">  z = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"内部循环: "</span> + z);</span><br><span class="line">    z += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (z === <span class="number">10</span> &amp;&amp; x === <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span> labelCancelLoops;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (z === <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a><code>continue</code>语句</h3><p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">continue</span> [label];</span><br></pre></td></tr></table></figure>
+
+<p><code>continue</code>语句可以重新启动(跳过代码块的剩余部分并进入下一个循环)一个<code>while</code>、<code>do-while</code>、<code>for</code>或者<code>label</code>语句。</p>
+<ul>
+<li>当使用不带<code>label</code>的<code>continue</code>语句时，终止当前这次的循环并执行下一次循环。</li>
+<li>当使用带<code>label</code>的<code>continue</code>语句时，它会应用于<code>lebel</code>标识的循环语句。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  i++;</span><br><span class="line">  <span class="keyword">if</span> (i === <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">continue</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  n += i;</span><br><span class="line">  <span class="built_in">console</span>.log(n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1,3,7,12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> j = <span class="number">10</span>;</span><br><span class="line">checkiandj:</span><br><span class="line">  <span class="keyword">while</span> (i &lt; <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">    i += <span class="number">1</span>;</span><br><span class="line">    checkj:</span><br><span class="line">      <span class="keyword">while</span> (j &gt; <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(j);</span><br><span class="line">        j -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> ((j % <span class="number">2</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span> checkj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(j + <span class="string">' is odd.'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'i = '</span> + i);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'j = '</span> + j);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="for-in语句"><a href="#for-in语句" class="headerlink" title="for...in语句"></a><code>for...in</code>语句</h3><p><code>for...in</code>语句指定一个变量名来迭代对象上的所有可枚举属性的属性名。</p>
+<p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable <span class="keyword">in</span> object)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dump_props</span>(<span class="params">obj, obj_name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    result += obj_name + <span class="string">'.'</span> + i + <span class="string">' = '</span> + obj[i] + <span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  result += <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若使用<code>for...in</code>语句迭代数组，则有可能除了数字索引之外，还有其他自定义的属性。因此不建议使用<code>for...in</code>语句迭代数组。</p>
+</li>
+<li><h3 id="for-of语句"><a href="#for-of语句" class="headerlink" title="for...of语句"></a><code>for...of</code>语句</h3><p><code>for...of</code>语句在可迭代对象(<code>Array</code>、<code>Map</code>、<code>Set</code>、<code>arguments</code>等)上创建一个循环，并为每个属性不同的值调用一次迭代(迭代的是属性值)。</p>
+<p>形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable <span class="keyword">of</span> object)</span><br><span class="line">  statement</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>];</span><br><span class="line">arr.foo = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> arr) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(i); <span class="comment">// logs "0", "1", "2", "foo"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> arr) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(i); <span class="comment">// logs 3, 5, 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1671,6 +1579,230 @@
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流程控制与错误处理</title>
+    <url>/wiki/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86.html</url>
+    <content><![CDATA[<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>在JavaScript中，分号<code>;</code>用于分割代码中的语句，任何表达式(expression)也是语句(statement)。</p>
+<h4 id="语句块"><a href="#语句块" class="headerlink" title="语句块"></a>语句块</h4><p>最基本的语句是块语句，用于对语句进行分组，该块有一对大括号<code>{}</code>进行定界:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>语句块通常和流程控制语句(<code>if</code>、<code>for</code>、<code>while</code>)一起使用，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(x++);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ES6之前，JavaScript没有块级作用域，在块中引入的变量的作用域是包含函数或者脚本，并且设置他们的效果将持续到块本身之外，如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(x);    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES6之后，可以使用<code>let</code>或<code>const</code>声明块级作用域变量。</p>
+<h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p>条件语句是一组在指定条件为<code>true</code>时执行的语句，JavaScript支持两个条件语句：<code>if...else</code>和<code>switch</code></p>
+<ul>
+<li><h6 id="if-else语句"><a href="#if-else语句" class="headerlink" title="if...else语句"></a><code>if...else</code>语句</h6><p>如果条件为真，则使用<code>if</code>语句执行一条语句，如果条件为假，则使用可选的<code>else</code>子句执行一条语句。语法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件) &#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的条件可以是任何计算结果为布尔值的表达式，如果结果为<code>true</code>则执行语句1，如果条件为<code>false</code>则执行语句2，语句1和语句2可以是任何语句，包括进一步嵌套<code>if</code>语句。JavaScript中的<code>else if</code>是<code>else</code>语句和<code>if</code>语句嵌套的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件<span class="number">1</span>) &#123;</span><br><span class="line">  语句<span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件<span class="number">2</span>) &#123;</span><br><span class="line">  语句<span class="number">2</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件<span class="number">3</span>) &#123;</span><br><span class="line">  语句<span class="number">3</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  语句<span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要在条件表达式中使用赋值，通常的做法是在赋值周围加上其他括号，如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>((x = y)) &#123;</span><br><span class="line">  语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Boolean转换为false的值:</p>
+<ul>
+<li>false</li>
+<li>undefined</li>
+<li>null</li>
+<li>0</li>
+<li>NaN</li>
+<li>空字符串<code>&quot; &quot;</code></li>
+</ul>
+<p>其他值包括所有对象都或被转为<code>true</code>。注意原始的布尔类型和布尔对象的区别：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span>(b)             <span class="comment">// =&gt; true，b是一个对象</span></span><br><span class="line"><span class="keyword">if</span>(b === <span class="literal">true</span>)    <span class="comment">// =&gt; false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a><code>switch</code>语句</h4><p><code>switch</code>语句允许一个程序求一个表达式的值并且尝试去匹配表达式的值到一个<code>case</code>标签，如果匹配成功，则执行相关语句：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (expression) &#123;</span><br><span class="line">  <span class="keyword">case</span> label_1:</span><br><span class="line">    statements_1</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">  <span class="keyword">case</span> label_2:</span><br><span class="line">    statements_2</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">    …</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    statements_def</span><br><span class="line">    [<span class="keyword">break</span>;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序会首先查找一个与<code>expression</code>匹配的<code>case</code>语句，然后将控制权转移到该子句并执行相关的语句。如果没有匹配值，则程序会去查找<code>default</code>字句，如果找到了<code>default</code>字句则执行相关的语句，如果没有找到，程序会执行<code>switch</code>后面的语句，<code>default</code>语句通常出现在<code>switch</code>语句的最后面，当然这不是必须的。</p>
+<p>每个<code>case</code>语句会关联一个可选的<code>break</code>语句，保证在匹配的语句被执行完成后可以跳出<code>switch</code>语句并继续执行后面的语句，如果<code>break</code>被忽略，则程序将继续执行<code>switch</code>语句中的下一个<code>case</code>语句</p>
+</li>
+</ul>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>在JavaScript中可以使用<code>throw</code>语句引发异常，并使用<code>try...catch</code>语句捕获处理它。</p>
+<h4 id="异常类型"><a href="#异常类型" class="headerlink" title="异常类型"></a>异常类型</h4><p>JavaScript可以抛出任意对象作为异常，但不是所有对象都能产生相同结果。尽管抛出数字或字符串作为异常信息非常常见，但是用下列其中一种异常类型来创建将更加高效：</p>
+<ul>
+<li>ECMAScript exceptions</li>
+<li>DOMException and DOMError</li>
+</ul>
+<h3 id="throw语句"><a href="#throw语句" class="headerlink" title="throw语句"></a><code>throw</code>语句</h3><p>使用<code>throw</code>语句引发异常，并制定要抛出的异常的值：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="string">'Error'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="try-catch语句"><a href="#try-catch语句" class="headerlink" title="try...catch语句"></a><code>try...catch</code>语句</h3><p><code>try...catch</code>语句标记一块待尝试的语句，并制定一个或多个引发异常的响应，如果引发一个异常，那么就可以使用<code>try...catch</code>语句捕获它。</p>
+<p><code>try...catch</code>语句包含一个<code>try</code>代码块，可以有一个或多个语句。零个或一个<code>catch</code>代码块，包含<code>try</code>语句块中引发异常时需要执行的语句。如果<code>try</code>中的代码块没有抛出异常，则<code>catch</code>代码块被跳过。<code>finally</code>代码块总会在<code>try</code>和<code>catch</code>代码块之后执行。</p>
+<ul>
+<li><code>catch</code>代码块：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (catchID) &#123;</span><br><span class="line">  statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>catch</code>块指定了一个标识符(catchID)来存放抛出语句指定的值，可以用这个标识符来获取抛出的异常信息。在插入<code>trrow</code>块中创建这个标识符，标识符只存在与<code>catch</code>块的存续期间内，当<code>catch</code>块执行完成时，标识符不在可用。</p>
+<ul>
+<li><p><code>finally</code>代码块</p>
+<p><code>finally</code>语句块无论是否抛出异常都会执行，如果抛出了一个异常，就算没有异常处理也会执行。如果<code>finally</code>块返回一个值，则这个值将会成为整个<code>try...catch...finally</code>流程的返回值，不管在<code>try</code>或<code>catch</code>中是否有任何的return语句。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;<span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'finally'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo());    <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>try</code>或者<code>catch</code>里使用return语句，其会作为整个<code>try...catch...finally</code>流程的返回值，而不会中断流程的执行。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo());    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在<code>finally</code>块中有定义return，则会覆盖其他的返回值。</p>
+</li>
+</ul>
+<ul>
+<li><p>使用<code>Error</code>对象</p>
+<p>根据错误类型，可以使用<code>name</code>和<code>message</code>获取更精炼的信息。<code>name</code>提供了常规的错误类(如<code>DOMException</code>或<code>Error</code>)，<code>message</code>提供了一条从错误对象转换成从字符串的简明信息。如果要抛出自己的异常，可以利用这些属性，使用<code>Error</code>的构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomethingErrorProne</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ourCodeMakesAMistake()) &#123;</span><br><span class="line">    <span class="keyword">throw</span> (<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'The message'</span>));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    doSomethingToGetAJavascriptError();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  doSomethingErrorProne();</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;               </span><br><span class="line">  <span class="built_in">console</span>.error(e.name);    <span class="comment">// 'Error'</span></span><br><span class="line">  <span class="built_in">console</span>.error(e.message); <span class="comment">// 'The message', or a JavaScript error message</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数字与日期</title>
+    <url>/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</url>
+    <content><![CDATA[<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
+<ul>
+<li><p>十进制数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二进制数</p>
+<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>八进制数</p>
+<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>十六进制数</p>
+<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.MAX_VALUE</td>
+<td align="center">可表示的最大值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_VALUE</td>
+<td align="center">可表示的最小值</td>
+</tr>
+<tr>
+<td align="center">Number.NaN</td>
+<td align="center">特指“非数字”</td>
+</tr>
+<tr>
+<td align="center">Number.NEGATIVE_INFINITY</td>
+<td align="center">特指“负无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.POSITIVE_INFINITY</td>
+<td align="center">特指“正无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.EPSILON</td>
+<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_SAFE_INTEGER</td>
+<td align="center">JavaScript最小安全整数</td>
+</tr>
+<tr>
+<td align="center">Number.MAX_SAFE_INTEGER</td>
+<td align="center">JavaScript最大安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.parseFloat()</td>
+<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.parseInt()</td>
+<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.isFinite()</td>
+<td align="center">判断传入的值是否为有限数字</td>
+</tr>
+<tr>
+<td align="center">Number.isInteger()</td>
+<td align="center">判断传入的值是否为整数</td>
+</tr>
+<tr>
+<td align="center">Number.isNaN()</td>
+<td align="center">判断传入的值是否为<code>NaN</code></td>
+</tr>
+<tr>
+<td align="center">Number.isSafeInteger()</td>
+<td align="center">判断传入的值是否为安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>原型上的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">toExponential()</td>
+<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
+</tr>
+<tr>
+<td align="center">toFixed()</td>
+<td align="center">返回指定小数位数的表示形式</td>
+</tr>
+<tr>
+<td align="center">toPrecision()</td>
+<td align="center">返回一个指定精度的数字</td>
+</tr>
+</tbody></table>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
 ]]></content>
       <categories>
         <category>wiki</category>

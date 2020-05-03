@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-05-03T10:02:05.869Z</updated>
+  <updated>2020-05-03T13:54:47.744Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数字与日期</title>
+    <link href="https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html"/>
+    <id>https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</id>
+    <published>2020-05-03T12:54:05.000Z</published>
+    <updated>2020-05-03T13:54:47.744Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;数字&quot;&gt;&lt;a href=&quot;#数字&quot; class=&quot;headerlink&quot; title=&quot;数字&quot;&gt;&lt;/a&gt;数字&lt;/h3&gt;&lt;p&gt;在JavaScript中，数字以双精度64位二进制格式IEEE
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>表达式与运算符</title>
