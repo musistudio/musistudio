@@ -1,107 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HTTP协议初探</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
-    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
-<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
-<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
-</blockquote>
-<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
-<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
-<a id="more"></a></li>
-<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
-</li>
-<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
-<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
-</li>
-<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
-<ol>
-<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
-<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
-<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
-<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
-</ol>
-<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
-</li>
-<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
-<ol>
-<li><p>Host头域</p>
-<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
-</li>
-<li><p>Referer头域</p>
-<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
-</li>
-<li><p>User-Agent头域</p>
-<p>User-Agent头域的内容包含发出请求的用户信息</p>
-</li>
-<li><p>Cache-Control头域</p>
-<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
-</li>
-<li><p>Date头域</p>
-<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
-</li>
-</ol>
-</li>
-<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
-<li><p>连接：Connection</p>
-<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
-<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
-<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
-</li>
-<li><p>消息：Message</p>
-<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
-</li>
-<li><p>请求：Request</p>
-<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
-</li>
-<li><p>响应：Response</p>
-<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
-</li>
-<li><p>资源：Resource</p>
-<p>由URI标识的网络数据对象或服务</p>
-</li>
-<li><p>实体：Entity</p>
-<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
-</li>
-<li><p>客户机：Client</p>
-<p>一个为发送请求目的而建立连接的应用程序</p>
-</li>
-<li><p>用户代理：UserAgent</p>
-<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
-</li>
-<li><p>服务器：Server</p>
-<p>一个接受连接并对请求返回信息的应用程序。</p>
-</li>
-<li><p>源服务器：Originserver</p>
-<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
-</li>
-<li><p>代理：Proxy</p>
-<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
-<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
-</li>
-<li><p>网关：Gateway</p>
-<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
-<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
-</li>
-<li><p>通道：Tunnel</p>
-<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
-</li>
-<li><p>缓存：Cache</p>
-<p>反应信息的局域存储。</p>
-</li>
-</ol>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTTP协议补充</title>
     <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
     <content><![CDATA[<blockquote>
@@ -207,6 +106,107 @@
 <td align="center">浏览器接受的语言，用于服务端判断多语言</td>
 </tr>
 </tbody></table>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTP协议初探</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
+    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
+<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
+<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
+</blockquote>
+<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
+<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
+<a id="more"></a></li>
+<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
+</li>
+<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
+<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
+</li>
+<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
+<ol>
+<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
+<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
+<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
+<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
+</ol>
+<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
+</li>
+<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
+<ol>
+<li><p>Host头域</p>
+<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
+</li>
+<li><p>Referer头域</p>
+<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
+</li>
+<li><p>User-Agent头域</p>
+<p>User-Agent头域的内容包含发出请求的用户信息</p>
+</li>
+<li><p>Cache-Control头域</p>
+<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
+</li>
+<li><p>Date头域</p>
+<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
+</li>
+</ol>
+</li>
+<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
+<li><p>连接：Connection</p>
+<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
+<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
+<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
+</li>
+<li><p>消息：Message</p>
+<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
+</li>
+<li><p>请求：Request</p>
+<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
+</li>
+<li><p>响应：Response</p>
+<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
+</li>
+<li><p>资源：Resource</p>
+<p>由URI标识的网络数据对象或服务</p>
+</li>
+<li><p>实体：Entity</p>
+<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
+</li>
+<li><p>客户机：Client</p>
+<p>一个为发送请求目的而建立连接的应用程序</p>
+</li>
+<li><p>用户代理：UserAgent</p>
+<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
+</li>
+<li><p>服务器：Server</p>
+<p>一个接受连接并对请求返回信息的应用程序。</p>
+</li>
+<li><p>源服务器：Originserver</p>
+<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
+</li>
+<li><p>代理：Proxy</p>
+<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
+<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
+</li>
+<li><p>网关：Gateway</p>
+<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
+<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
+</li>
+<li><p>通道：Tunnel</p>
+<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
+</li>
+<li><p>缓存：Cache</p>
+<p>反应信息的局域存储。</p>
+</li>
+</ol>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>code</category>
@@ -725,6 +725,28 @@
       </tags>
   </entry>
   <entry>
+    <title>Nginx配置Vue前后端分离项目</title>
+    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
+<a id="more"></a>
+<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript模块</title>
     <url>/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</url>
     <content><![CDATA[]]></content>
@@ -809,28 +831,6 @@
       </categories>
       <tags>
         <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Nginx配置Vue前后端分离项目</title>
-    <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
-<a id="more"></a>
-<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><h5 id="1-配置后端"><a href="#1-配置后端" class="headerlink" title="1. 配置后端"></a>1. 配置后端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="attribute">upstream</span> node.server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:3000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> /api/ &#123;</span><br><span class="line">  <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">  <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://node.server;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-配置前端"><a href="#2-配置前端" class="headerlink" title="2. 配置前端"></a>2. 配置前端</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">  <span class="attribute">alias</span> /root/project/register/app/views/;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ <span class="variable">@rewrites</span>;    <span class="comment"># 尝试访问资源，若无资源则重定向至index.html</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">location</span> <span class="variable">@rewrites</span> &#123;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)</span> /index.html <span class="literal">last</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-配置HTTPS"><a href="#3-配置HTTPS" class="headerlink" title="3. 配置HTTPS"></a>3. 配置HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">ssl_certificate</span> cert/****_bundle.crt;    <span class="comment"># bundle.crt路径</span></span><br><span class="line">  <span class="attribute">ssl_certificate_key</span> cert/***<span class="regexp">*.key</span>;       <span class="comment"># ****.key路径</span></span><br><span class="line">  <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">  <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNUL$</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-配置HTTP跳转HTTPS"><a href="#4-配置HTTP跳转HTTPS" class="headerlink" title="4. 配置HTTP跳转HTTPS"></a>4. 配置HTTP跳转HTTPS</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> iot.musiiot.top;</span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> https://<span class="variable">$host</span><span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>nginx</tag>
-        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1001,6 +1001,28 @@
       </tags>
   </entry>
   <entry>
+    <title>处理对象</title>
+    <url>/wiki/%E5%A4%84%E7%90%86%E5%AF%B9%E8%B1%A1.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>元编程</title>
+    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用阿里云代码托管平台托管博客图床</title>
     <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
     <content><![CDATA[<blockquote>
@@ -1033,28 +1055,6 @@
       <tags>
         <tag>图床</tag>
         <tag>阿里云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>元编程</title>
-    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>处理对象</title>
-    <url>/wiki/%E5%A4%84%E7%90%86%E5%AF%B9%E8%B1%A1.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1171,6 +1171,28 @@
       </tags>
   </entry>
   <entry>
+    <title>带键集合</title>
+    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对象模型的细节</title>
+    <url>/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>学习的方法论一：知识溯源法</title>
     <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
     <content><![CDATA[<blockquote>
@@ -1226,17 +1248,6 @@
       </categories>
       <tags>
         <tag>方法论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对象模型的细节</title>
-    <url>/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1332,9 +1343,98 @@
       </tags>
   </entry>
   <entry>
-    <title>带键集合</title>
-    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
-    <content><![CDATA[]]></content>
+    <title>文本格式化</title>
+    <url>/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html</url>
+    <content><![CDATA[<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>JavaScript的String类型用于表示文本型的数据，它由无符号整数值(UTF-16)作为元素而组成的集合。字符串在中的每个元素在字符串中占据一个位置。</p>
+<h4 id="String字面量"><a href="#String字面量" class="headerlink" title="String字面量"></a>String字面量</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用单引号或双引号创建简单字符串</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'string'</span>;    <span class="comment">// string</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"test"</span>;      <span class="comment">// test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用转义字符创建复杂字符串</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="string">'\'test\''</span>;  <span class="comment">// 'test'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制转义序列</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="string">'\xA9'</span>;      <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode转移序列</span></span><br><span class="line"><span class="keyword">let</span> e = <span class="string">'\u00A9'</span>;    <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode字元溢出</span></span><br><span class="line"><span class="comment">// 在ES6中，通过Unicode代码点转义，可以使用十六进制数对任意字符进行转义，这使得使用Unicode转义表示大于0x10FFFF的字符成为可能</span></span><br><span class="line"><span class="string">'\u&#123;2F804&#125;'</span></span><br><span class="line"><span class="string">'\uD874\uDc04'</span>    <span class="comment">// 简单的Unicode转义需要拆分为相应的两个小于0x10FFFF的部分</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h4><p><code>String</code>对象是对原始string类型的封装。</p>
+<p>String对象方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>charAt</code>、<code>charCodeAt</code>、<code>codePointAt</code></td>
+<td>返回字符串指定位置的字符或者字符编码</td>
+</tr>
+<tr>
+<td><code>indexOf</code>、<code>lastIndexOf</code></td>
+<td>分别返回字符串中指定字串的位置或者最后位置</td>
+</tr>
+<tr>
+<td><code>startsWith</code>、<code>endsWith</code>、<code>includes</code></td>
+<td>返回字符串是否以指定字符开头、结束包含指定的字符串</td>
+</tr>
+<tr>
+<td><code>concat</code></td>
+<td>连接两个字符串并返回新的字符串</td>
+</tr>
+<tr>
+<td><code>fromCharCode</code>、<code>fromCodePoint</code></td>
+<td>从指定的Unicode值序列构造一个字符串，这是String类方法，不是实例方法</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>通过将字符串分离成一个个子串来把一个String对象分割到一个字符串数组中</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td>从一个字符串提取片段并作为新字符串返回</td>
+</tr>
+<tr>
+<td><code>substring</code>、<code>substr</code></td>
+<td>分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集</td>
+</tr>
+<tr>
+<td><code>match</code>、<code>replace</code>、<code>search</code></td>
+<td>通过正则表达式来工作</td>
+</tr>
+<tr>
+<td><code>toLowerCase</code>、<code>toUpperCase</code></td>
+<td>分别返回字符串的小写表示和大写表示</td>
+</tr>
+<tr>
+<td><code>normalize</code></td>
+<td>按照指定的一种Unicode正规形式将当前字符串正规化</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td>将字符串内容重复指定次数后返回</td>
+</tr>
+<tr>
+<td><code>trim</code></td>
+<td>去掉字符串开头和结尾的空格</td>
+</tr>
+</tbody></table>
+<h4 id="多行模板字符串"><a href="#多行模板字符串" class="headerlink" title="多行模板字符串"></a>多行模板字符串</h4><p>模板字符串是一种允许内嵌表达式的String字面量，其使用<strong>``</strong>符号表示。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">`a is</span></span><br><span class="line"><span class="string">b`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);              <span class="comment">// a is \r\nb</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">'b'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`a is <span class="subst">$&#123;x&#125;</span>`</span>);    <span class="comment">// a is b</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><code>Intl</code>对象是ECMAScript国际化API的命名空间，它提供了语言敏感的字符串比较、数字格式化和日期时间格式化功能。<code>Collator</code>、<code>NumberFormat</code>和<code>DateTimeFormat</code>对象的构造函数是<code>Intl</code>对象的属性。</p>
+<h4 id="日期和时间格式化"><a href="#日期和时间格式化" class="headerlink" title="日期和时间格式化"></a>日期和时间格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> msPerDay = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">// July 17, 2014 00:00:00 UTC</span></span><br><span class="line"><span class="keyword">let</span> july172014 = <span class="keyword">new</span> <span class="built_in">Date</span>(msPerDay * (<span class="number">44</span> * <span class="number">365</span> + <span class="number">11</span> + <span class="number">197</span>));</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  year: <span class="string">'2-digit'</span>,</span><br><span class="line">  month: <span class="string">'2-digit'</span>,</span><br><span class="line">  day: <span class="string">'2-digit'</span>,</span><br><span class="line">  hour: <span class="string">'2-digit'</span>,</span><br><span class="line">  minute: <span class="string">'2-digit'</span>,</span><br><span class="line">  timeZoneName: <span class="string">'short'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> americanDateTime = <span class="keyword">new</span> <span class="built_in">Intl</span>.DateTimeFormat(<span class="string">'en-US'</span>, options).format;</span><br><span class="line"><span class="built_in">console</span>.log(americanDateTime(july172014));    <span class="comment">// 07/17/14, 08:00 AM GMT+8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> gasPrice = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'en-US'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'USD'</span>,</span><br><span class="line">  minimunFractionDigits: <span class="number">3</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(gasPrice.format(<span class="number">5.259</span>));    <span class="comment">// $5.26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hanDecimalRMBInChina = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'zh-CN-u-nu-hanidec'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'CNY'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(hanDecimalRMBInChina.format(<span class="string">'1314.52'</span>));    <span class="comment">// ¥一,三一四.五二</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="定序"><a href="#定序" class="headerlink" title="定序"></a>定序</h4><p><code>Collator</code>通常用于字符串比较和排序</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 德语中有两种不同的排序方式 电话本（phonebook） 和 字典（dictionary）. 电话本排序强调发音, 比如在排序前 “ä”, “ö”等被扩展为 “ae”, “oe”等发音</span></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Hochberg"</span>, <span class="string">"Hönigswald"</span>, <span class="string">"Holzman"</span>];</span><br><span class="line"><span class="keyword">let</span> germanPhonebook = <span class="keyword">new</span> <span class="built_in">Intl</span>.Collator(<span class="string">"de-DE-u-co-phonebk"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(names.sort(germanPhonebook.compare).join(<span class="string">", "</span>));    <span class="comment">// Hochberg, Hönigswald, Holzman</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><blockquote>
+<p>正则表达式是用于匹配字符串中字符组合的模式。在JavaScript中正则表达式也是对象。</p>
+</blockquote>
+<h4 id="创建正则表达式"><a href="#创建正则表达式" class="headerlink" title="创建正则表达式"></a>创建正则表达式</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在JavaScript中创建正则表达式有两种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用正则表达式字面量，如果表达式不变该方法拥有较好的性能</span></span><br><span class="line"><span class="keyword">let</span> re = <span class="regexp">/ab+c/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用RegExp的构造函数</span></span><br><span class="line"><span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'ab+c'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写一个正则表达式的模式"><a href="#编写一个正则表达式的模式" class="headerlink" title="编写一个正则表达式的模式"></a>编写一个正则表达式的模式</h4><p>一个正则表达式的模式是由简单字符所构成的<code>/abc/</code>，或是简单和特殊字符的组合<code>/ab*c/</code>。</p>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Text_formatting" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
       <categories>
         <category>wiki</category>
       </categories>
@@ -1475,96 +1575,31 @@
       </tags>
   </entry>
   <entry>
-    <title>文本格式化</title>
-    <url>/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html</url>
-    <content><![CDATA[<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>JavaScript的String类型用于表示文本型的数据，它由无符号整数值(UTF-16)作为元素而组成的集合。字符串在中的每个元素在字符串中占据一个位置。</p>
-<h4 id="String字面量"><a href="#String字面量" class="headerlink" title="String字面量"></a>String字面量</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用单引号或双引号创建简单字符串</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'string'</span>;    <span class="comment">// string</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"test"</span>;      <span class="comment">// test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用转义字符创建复杂字符串</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="string">'\'test\''</span>;  <span class="comment">// 'test'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 十六进制转义序列</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="string">'\xA9'</span>;      <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode转移序列</span></span><br><span class="line"><span class="keyword">let</span> e = <span class="string">'\u00A9'</span>;    <span class="comment">// ©</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode字元溢出</span></span><br><span class="line"><span class="comment">// 在ES6中，通过Unicode代码点转义，可以使用十六进制数对任意字符进行转义，这使得使用Unicode转义表示大于0x10FFFF的字符成为可能</span></span><br><span class="line"><span class="string">'\u&#123;2F804&#125;'</span></span><br><span class="line"><span class="string">'\uD874\uDc04'</span>    <span class="comment">// 简单的Unicode转义需要拆分为相应的两个小于0x10FFFF的部分</span></span><br></pre></td></tr></table></figure>
+    <title>索引集合</title>
+    <url>/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</url>
+    <content><![CDATA[<h3 id="数组对象"><a href="#数组对象" class="headerlink" title="数组对象"></a>数组对象</h3><p>数组是一个有序的数据集合，可以通过数组名称和索引进行访问。JavaScript中没有明确的数组数据类型，但可以使用内置的Array对象和其方法对数组进行操作。</p>
+<h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建数组有以下三种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用Array构造函数</span></span><br><span class="line"><span class="keyword">let</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用Array函数</span></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用数组字面量</span></span><br><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>];</span><br></pre></td></tr></table></figure>
 
-<h4 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h4><p><code>String</code>对象是对原始string类型的封装。</p>
-<p>String对象方法：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>charAt</code>、<code>charCodeAt</code>、<code>codePointAt</code></td>
-<td>返回字符串指定位置的字符或者字符编码</td>
-</tr>
-<tr>
-<td><code>indexOf</code>、<code>lastIndexOf</code></td>
-<td>分别返回字符串中指定字串的位置或者最后位置</td>
-</tr>
-<tr>
-<td><code>startsWith</code>、<code>endsWith</code>、<code>includes</code></td>
-<td>返回字符串是否以指定字符开头、结束包含指定的字符串</td>
-</tr>
-<tr>
-<td><code>concat</code></td>
-<td>连接两个字符串并返回新的字符串</td>
-</tr>
-<tr>
-<td><code>fromCharCode</code>、<code>fromCodePoint</code></td>
-<td>从指定的Unicode值序列构造一个字符串，这是String类方法，不是实例方法</td>
-</tr>
-<tr>
-<td><code>split</code></td>
-<td>通过将字符串分离成一个个子串来把一个String对象分割到一个字符串数组中</td>
-</tr>
-<tr>
-<td><code>slice</code></td>
-<td>从一个字符串提取片段并作为新字符串返回</td>
-</tr>
-<tr>
-<td><code>substring</code>、<code>substr</code></td>
-<td>分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集</td>
-</tr>
-<tr>
-<td><code>match</code>、<code>replace</code>、<code>search</code></td>
-<td>通过正则表达式来工作</td>
-</tr>
-<tr>
-<td><code>toLowerCase</code>、<code>toUpperCase</code></td>
-<td>分别返回字符串的小写表示和大写表示</td>
-</tr>
-<tr>
-<td><code>normalize</code></td>
-<td>按照指定的一种Unicode正规形式将当前字符串正规化</td>
-</tr>
-<tr>
-<td><code>repeat</code></td>
-<td>将字符串内容重复指定次数后返回</td>
-</tr>
-<tr>
-<td><code>trim</code></td>
-<td>去掉字符串开头和结尾的空格</td>
-</tr>
-</tbody></table>
-<h4 id="多行模板字符串"><a href="#多行模板字符串" class="headerlink" title="多行模板字符串"></a>多行模板字符串</h4><p>模板字符串是一种允许内嵌表达式的String字面量，其使用<strong>``</strong>符号表示。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">`a is</span></span><br><span class="line"><span class="string">b`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);              <span class="comment">// a is \r\nb</span></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">'b'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`a is <span class="subst">$&#123;x&#125;</span>`</span>);    <span class="comment">// a is b</span></span><br></pre></td></tr></table></figure>
+<h4 id="填充数组"><a href="#填充数组" class="headerlink" title="填充数组"></a>填充数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以通过给元素赋值进行填充数组</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr [<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">arr [<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">arr [<span class="number">3</span>] = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);    <span class="comment">// [1, 2, empty, 3]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果索引是一个非整型数值，则将会被作为数组对象的属性存储，而非数组元素</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr[<span class="number">3.14</span>] = <span class="number">3.14</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);        <span class="comment">// [3.14: 3.14]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">3.14</span>]);  <span class="comment">// 3.14</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.hasOwnProperty(<span class="number">3.14</span>));  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="引用数组元素"><a href="#引用数组元素" class="headerlink" title="引用数组元素"></a>引用数组元素</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用数组名加索引的方式引用</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">0</span>]);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h4><p>在实施层面，JavaScript实际上是将元素作为标准的对象属性来存储。把索引作为属性名。<strong>length</strong>属性是特殊的，它总是返回最后一个元素的索引值+1，也可以通过改写<strong>length</strong>来修改数组：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [];</span><br><span class="line">arrs[<span class="number">100</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arrs.length);  <span class="comment">// 101</span></span><br><span class="line"></span><br><span class="line">arrs.length = <span class="number">0</span>;    <span class="comment">// 将length属性改为0会清空数组</span></span><br><span class="line"><span class="built_in">console</span>.log(arrs);  <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><code>Intl</code>对象是ECMAScript国际化API的命名空间，它提供了语言敏感的字符串比较、数字格式化和日期时间格式化功能。<code>Collator</code>、<code>NumberFormat</code>和<code>DateTimeFormat</code>对象的构造函数是<code>Intl</code>对象的属性。</p>
-<h4 id="日期和时间格式化"><a href="#日期和时间格式化" class="headerlink" title="日期和时间格式化"></a>日期和时间格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> msPerDay = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line"><span class="comment">// July 17, 2014 00:00:00 UTC</span></span><br><span class="line"><span class="keyword">let</span> july172014 = <span class="keyword">new</span> <span class="built_in">Date</span>(msPerDay * (<span class="number">44</span> * <span class="number">365</span> + <span class="number">11</span> + <span class="number">197</span>));</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  year: <span class="string">'2-digit'</span>,</span><br><span class="line">  month: <span class="string">'2-digit'</span>,</span><br><span class="line">  day: <span class="string">'2-digit'</span>,</span><br><span class="line">  hour: <span class="string">'2-digit'</span>,</span><br><span class="line">  minute: <span class="string">'2-digit'</span>,</span><br><span class="line">  timeZoneName: <span class="string">'short'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> americanDateTime = <span class="keyword">new</span> <span class="built_in">Intl</span>.DateTimeFormat(<span class="string">'en-US'</span>, options).format;</span><br><span class="line"><span class="built_in">console</span>.log(americanDateTime(july172014));    <span class="comment">// 07/17/14, 08:00 AM GMT+8</span></span><br></pre></td></tr></table></figure>
+<h4 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的操作是遍历数组的值，并以某种方式进行处理</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arrs.length; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arrs[i]);    <span class="comment">// 1, 2, 3, 4, 5, 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果确定数组中的元素没有一个false，例如只包含dom节点的数组，可以使用下面的方法</span></span><br><span class="line"><span class="comment">// 该方法可以避免检测数组长度的开销，并确保每次循环时都将div变量重新分配给当前项</span></span><br><span class="line"><span class="keyword">let</span> divs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, div; div = divs[i]; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用forEach方法</span></span><br><span class="line"><span class="comment">// 被传递给forEach的回调函数会在数组的每个元素上执行一次，元素作为参数传递给回调函数，未赋值的值不会在forEach循环迭代</span></span><br><span class="line">arrs.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 在数组定义时省略的元素不会在forEach遍历中列出，但手动赋值的undefined会被列出</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [,,<span class="literal">undefined</span>,<span class="number">1</span>];</span><br><span class="line">arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// undefined, 1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h4 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> gasPrice = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'en-US'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'USD'</span>,</span><br><span class="line">  minimunFractionDigits: <span class="number">3</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(gasPrice.format(<span class="number">5.259</span>));    <span class="comment">// $5.26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> hanDecimalRMBInChina = <span class="keyword">new</span> <span class="built_in">Intl</span>.NumberFormat(<span class="string">'zh-CN-u-nu-hanidec'</span>, &#123;</span><br><span class="line">  style: <span class="string">'currency'</span>,</span><br><span class="line">  currency: <span class="string">'CNY'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(hanDecimalRMBInChina.format(<span class="string">'1314.52'</span>));    <span class="comment">// ¥一,三一四.五二</span></span><br></pre></td></tr></table></figure>
+<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// concat()连接两个数组并返回一个新的数组</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr1.concat(arr2));    <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// join()将数组所有元素连接成一个字符串，并以参数作为分隔符</span></span><br><span class="line"><span class="built_in">console</span>.log(arr1.join(<span class="string">','</span>));      <span class="comment">// 1,2,3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// push()在数组末尾添加一个或多个元素，并返回数组操作后的长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.push(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>));    <span class="comment">// 6</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);                <span class="comment">// [4,5,6,"a","b","c"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// pop()从数组中移除最后一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.pop());         <span class="comment">// c</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);               <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// shift()从数组中移出第一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.shift());      <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [5,6,"a","b"] </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// unshift()在数组开头添加一个或多个元素，并返回数组的新长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.unshift(<span class="number">4</span>));   <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// slice(start_index, end_index)从数组提取一个片段，并作为一个新数组返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.slice(<span class="number">0</span>, <span class="number">3</span>));  <span class="comment">// [4,5,6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// splice(index, count_to_remove, addElment1...)从数组中移出一些元素，(可选)并替换它们</span></span><br><span class="line">arr2.splice(<span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reverse()颠倒数组元素的顺序</span></span><br><span class="line">arr2.reverse();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sort()给数组元素排序</span></span><br><span class="line">arr2.sort();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="comment">// sort也可以传一个回调函数来决定排序方法</span></span><br><span class="line">arr2.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b - a);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexOf(element[, fromIndex])在数组中搜索element并返回第一个匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.indexOf(<span class="number">9</span>));      <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// lastIndexOf(element[, fromIndex])从结尾开始反向搜索elemnt，并返回第一次匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.lastIndexOf(<span class="number">9</span>));  <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach(callback[, thisObject])在数组的每个元素上执行callback</span></span><br><span class="line">arr2.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// 9 8 7</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// map(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.map(<span class="function"><span class="params">item</span> =&gt;</span> item * <span class="number">2</span>));   <span class="comment">// [18, 16, 14, 12, 10, 8]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// filter(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值w为true的元素组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.filter(<span class="function"><span class="params">item</span> =&gt;</span> item % <span class="number">2</span> === <span class="number">0</span>));  <span class="comment">// [8, 6, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// every(callback[, thisObject])在数组的每个元素上执行callback，如果每次执行callback的返回值都为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.every(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">0</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// some(callback[, thisObject])在数组的每个元素上执行callback，如果有一次次执行callback的返回值为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.some(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">8</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduce(callback[, initialValue])使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值。</span></span><br><span class="line"><span class="comment">// 如果指定了initialValue，则使用initialValue作为第一个参数值并以数组中第一项的值作为第二个参数值来调用回调。如果未指定initialValue，则回调的前两个参数值将是数组的第一个和第二个元素。</span></span><br><span class="line"><span class="comment">// 9 + 8 + 7 + 6 + 5 + 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduceRight(callback[, initialValue])从最后一个元素开始，使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值</span></span><br><span class="line"><span class="comment">// 4 + 5 + 6 + 7 + 8 + 9</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="定序"><a href="#定序" class="headerlink" title="定序"></a>定序</h4><p><code>Collator</code>通常用于字符串比较和排序</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 德语中有两种不同的排序方式 电话本（phonebook） 和 字典（dictionary）. 电话本排序强调发音, 比如在排序前 “ä”, “ö”等被扩展为 “ae”, “oe”等发音</span></span><br><span class="line"><span class="keyword">let</span> names = [<span class="string">"Hochberg"</span>, <span class="string">"Hönigswald"</span>, <span class="string">"Holzman"</span>];</span><br><span class="line"><span class="keyword">let</span> germanPhonebook = <span class="keyword">new</span> <span class="built_in">Intl</span>.Collator(<span class="string">"de-DE-u-co-phonebk"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(names.sort(germanPhonebook.compare).join(<span class="string">", "</span>));    <span class="comment">// Hochberg, Hönigswald, Holzman</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用类数组对象"><a href="#使用类数组对象" class="headerlink" title="使用类数组对象"></a>使用类数组对象</h4><p>Array的原生(prototype)方法可以用来处理类似数组(例如arguments)行为的对象:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printArgumnets</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Array</span>.prototype.forEach.call(<span class="built_in">arguments</span>, item =&gt; <span class="built_in">console</span>.log(item));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><blockquote>
-<p>正则表达式是用于匹配字符串中字符组合的模式。在JavaScript中正则表达式也是对象。</p>
-</blockquote>
-<h4 id="创建正则表达式"><a href="#创建正则表达式" class="headerlink" title="创建正则表达式"></a>创建正则表达式</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在JavaScript中创建正则表达式有两种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用正则表达式字面量，如果表达式不变该方法拥有较好的性能</span></span><br><span class="line"><span class="keyword">let</span> re = <span class="regexp">/ab+c/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用RegExp的构造函数</span></span><br><span class="line"><span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'ab+c'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="编写一个正则表达式的模式"><a href="#编写一个正则表达式的模式" class="headerlink" title="编写一个正则表达式的模式"></a>编写一个正则表达式的模式</h4><p>一个正则表达式的模式是由简单字符所构成的<code>/abc/</code>，或是简单和特殊字符的组合<code>/ab*c/</code>。</p>
+<h3 id="类型化数组"><a href="#类型化数组" class="headerlink" title="类型化数组"></a>类型化数组</h3><p>Typed Arrays是类数组对象，其提供访问原始二进制数据的机制</p>
+<h4 id="缓冲和视图：类型化的数组结构"><a href="#缓冲和视图：类型化的数组结构" class="headerlink" title="缓冲和视图：类型化的数组结构"></a>缓冲和视图：类型化的数组结构</h4><p>JavaScript类型数组被分解为缓冲(Buffer, 由ArrayBuffer实现)和视图(views)。缓冲是代表数据块的对象，它没有格式可言并没有提供任何机制来访问其内容。为了访问包含在缓冲区的内存需要使用视图，视图提供一个上下文，即数据类型、起始偏移量和元素数，这些元素将数据转换为实际类型数组。</p>
+<h4 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a>ArrayBuffer</h4><p>ArrayBuffer是一种数据类型，用于表示一个通用的、固定长度的二进制数据缓冲区。不能直接操作一个ArrayBuffer中的内容，需要创建一个数组类型视图或者DataView来代表特定格式的缓冲区，从而实现读写缓冲区中的内容。</p>
+<h4 id="类型数组视图"><a href="#类型数组视图" class="headerlink" title="类型数组视图"></a>类型数组视图</h4><p>类型数组属视图具有自描述性的名字，并且提供数据类型信息。例如<code>Int8</code>、<code>Unit32</code>、<code>Float64</code>等。</p>
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Text_formatting" target="_blank" rel="noopener">MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -1978,6 +2013,17 @@
       </tags>
   </entry>
   <entry>
+    <title>迭代器与生成器</title>
+    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>语法和数据类型</title>
     <url>/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
     <content><![CDATA[<h2 id="JavaScript语法"><a href="#JavaScript语法" class="headerlink" title="JavaScript语法"></a>JavaScript语法</h2><h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>JavaScript区分大小写，并使用Unicode字符集。即变量<code>test</code>和<code>TEXT</code>是两个不同的变量，并且可以使用中文作为变量名，如：<code>var 中文;</code></p>
@@ -2130,40 +2176,6 @@
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>索引集合</title>
-    <url>/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</url>
-    <content><![CDATA[<h3 id="数组对象"><a href="#数组对象" class="headerlink" title="数组对象"></a>数组对象</h3><p>数组是一个有序的数据集合，可以通过数组名称和索引进行访问。JavaScript中没有明确的数组数据类型，但可以使用内置的Array对象和其方法对数组进行操作。</p>
-<h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建数组有以下三种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用Array构造函数</span></span><br><span class="line"><span class="keyword">let</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用Array函数</span></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用数组字面量</span></span><br><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>];</span><br></pre></td></tr></table></figure>
-
-<h4 id="填充数组"><a href="#填充数组" class="headerlink" title="填充数组"></a>填充数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以通过给元素赋值进行填充数组</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr [<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">arr [<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">arr [<span class="number">3</span>] = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);    <span class="comment">// [1, 2, empty, 3]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果索引是一个非整型数值，则将会被作为数组对象的属性存储，而非数组元素</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr[<span class="number">3.14</span>] = <span class="number">3.14</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);        <span class="comment">// [3.14: 3.14]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">3.14</span>]);  <span class="comment">// 3.14</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.hasOwnProperty(<span class="number">3.14</span>));  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="引用数组元素"><a href="#引用数组元素" class="headerlink" title="引用数组元素"></a>引用数组元素</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用数组名加索引的方式引用</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">0</span>]);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h4><p>在实施层面，JavaScript实际上是将元素作为标准的对象属性来存储。把索引作为属性名。<strong>length</strong>属性是特殊的，它总是返回最后一个元素的索引值+1，也可以通过改写<strong>length</strong>来修改数组：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [];</span><br><span class="line">arrs[<span class="number">100</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arrs.length);  <span class="comment">// 101</span></span><br><span class="line"></span><br><span class="line">arrs.length = <span class="number">0</span>;    <span class="comment">// 将length属性改为0会清空数组</span></span><br><span class="line"><span class="built_in">console</span>.log(arrs);  <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的操作是遍历数组的值，并以某种方式进行处理</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arrs.length; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arrs[i]);    <span class="comment">// 1, 2, 3, 4, 5, 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果确定数组中的元素没有一个false，例如只包含dom节点的数组，可以使用下面的方法</span></span><br><span class="line"><span class="comment">// 该方法可以避免检测数组长度的开销，并确保每次循环时都将div变量重新分配给当前项</span></span><br><span class="line"><span class="keyword">let</span> divs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, div; div = divs[i]; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用forEach方法</span></span><br><span class="line"><span class="comment">// 被传递给forEach的回调函数会在数组的每个元素上执行一次，元素作为参数传递给回调函数，未赋值的值不会在forEach循环迭代</span></span><br><span class="line">arrs.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 在数组定义时省略的元素不会在forEach遍历中列出，但手动赋值的undefined会被列出</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [,,<span class="literal">undefined</span>,<span class="number">1</span>];</span><br><span class="line">arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// undefined, 1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4>]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迭代器与生成器</title>
-    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>wiki</category>
       </categories>
