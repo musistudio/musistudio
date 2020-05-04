@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://musii.life/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</loc>
+    <lastmod>2020-05-04</lastmod>
+  </url>  <url>
     <loc>https://musii.life/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</loc>
     <lastmod>2020-05-04</lastmod>
   </url>  <url>
@@ -8,9 +11,6 @@
     <lastmod>2020-05-03</lastmod>
   </url>  <url>
     <loc>https://musii.life/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</loc>
-    <lastmod>2020-05-03</lastmod>
-  </url>  <url>
-    <loc>https://musii.life/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</loc>
     <lastmod>2020-05-03</lastmod>
   </url>  <url>
     <loc>https://musii.life/wiki/Promises.html</loc>

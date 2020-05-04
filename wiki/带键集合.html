@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">0</span>
+            <span class="post-count">761</span>
         </span>
     </span>
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -96,6 +96,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -108,7 +110,49 @@
       
 
       
-      
+      <h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h4 id="Map对象"><a href="#Map对象" class="headerlink" title="Map对象"></a>Map对象</h4><p>ES6新增Map对象用于将一个值映射到另一个值，一个Map对象就是一个简单的键值对映射集合，并可以按照数据插入时的顺序遍历所有的元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sayings = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">sayings.set(<span class="string">'dog'</span>, <span class="string">'woof'</span>);</span><br><span class="line">sayings.set(<span class="string">'cat'</span>, <span class="string">'meow'</span>);</span><br><span class="line">sayings.set(<span class="string">'elephant'</span>, <span class="string">'toot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'fox'</span>)); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'dog'</span>));   <span class="comment">// woof</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// true</span></span><br><span class="line">sayings.delete(<span class="string">'dog'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// false</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> sayings) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> goes <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// dog goes woof</span></span><br><span class="line"><span class="comment">// cat goes meow</span></span><br><span class="line"><span class="comment">// elephant goes toot</span></span><br><span class="line">sayings.clear();</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+<p>Object与Map的区别：</p>
+<ul>
+<li>Object的键均为String类型，在map里键可以是任意类型。</li>
+<li>Object的长度必须手动计算。</li>
+<li>Map的遍历遵循元素的插入顺序。</li>
+<li>Object有prototype，映射中有一些缺省的键，可以使用<code>Object.create(null)</code>回避。</li>
+</ul>
+<p>下面三点可以决定用Object还是Map:</p>
+<ul>
+<li>如果键在运行时才知道，或者所有的键类型相同，所有的值类型相同，使用Map。</li>
+<li>如果需要将原始值存储为键，则使用map。Object将每个键视为字符串，不管是数字布尔值还是其他原始类型。</li>
+<li>如果需要对个别元素进行操作，使用Object。</li>
+</ul>
+<h4 id="WeakMap对象"><a href="#WeakMap对象" class="headerlink" title="WeakMap对象"></a>WeakMap对象</h4><p>WeakMap对象也是键值对的集合，但它的键必须是对象类型，值可以是任意类型。它的键被弱保持，当其值所指对象没有其他地方引用的时候，它会被GC回收掉。WeakMap的键是不可枚举的。</p>
+<p>WeakMap常被用来存储一个对象的私有数据或实现细节：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">consr privates = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Public</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = &#123;&#125;;    <span class="comment">// 私有数据</span></span><br><span class="line">  privates.set(<span class="keyword">this</span>, me);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Public.prototype,method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = privates.get(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Public;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="set对象"><a href="#set对象" class="headerlink" title="set对象"></a>set对象</h4><p>Set对象是一组数据的集合，这些值是不重复的，可以按照添加顺序来遍历：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line">mySet.add(<span class="string">'test'</span>);</span><br><span class="line">mySet.add(<span class="number">2</span>);</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(mySet.has(<span class="number">1</span>));  <span class="comment">// true             </span></span><br><span class="line">mySet.delete(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> mySet) <span class="built_in">console</span>.log(item);</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合转数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(mySet));    <span class="comment">// ["test", 2]</span></span><br><span class="line"><span class="built_in">console</span>.log([...mySet]);           <span class="comment">// ["test", 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转集合</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中一般使用数组来存储一组数据，集合对象有以下优势：</p>
+<ul>
+<li>数组中<code>indexOf</code>函数效率低下</li>
+<li>Set对象允许根据值删除元素，而数组必须使用基于下标的splice方法</li>
+<li>数组的<code>indexOf</code>方法无法找到<code>NaN</code>值</li>
+<li>Set对象存储不重复的值，所以不需要手动处理包含重复值的情况</li>
+</ul>
+<h4 id="WeakSet对象"><a href="#WeakSet对象" class="headerlink" title="WeakSet对象"></a>WeakSet对象</h4><p>WeakSet中的对象不重复且不可枚举，并且值必须是对象类型。如果集合中的对象不存在其他引用，则该对象将会被垃圾回收。</p>
+<h3 id="Map和Set的键和值相等判断"><a href="#Map和Set的键和值相等判断" class="headerlink" title="Map和Set的键和值相等判断"></a>Map和Set的键和值相等判断</h3><p>Map对象的键相等性和Set对象的值相等性均基于same-value-zero算法</p>
+<ul>
+<li>判断使用与<code>===</code>相似的规则。</li>
+<li><code>-0</code>和<code>+0</code>相等。</li>
+<li><code>NaN</code>与自身相等(与<code>===</code>有所不同)</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_Collections" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+
       
       <!-- reward -->
       
