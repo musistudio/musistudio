@@ -112,13 +112,24 @@
   </entry>
   
   <entry>
-    <title>处理对象</title>
-    <link href="https://musii.life/wiki/%E5%A4%84%E7%90%86%E5%AF%B9%E8%B1%A1.html"/>
-    <id>https://musii.life/wiki/%E5%A4%84%E7%90%86%E5%AF%B9%E8%B1%A1.html</id>
+    <title>使用对象</title>
+    <link href="https://musii.life/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html"/>
+    <id>https://musii.life/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html</id>
     <published>2020-05-03T13:57:20.000Z</published>
-    <updated>2020-05-03T14:00:34.627Z</updated>
+    <updated>2020-05-05T01:55:51.793Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;JavaScript的设计是一个简单的基于对象的范式。一个对象就是一系列属性的集合，一个属性包含一个键和一个值。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;对象和属性&quot;&gt;&lt;a href=&quot;#对象和属性&quot;
+        
+      
     
     </summary>
     
