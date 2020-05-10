@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">0</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -96,6 +96,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -108,7 +110,90 @@
       
 
       
-      
+      <blockquote>
+<p>JavaScript是基于原型的语言，它只有对象。原型对象可以作为一个模板，新对象可以从中获得原始的属性。任何对象都可以在创建对象时或在运行时指定其自身的属性。此外，任何对象都可以关联另一个对象的原型，从而允许第二个对象共享第一个对象的属性。</p>
+</blockquote>
+<h4 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h4><p>在基于类的语言中，需要专门的类的定义来定义类。在定义类时，允许定义被称为构造器的特殊方法来创建该类的实例。在构造器方法中，可以指定实例的属性的初始值并做一些其他的操作。可以通过使用<code>new</code>操作符来创建对象的实例。</p>
+<p>JavaScript没有专门的类定义。可以通过定义构造函数的方式来创建一系列有着特定初始值和方法的对象。任何JavaScript函数都可以被用作构造函数，可以使用<code>new</code>操作符来创建一个新对象。</p>
+<h4 id="子类和继承"><a href="#子类和继承" class="headerlink" title="子类和继承"></a>子类和继承</h4><p>在基于类的语言中，可以通过类定义来创建类的层次结构，在类的定义中，可以指定新类是已经存在类的子类，子类继承父类的所有属性，并且可以添加新属性和修改继承的属性。JavaScript通过将构造函数与原型对象相关联的方式来实现继承。</p>
+<h3 id="添加和移除属性"><a href="#添加和移除属性" class="headerlink" title="添加和移除属性"></a>添加和移除属性</h3><p>在基于类的语言中，通常在编译时创建一个类，然后在编译时或运行时实例化该类的实例。定义类后，无法更改类的数量或属性类型。但在JavaScript中可以在运行时添加或修改任何对象的属性，如果为一个对象添加了一个属性，而这个对象有作为其他对象的原型，则以该对象为原型的所有其他对象也将获得该属性。</p>
+<h3 id="基于类的对象和基于原型的对象差异"><a href="#基于类的对象和基于原型的对象差异" class="headerlink" title="基于类的对象和基于原型的对象差异"></a>基于类的对象和基于原型的对象差异</h3><table>
+<thead>
+<tr>
+<th align="center">基于类的对象</th>
+<th align="center">基于原型的对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">类和实例是不同的事物</td>
+<td align="center">所有对象均为实例</td>
+</tr>
+<tr>
+<td align="center">通过类定义来定义类，通过构造函数来实例化类</td>
+<td align="center">通过构造函数来定义和创建一组对象</td>
+</tr>
+<tr>
+<td align="center">通过<code>new</code>操作符来创建单个对象</td>
+<td align="center">相同</td>
+</tr>
+<tr>
+<td align="center">通过类定义来定义现存类的子类，从而构建对象的层级结构</td>
+<td align="center">指定一个对象作为原型并且与构造函数一起构建对象的层级结构</td>
+</tr>
+<tr>
+<td align="center">遵循类链继承属性</td>
+<td align="center">遵循原型链继承属性</td>
+</tr>
+<tr>
+<td align="center">类定义指定类的所有实例的所有属性，无法在运行时动态添加属性</td>
+<td align="center">构造函数或原型指定实例的初始属性集，允许动态地向单个的对象或者整个对象集中添加或移除属性</td>
+</tr>
+</tbody></table>
+<h3 id="继承层级结构示例"><a href="#继承层级结构示例" class="headerlink" title="继承层级结构示例"></a>继承层级结构示例</h3><p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/employee.png" alt="employee"></p>
+<ul>
+<li><code>Employee</code>具有<code>name</code>属性(默认为空字符串)和<code>dept</code>属性(默认为<code>general</code>)</li>
+<li><code>Manager</code>是<code>Employee</code>的子类，它添加了<code>reports</code>属性(默认为空数组，以<code>Employee</code>对象数组作为他的值)</li>
+<li><code>WokerBee</code>是<code>Employee</code>的子类，它它添加了<code>projects</code>属性(默认为空数组，以字符串数组作为它的值)</li>
+<li><code>SalesPerson</code>是<code>WorkBee</code>的子类，它添加了<code>quota</code>属性(默认为100)，重载了<code>dept</code>属性值为<code>sales</code>，表明所有的销售人员都同属于同一部门</li>
+<li><code>Engineer</code>基于<code>WorkerBee</code>，它添加了<code>machine</code>属性(默认为空字符串)，重载了<code>dept</code>属性为<code>engineering</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义Employee对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, dept</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name === <span class="literal">undefined</span> ? <span class="string">''</span> : name;</span><br><span class="line">  <span class="keyword">this</span>.dept = dept === <span class="literal">undefined</span> ? <span class="string">'general'</span> : dept;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义Manager对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Manager</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Employee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.reports = [];</span><br><span class="line">&#125;</span><br><span class="line">Manager.prototype = <span class="built_in">Object</span>.create(Employee.prototype);</span><br><span class="line"><span class="comment">// 定义WorkerBee对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WorkerBree</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Employee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.projects = [];</span><br><span class="line">&#125;</span><br><span class="line">WorkerBree.prototype = <span class="built_in">Object</span>.create(Employee.prototype);</span><br><span class="line"><span class="comment">// 定义SalesPerson对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SalesPerson</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  WorkerBee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.quota = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'sales'</span>;</span><br><span class="line">&#125;</span><br><span class="line">SalesPerson.prototype = <span class="built_in">Object</span>.create(WorkerBree.prototype);</span><br><span class="line"><span class="comment">// 定义Engineer对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Engineer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  WorkerBee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.machine = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'engineering'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Engineer.prototype = <span class="built_in">Object</span>.create(WorkerBree.prototype);</span><br></pre></td></tr></table></figure>
+
+<h4 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h4><h5 id="继承属性"><a href="#继承属性" class="headerlink" title="继承属性"></a>继承属性</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象实例化</span></span><br><span class="line"><span class="keyword">var</span> mark = <span class="keyword">new</span> WorkerBee;</span><br><span class="line"></span><br><span class="line">mark.name = <span class="string">""</span>;</span><br><span class="line">mkrk.dept = <span class="string">"general"</span>;</span><br><span class="line">mark.projects = [];</span><br></pre></td></tr></table></figure>
+
+<p>当JavaScript执行<code>new</code>操作符时，它会先创建一个普通对象，并将这个普通对象中的[[prototype]]指向<code>WorkBee.prototype</code>，然后再把这个普通对象设置为执行<code>WorkBee</code>构造函数时的<code>this</code>值。该普通对象的[[prototype]]决定其用于检索属性的原型链。当构造函数执行完成后，所有的属性都被设置完毕，JavaScript返回之前创建的对象，通过赋值语句将他的引用赋值给变量<code>mark</code>。</p>
+<p>这个过程不会显示的将<code>mark</code>所继承的原型链中的属性作为本地属性存放在<code>mark</code>对象中。当访问属性时，JavaScript将首先检查对象自身中是否存在该属性，有则返回该属性的值。如果不存在，则会检查原型链(使用内置的prototype属性)。如果原型链中的某个对象包含该属性，则返回这个属性的值。如果遍历整个原型链都没有找到该属性，则返回<code>undefined</code>。</p>
+<p>Employee构造函数为mark对象分配了name和dept的属性值。WorkerBee的构造函数分配了project属性值。这就是JavaScript中的属性和属性值继承。</p>
+<p>在JavaScript中，可以在运行时为任何对象添加属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加特定于某个对象的属性</span></span><br><span class="line">mark.bonus = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向构造函数的原型对象添加新的属性，该属性将添加到从这个原型中继承属性的所有对象中</span></span><br><span class="line">Employee.prototype.specialty = <span class="string">"none"</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="本地属性和继承属性"><a href="#本地属性和继承属性" class="headerlink" title="本地属性和继承属性"></a>本地属性和继承属性</h5><p>在访问一个对象的属性时，JavaScript将进行以下操作：</p>
+<ol>
+<li>检查对象自身是否存在。如果存在，返回值。</li>
+<li>如果本地值不存在，检查原型链</li>
+<li>如果原型链中的某个对象具有指定属性，则返回值。</li>
+<li>如果这样的属性不存在，则没有该属性，返回undefined</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'general'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WorkerBee</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.projects = [];</span><br><span class="line">&#125;</span><br><span class="line">WorkerBee.prototype = <span class="keyword">new</span> Employee;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建WorkerBee的实例amy</span></span><br><span class="line"><span class="keyword">let</span> amy = <span class="keyword">new</span> WorkerBee;</span><br><span class="line">amy.name == <span class="string">''</span>;         <span class="comment">// 继承属性</span></span><br><span class="line">amy.dept == <span class="string">'general'</span>;  <span class="comment">// 继承属性</span></span><br><span class="line">amy.projects = [];      <span class="comment">// 本地属性</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="判断实例的关系"><a href="#判断实例的关系" class="headerlink" title="判断实例的关系"></a>判断实例的关系</h4><p>JavaScript中的属性查找在对象自身的属性内查找，如果未找到属性名称，则在特殊对象属性<code>__proto__</code>中查找。这个过程是递归的，这被称为在原型链中查找。</p>
+<p>特殊的<code>__proto__</code>属性是在构建对象中设置的。设置为构造器的prototype属性的值。所以表达式<code>new Foo()</code>将创建一个对象。其<code>__proto__ == Foo.prototype</code>。因而，修改<code>Foo.prototype</code>的属性，将改变所有通过<code>new Foo()</code>创建的对象的属性的查找。</p>
+<p>每个对象都有一个<code>__proto__</code>对象属性(Object除外)。每个函数都有一个<code>prototype</code>对象属性。因此，通过原型继承对象就可以与其他对象之间形成关系。通过比较对象的<code>__proto__</code>属性和<code>prototype</code>属性可以检测对象的继承关系。JavaScript提供了便捷的方法：<code>instanceof</code>操作符可以用来将一个对象和一个函数做检测，如果对象继承自函数的原型则返回true：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(f <span class="keyword">instanceof</span> Foo);    <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用上面的Engineer的例子</span></span><br><span class="line"><span class="keyword">var</span> chris = <span class="keyword">new</span> Engineer(<span class="string">"Pigman, Chris"</span>, [<span class="string">"jsd"</span>], <span class="string">"fiji"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__ == Engineer.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__ == WorkerBee.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__ == Employee.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__.__proto__ == <span class="built_in">Object</span>.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__.__proto__.__proto__ == <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// instanceof例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">instanceOf</span>(<span class="params">object, constructor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(object != <span class="literal">null</span>) &#123;</span><br><span class="line">  	<span class="keyword">if</span>(object == <span class="keyword">constructor</span>.prototype) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> object == <span class="string">'xml'</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">constructor</span>.prototype == XML.prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    object = object.__proto__;</span><br><span class="line">  &#125;</span><br><span class="line">  reurn false;</span><br><span class="line">&#125;</span><br><span class="line">instanceOf (chris, Engineer);    // true</span><br><span class="line">instanceOf (chris, WorkerBee);   // true</span><br><span class="line">instanceOf (chris, Employee);    // true</span><br><span class="line">instanceOf (chris, Object);      // true</span><br></pre></td></tr></table></figure>
+
+<h4 id="构造器中的全局属性"><a href="#构造器中的全局属性" class="headerlink" title="构造器中的全局属性"></a>构造器中的全局属性</h4><p>在创建构造器时，在构造器中修改全局属性要慎重：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> idCounter = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, dept</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name || <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = dept || <span class="string">'general'</span>;</span><br><span class="line">  <span class="keyword">this</span>.id = idCounter++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> victoria = <span class="keyword">new</span> Employee(<span class="string">'victoria'</span>, <span class="string">'public'</span>);   <span class="comment">// victoria.id = 1</span></span><br><span class="line"><span class="keyword">var</span> harry = <span class="keyword">new</span> Employee(<span class="string">'harry'</span>, <span class="string">'sales'</span>);          <span class="comment">// harry.id = 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在每一次创建Employee对象时，idCounter都将被递增一次</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Manager</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Manager.prototypr = <span class="keyword">new</span> Employee();    <span class="comment">// 此时idCounter也将被递增一次</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="没有多重继承"><a href="#没有多重继承" class="headerlink" title="没有多重继承"></a>没有多重继承</h4><p>某些面向对象语言支持多重继承(Python)，对象可以从无关的父对象中继承属性和属性值。JavaScript不支持多重继承。JavaScript的属性继承是在运行时通过检索对象的原型链来实现的，因为对象只有一个原型与之关联，所以JavaScript无法动态的从多个原型链中继承。</p>
+<p>在JavaScript中，可以在构造函数中调用多个其他的构造函数，造成了多重继承的假象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hobbist</span>(<span class="params">hobby</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.hobby = hobby || <span class="string">'code'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Engineer</span>(<span class="params">name, projs, mach, hobby</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.base1 = WorkerBee;</span><br><span class="line">  <span class="keyword">this</span>.base(name, <span class="string">'engineering'</span>, projs);</span><br><span class="line">  <span class="keyword">this</span>.base2 = Hobbist;</span><br><span class="line">  <span class="keyword">this</span>.base2(hobby);</span><br><span class="line">  <span class="keyword">this</span>.mach = mach || <span class="string">''</span>;</span><br><span class="line">&#125;</span><br><span class="line">Engineer.prototype = <span class="keyword">new</span> WorkerBee;</span><br><span class="line"><span class="keyword">var</span> dennis = <span class="keyword">new</span> Engineer(<span class="string">'Dennis'</span>, [<span class="string">'test'</span>], <span class="string">'hugo'</span>);</span><br><span class="line"></span><br><span class="line">dennis.name == <span class="string">'Dennis'</span>;</span><br><span class="line">dennis.dept == <span class="string">'engineering'</span>;</span><br><span class="line">dennis.peojects == [<span class="string">'test'</span>];</span><br><span class="line">dennis.machine == <span class="string">'hugo'</span>;</span><br><span class="line">dennis.hobby == <span class="string">'codde'</span>;</span><br><span class="line"></span><br><span class="line">Hobbyist.prototype.equipment = [<span class="string">"mask"</span>, <span class="string">"fins"</span>, <span class="string">"regulator"</span>, <span class="string">"bcd"</span>]</span><br><span class="line">dennis.equipment == <span class="literal">null</span>;    <span class="comment">// 不会继承</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+
       
       <!-- reward -->
       

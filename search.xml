@@ -216,6 +216,73 @@
       </tags>
   </entry>
   <entry>
+    <title>JS的防抖和节流</title>
+    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
+    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
+<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
+<li><p>含义:</p>
+<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
+</li>
+<li><p>举个例子:</p>
+<p>比如有个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
+
+<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
+</li>
+<li><p>类型:</p>
+<ul>
+<li><p>延迟执行版</p>
+<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
+</li>
+<li><p>立即执行版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
+<li><p>含义</p>
+<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
+</li>
+<li><p>版本</p>
+<ul>
+<li><p>时间戳版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定时器版</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JS中的事件机制</title>
     <url>/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
@@ -669,73 +736,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JS的防抖和节流</title>
-    <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
-    <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
-<p>前几天在面试的过程中有被问到在监听input输入事件向后台传递数据的时候要怎么优化，由于之前并没有关注性能这一块儿的问题(之前在学redis的时候有了解过使用redis做cache)于是就胡乱答了使用缓存。然后面试官前辈就提示我可以使用JS中的防抖(PS:面试全程非常nice，有回答不对的地方面试官都给我做了指正，感觉就像是在和前辈讨论技术问题)，之后我也有查阅相关资料，今天我们就来讨论一下防抖和节流</p>
-</blockquote>
-<a id="more"></a>
-<h4 id="1-防抖"><a href="#1-防抖" class="headerlink" title="1. 防抖"></a>1. 防抖</h4><ul>
-<li><p>含义:</p>
-<p>防抖，即在某一段时间内函数只执行一次，如果在这一段时间内又触发了该时间则会重新计算函数的执行时间</p>
-</li>
-<li><p>举个例子:</p>
-<p>比如有个函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在需要把这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = print</span><br></pre></td></tr></table></figure>
-
-<p>现在每按一下键盘按键都会打印出”hello”，然后我们对其改装</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func() &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在我们将shake这个函数绑定到window.onkeypress事件上</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onkeypress = shake(print, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
-
-<p>现在我们再试试，发现在一个时间段内按压多个按键的时候只打印了一次”hello”，这就是一个简单的防抖实现</p>
-</li>
-<li><p>类型:</p>
-<ul>
-<li><p>延迟执行版</p>
-<p>在上面的例子中我们简单实现了一个延迟执行的防抖函数，但还没有完全实现，我们还没有将事件的参数传进去，下面我们将其补充完整:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; func.apply(<span class="keyword">this</span>, args) &#125;, time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们使用apply方法指定函数的执行上下文(this)和参数,该版本不会立即执行函数，而是在触发事件一段时间后再去执行该函数，如果在这段时间内又触发了时间则会重新计算时间</p>
-</li>
-<li><p>立即执行版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shake</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (timeout) clearTimeout(timeout)    </span><br><span class="line">    <span class="keyword">let</span> call = !timeout</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      timeout = <span class="literal">null</span></span><br><span class="line">    &#125;, time)</span><br><span class="line">    <span class="keyword">if</span> (call) func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该版本在事件触发后会立即执行，经过一段时间不触发事件后才能继续执行</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-节流"><a href="#2-节流" class="headerlink" title="2. 节流"></a>2. 节流</h4><ul>
-<li><p>含义</p>
-<p>连续触发事件但是在一段时间内只执行一次函数。节流会稀释函数的执行频率。</p>
-</li>
-<li><p>版本</p>
-<ul>
-<li><p>时间戳版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> then = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (now - then &gt; time) &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      then = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定时器版</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, time</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span></span><br><span class="line">    <span class="keyword">if</span> (!timeout) &#123;</span><br><span class="line">      timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        func.apply(<span class="keyword">this</span>, args)</span><br><span class="line">      	timeout = <span class="literal">null</span></span><br><span class="line">      &#125;, time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<p>以上我们就简单的实现了一下防抖和节流，又get到了一个点，在这里还是很感谢那位前辈的。</p>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript的前世今生</title>
     <url>/wiki/JavaScript%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html</url>
     <content><![CDATA[<h2 id="JavaScript简史"><a href="#JavaScript简史" class="headerlink" title="JavaScript简史"></a>JavaScript简史</h2><ul>
@@ -812,17 +812,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Promises</title>
-    <url>/wiki/Promises.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Nginx配置Vue前后端分离项目</title>
     <url>/code/Nginx%E9%85%8D%E7%BD%AEVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE.html</url>
     <content><![CDATA[<h4 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h4><p>项目后端采用Node.js提供RESTful API服务，监听3000端口。项目前端采用Vue，打包好的dist文件夹路径为<strong>/root/vue/</strong>。使用Nginx做反向代理实现前后端分离。</p>
@@ -842,6 +831,54 @@
       <tags>
         <tag>nginx</tag>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Promises</title>
+    <url>/wiki/Promises.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>也谈Unicode和UTF-8</title>
+    <url>/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html</url>
+    <content><![CDATA[<blockquote>
+<p>最近在学习字符集相关的内容，遂以此文进行记录。</p>
+</blockquote>
+<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><ol>
+<li><p>起源</p>
+<p>大家都知道计算机起源于美国，而美国人一开始通信用的是<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>字符，其包含所有大小写字母和常用的英文标点符号，足够美国人使用。后来计算机在其他国家普及，由于语种多样性ASCII字符不再满足需要。于是便有了欧洲的ISO 8859以及中文的GBK编码。但这样就有一个问题，美国的计算机接受到来自中国的电子邮件后无法正常显示内容。为了解决这种各国编码规范不统一的问题，<a href="https://en.wikipedia.org/wiki/The%20Unicode%20Consortium" target="_blank" rel="noopener">The Unicode Consortium</a>指定了Unicode(也叫国际码)标准。</p>
+</li>
+<li><p>编码方式</p>
+<p>当前的Unicode使用16位的编码空间，每个字符占2字节，理论上最多可表示65536个字符。基本满足各种语言的使用。基本多文种平面的字符的编码为U+hhhh，每个h代表一个十六进制的数字。</p>
+</li>
+</ol>
+<a id="more"></a>
+<h4 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h4><ol>
+<li><p>起源</p>
+<p>在实际传输过程中，由于不同系统平台的设计不确定性，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为 <strong>Unicode转换格式</strong>（Unicode Transformation Format，简称为 UTF）。而UTF-8就是8位的unicode转换格式。</p>
+</li>
+<li><p>编码方式</p>
+<p>以8位为单元对UCS进行编码，每个使用UTF-8存储的字符，除了第一个自己外，其余字节的头两个比特都是以“10”开始，使文字处理器能够较快的找出每个字符的开始位置。为了兼容ASCII，UTF-8选择以可变长度存储Unicode。转换关系图如下：</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-22_19-25-08.jpg" alt=""></p>
+</li>
+<li><p>Unicode转UTF-8</p>
+<p>已知“严”的unicode是4E25(100111000100101)， 根据上表，可以发现4E25处在第三行的<br>范围内(U+0800-U+FFFF), 因此“严”的UTF-8编码需要三个字节，即格式是<br>“1110xxxx 10xxxxxx 10xxxxxx”。 然后, 从“严”的最后一个二进制位开始，依次从后向前<br>填入格式中的x，多出的位补0。 这样就得到了“严”的UTF-8编码是”11100100 10111000<br>10100101”, 转换成十六进制就是E4B8A5。</p>
+<p>附JavaScript实现代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeUTF8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(str.codePointAt().toString(<span class="number">16</span>), <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">let</span> bCodes = str.codePointAt().toString(<span class="number">2</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> byte, template, result = <span class="string">''</span>, temp;</span><br><span class="line">    <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'007F'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'0xxxxxxx'</span>;</span><br><span class="line">        byte = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'07FF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'110xxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'FFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">3</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">4</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'11110xxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">5</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'3FFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'111110xx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'7FFFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1111110x10xxxxxx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    template = template.split(<span class="string">''</span>).reverse().map(<span class="function"><span class="params">t</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="string">'x'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCodes.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> bCodes.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    temp = <span class="built_in">parseInt</span>(template.reverse().join(<span class="string">''</span>), <span class="number">2</span>).toString(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">let</span> len = temp.length / byte</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;=byte;i++) &#123;</span><br><span class="line">        result += <span class="string">'\\x'</span> + temp.slice((i<span class="number">-1</span>)*len, i*len)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> encoding = <span class="function"><span class="params">str</span> =&gt;</span> str.split(<span class="string">''</span>).map(<span class="function"><span class="params">s</span> =&gt;</span> encodeUTF8(s)).join(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(encoding(<span class="string">'严厉'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>charset</tag>
       </tags>
   </entry>
   <entry>
@@ -903,62 +940,6 @@
       </categories>
       <tags>
         <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>也谈Unicode和UTF-8</title>
-    <url>/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html</url>
-    <content><![CDATA[<blockquote>
-<p>最近在学习字符集相关的内容，遂以此文进行记录。</p>
-</blockquote>
-<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><ol>
-<li><p>起源</p>
-<p>大家都知道计算机起源于美国，而美国人一开始通信用的是<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>字符，其包含所有大小写字母和常用的英文标点符号，足够美国人使用。后来计算机在其他国家普及，由于语种多样性ASCII字符不再满足需要。于是便有了欧洲的ISO 8859以及中文的GBK编码。但这样就有一个问题，美国的计算机接受到来自中国的电子邮件后无法正常显示内容。为了解决这种各国编码规范不统一的问题，<a href="https://en.wikipedia.org/wiki/The%20Unicode%20Consortium" target="_blank" rel="noopener">The Unicode Consortium</a>指定了Unicode(也叫国际码)标准。</p>
-</li>
-<li><p>编码方式</p>
-<p>当前的Unicode使用16位的编码空间，每个字符占2字节，理论上最多可表示65536个字符。基本满足各种语言的使用。基本多文种平面的字符的编码为U+hhhh，每个h代表一个十六进制的数字。</p>
-</li>
-</ol>
-<a id="more"></a>
-<h4 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h4><ol>
-<li><p>起源</p>
-<p>在实际传输过程中，由于不同系统平台的设计不确定性，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为 <strong>Unicode转换格式</strong>（Unicode Transformation Format，简称为 UTF）。而UTF-8就是8位的unicode转换格式。</p>
-</li>
-<li><p>编码方式</p>
-<p>以8位为单元对UCS进行编码，每个使用UTF-8存储的字符，除了第一个自己外，其余字节的头两个比特都是以“10”开始，使文字处理器能够较快的找出每个字符的开始位置。为了兼容ASCII，UTF-8选择以可变长度存储Unicode。转换关系图如下：</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-22_19-25-08.jpg" alt=""></p>
-</li>
-<li><p>Unicode转UTF-8</p>
-<p>已知“严”的unicode是4E25(100111000100101)， 根据上表，可以发现4E25处在第三行的<br>范围内(U+0800-U+FFFF), 因此“严”的UTF-8编码需要三个字节，即格式是<br>“1110xxxx 10xxxxxx 10xxxxxx”。 然后, 从“严”的最后一个二进制位开始，依次从后向前<br>填入格式中的x，多出的位补0。 这样就得到了“严”的UTF-8编码是”11100100 10111000<br>10100101”, 转换成十六进制就是E4B8A5。</p>
-<p>附JavaScript实现代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeUTF8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(str.codePointAt().toString(<span class="number">16</span>), <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">let</span> bCodes = str.codePointAt().toString(<span class="number">2</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> byte, template, result = <span class="string">''</span>, temp;</span><br><span class="line">    <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'007F'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'0xxxxxxx'</span>;</span><br><span class="line">        byte = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'07FF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'110xxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'FFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">3</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">4</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'11110xxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">5</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'3FFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'111110xx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'7FFFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1111110x10xxxxxx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    template = template.split(<span class="string">''</span>).reverse().map(<span class="function"><span class="params">t</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="string">'x'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCodes.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> bCodes.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    temp = <span class="built_in">parseInt</span>(template.reverse().join(<span class="string">''</span>), <span class="number">2</span>).toString(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">let</span> len = temp.length / byte</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;=byte;i++) &#123;</span><br><span class="line">        result += <span class="string">'\\x'</span> + temp.slice((i<span class="number">-1</span>)*len, i*len)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> encoding = <span class="function"><span class="params">str</span> =&gt;</span> str.split(<span class="string">''</span>).map(<span class="function"><span class="params">s</span> =&gt;</span> encodeUTF8(s)).join(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(encoding(<span class="string">'严厉'</span>))</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>charset</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用阿里云oss部署Vue项目</title>
-    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
-<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
-<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
-<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
-</ol>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>oss</tag>
       </tags>
   </entry>
   <entry>
@@ -1062,14 +1043,22 @@
       </tags>
   </entry>
   <entry>
-    <title>元编程</title>
-    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
-    <content><![CDATA[]]></content>
+    <title>使用阿里云oss部署Vue项目</title>
+    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
+<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
+<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
+</ol>
+<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
+]]></content>
       <categories>
-        <category>wiki</category>
+        <category>code</category>
       </categories>
       <tags>
-        <tag>w-JavaScript</tag>
+        <tag>vue</tag>
+        <tag>oss</tag>
       </tags>
   </entry>
   <entry>
@@ -1105,6 +1094,17 @@
       <tags>
         <tag>图床</tag>
         <tag>阿里云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>元编程</title>
+    <url>/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1223,7 +1223,143 @@
   <entry>
     <title>对象模型的细节</title>
     <url>/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<blockquote>
+<p>JavaScript是基于原型的语言，它只有对象。原型对象可以作为一个模板，新对象可以从中获得原始的属性。任何对象都可以在创建对象时或在运行时指定其自身的属性。此外，任何对象都可以关联另一个对象的原型，从而允许第二个对象共享第一个对象的属性。</p>
+</blockquote>
+<h4 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h4><p>在基于类的语言中，需要专门的类的定义来定义类。在定义类时，允许定义被称为构造器的特殊方法来创建该类的实例。在构造器方法中，可以指定实例的属性的初始值并做一些其他的操作。可以通过使用<code>new</code>操作符来创建对象的实例。</p>
+<p>JavaScript没有专门的类定义。可以通过定义构造函数的方式来创建一系列有着特定初始值和方法的对象。任何JavaScript函数都可以被用作构造函数，可以使用<code>new</code>操作符来创建一个新对象。</p>
+<h4 id="子类和继承"><a href="#子类和继承" class="headerlink" title="子类和继承"></a>子类和继承</h4><p>在基于类的语言中，可以通过类定义来创建类的层次结构，在类的定义中，可以指定新类是已经存在类的子类，子类继承父类的所有属性，并且可以添加新属性和修改继承的属性。JavaScript通过将构造函数与原型对象相关联的方式来实现继承。</p>
+<h3 id="添加和移除属性"><a href="#添加和移除属性" class="headerlink" title="添加和移除属性"></a>添加和移除属性</h3><p>在基于类的语言中，通常在编译时创建一个类，然后在编译时或运行时实例化该类的实例。定义类后，无法更改类的数量或属性类型。但在JavaScript中可以在运行时添加或修改任何对象的属性，如果为一个对象添加了一个属性，而这个对象有作为其他对象的原型，则以该对象为原型的所有其他对象也将获得该属性。</p>
+<h3 id="基于类的对象和基于原型的对象差异"><a href="#基于类的对象和基于原型的对象差异" class="headerlink" title="基于类的对象和基于原型的对象差异"></a>基于类的对象和基于原型的对象差异</h3><table>
+<thead>
+<tr>
+<th align="center">基于类的对象</th>
+<th align="center">基于原型的对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">类和实例是不同的事物</td>
+<td align="center">所有对象均为实例</td>
+</tr>
+<tr>
+<td align="center">通过类定义来定义类，通过构造函数来实例化类</td>
+<td align="center">通过构造函数来定义和创建一组对象</td>
+</tr>
+<tr>
+<td align="center">通过<code>new</code>操作符来创建单个对象</td>
+<td align="center">相同</td>
+</tr>
+<tr>
+<td align="center">通过类定义来定义现存类的子类，从而构建对象的层级结构</td>
+<td align="center">指定一个对象作为原型并且与构造函数一起构建对象的层级结构</td>
+</tr>
+<tr>
+<td align="center">遵循类链继承属性</td>
+<td align="center">遵循原型链继承属性</td>
+</tr>
+<tr>
+<td align="center">类定义指定类的所有实例的所有属性，无法在运行时动态添加属性</td>
+<td align="center">构造函数或原型指定实例的初始属性集，允许动态地向单个的对象或者整个对象集中添加或移除属性</td>
+</tr>
+</tbody></table>
+<h3 id="继承层级结构示例"><a href="#继承层级结构示例" class="headerlink" title="继承层级结构示例"></a>继承层级结构示例</h3><p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/employee.png" alt="employee"></p>
+<ul>
+<li><code>Employee</code>具有<code>name</code>属性(默认为空字符串)和<code>dept</code>属性(默认为<code>general</code>)</li>
+<li><code>Manager</code>是<code>Employee</code>的子类，它添加了<code>reports</code>属性(默认为空数组，以<code>Employee</code>对象数组作为他的值)</li>
+<li><code>WokerBee</code>是<code>Employee</code>的子类，它它添加了<code>projects</code>属性(默认为空数组，以字符串数组作为它的值)</li>
+<li><code>SalesPerson</code>是<code>WorkBee</code>的子类，它添加了<code>quota</code>属性(默认为100)，重载了<code>dept</code>属性值为<code>sales</code>，表明所有的销售人员都同属于同一部门</li>
+<li><code>Engineer</code>基于<code>WorkerBee</code>，它添加了<code>machine</code>属性(默认为空字符串)，重载了<code>dept</code>属性为<code>engineering</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义Employee对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, dept</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name === <span class="literal">undefined</span> ? <span class="string">''</span> : name;</span><br><span class="line">  <span class="keyword">this</span>.dept = dept === <span class="literal">undefined</span> ? <span class="string">'general'</span> : dept;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义Manager对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Manager</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Employee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.reports = [];</span><br><span class="line">&#125;</span><br><span class="line">Manager.prototype = <span class="built_in">Object</span>.create(Employee.prototype);</span><br><span class="line"><span class="comment">// 定义WorkerBee对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WorkerBree</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Employee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.projects = [];</span><br><span class="line">&#125;</span><br><span class="line">WorkerBree.prototype = <span class="built_in">Object</span>.create(Employee.prototype);</span><br><span class="line"><span class="comment">// 定义SalesPerson对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SalesPerson</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  WorkerBee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.quota = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'sales'</span>;</span><br><span class="line">&#125;</span><br><span class="line">SalesPerson.prototype = <span class="built_in">Object</span>.create(WorkerBree.prototype);</span><br><span class="line"><span class="comment">// 定义Engineer对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Engineer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  WorkerBee.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.machine = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'engineering'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Engineer.prototype = <span class="built_in">Object</span>.create(WorkerBree.prototype);</span><br></pre></td></tr></table></figure>
+
+<h4 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h4><h5 id="继承属性"><a href="#继承属性" class="headerlink" title="继承属性"></a>继承属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对象实例化</span></span><br><span class="line"><span class="keyword">var</span> mark = <span class="keyword">new</span> WorkerBee;</span><br><span class="line"></span><br><span class="line">mark.name = <span class="string">""</span>;</span><br><span class="line">mkrk.dept = <span class="string">"general"</span>;</span><br><span class="line">mark.projects = [];</span><br></pre></td></tr></table></figure>
+
+<p>当JavaScript执行<code>new</code>操作符时，它会先创建一个普通对象，并将这个普通对象中的[[prototype]]指向<code>WorkBee.prototype</code>，然后再把这个普通对象设置为执行<code>WorkBee</code>构造函数时的<code>this</code>值。该普通对象的[[prototype]]决定其用于检索属性的原型链。当构造函数执行完成后，所有的属性都被设置完毕，JavaScript返回之前创建的对象，通过赋值语句将他的引用赋值给变量<code>mark</code>。</p>
+<p>这个过程不会显示的将<code>mark</code>所继承的原型链中的属性作为本地属性存放在<code>mark</code>对象中。当访问属性时，JavaScript将首先检查对象自身中是否存在该属性，有则返回该属性的值。如果不存在，则会检查原型链(使用内置的prototype属性)。如果原型链中的某个对象包含该属性，则返回这个属性的值。如果遍历整个原型链都没有找到该属性，则返回<code>undefined</code>。</p>
+<p>Employee构造函数为mark对象分配了name和dept的属性值。WorkerBee的构造函数分配了project属性值。这就是JavaScript中的属性和属性值继承。</p>
+<p>在JavaScript中，可以在运行时为任何对象添加属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 添加特定于某个对象的属性</span></span><br><span class="line">mark.bonus = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向构造函数的原型对象添加新的属性，该属性将添加到从这个原型中继承属性的所有对象中</span></span><br><span class="line">Employee.prototype.specialty = <span class="string">"none"</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="本地属性和继承属性"><a href="#本地属性和继承属性" class="headerlink" title="本地属性和继承属性"></a>本地属性和继承属性</h5><p>在访问一个对象的属性时，JavaScript将进行以下操作：</p>
+<ol>
+<li>检查对象自身是否存在。如果存在，返回值。</li>
+<li>如果本地值不存在，检查原型链</li>
+<li>如果原型链中的某个对象具有指定属性，则返回值。</li>
+<li>如果这样的属性不存在，则没有该属性，返回undefined</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = <span class="string">'general'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WorkerBee</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.projects = [];</span><br><span class="line">&#125;</span><br><span class="line">WorkerBee.prototype = <span class="keyword">new</span> Employee;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建WorkerBee的实例amy</span></span><br><span class="line"><span class="keyword">let</span> amy = <span class="keyword">new</span> WorkerBee;</span><br><span class="line">amy.name == <span class="string">''</span>;         <span class="comment">// 继承属性</span></span><br><span class="line">amy.dept == <span class="string">'general'</span>;  <span class="comment">// 继承属性</span></span><br><span class="line">amy.projects = [];      <span class="comment">// 本地属性</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="判断实例的关系"><a href="#判断实例的关系" class="headerlink" title="判断实例的关系"></a>判断实例的关系</h4><p>JavaScript中的属性查找在对象自身的属性内查找，如果未找到属性名称，则在特殊对象属性<code>__proto__</code>中查找。这个过程是递归的，这被称为在原型链中查找。</p>
+<p>特殊的<code>__proto__</code>属性是在构建对象中设置的。设置为构造器的prototype属性的值。所以表达式<code>new Foo()</code>将创建一个对象。其<code>__proto__ == Foo.prototype</code>。因而，修改<code>Foo.prototype</code>的属性，将改变所有通过<code>new Foo()</code>创建的对象的属性的查找。</p>
+<p>每个对象都有一个<code>__proto__</code>对象属性(Object除外)。每个函数都有一个<code>prototype</code>对象属性。因此，通过原型继承对象就可以与其他对象之间形成关系。通过比较对象的<code>__proto__</code>属性和<code>prototype</code>属性可以检测对象的继承关系。JavaScript提供了便捷的方法：<code>instanceof</code>操作符可以用来将一个对象和一个函数做检测，如果对象继承自函数的原型则返回true：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(f <span class="keyword">instanceof</span> Foo);    <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用上面的Engineer的例子</span></span><br><span class="line"><span class="keyword">var</span> chris = <span class="keyword">new</span> Engineer(<span class="string">"Pigman, Chris"</span>, [<span class="string">"jsd"</span>], <span class="string">"fiji"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__ == Engineer.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__ == WorkerBee.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__ == Employee.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__.__proto__ == <span class="built_in">Object</span>.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(chris.__proto__.__proto__.__proto__.__proto__.__proto__ == <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// instanceof例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">instanceOf</span>(<span class="params">object, constructor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(object != <span class="literal">null</span>) &#123;</span><br><span class="line">  	<span class="keyword">if</span>(object == <span class="keyword">constructor</span>.prototype) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> object == <span class="string">'xml'</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">constructor</span>.prototype == XML.prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    object = object.__proto__;</span><br><span class="line">  &#125;</span><br><span class="line">  reurn false;</span><br><span class="line">&#125;</span><br><span class="line">instanceOf (chris, Engineer);    // true</span><br><span class="line">instanceOf (chris, WorkerBee);   // true</span><br><span class="line">instanceOf (chris, Employee);    // true</span><br><span class="line">instanceOf (chris, Object);      // true</span><br></pre></td></tr></table></figure>
+
+<h4 id="构造器中的全局属性"><a href="#构造器中的全局属性" class="headerlink" title="构造器中的全局属性"></a>构造器中的全局属性</h4><p>在创建构造器时，在构造器中修改全局属性要慎重：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> idCounter = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Employee</span>(<span class="params">name, dept</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name || <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">this</span>.dept = dept || <span class="string">'general'</span>;</span><br><span class="line">  <span class="keyword">this</span>.id = idCounter++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> victoria = <span class="keyword">new</span> Employee(<span class="string">'victoria'</span>, <span class="string">'public'</span>);   <span class="comment">// victoria.id = 1</span></span><br><span class="line"><span class="keyword">var</span> harry = <span class="keyword">new</span> Employee(<span class="string">'harry'</span>, <span class="string">'sales'</span>);          <span class="comment">// harry.id = 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在每一次创建Employee对象时，idCounter都将被递增一次</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Manager</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Manager.prototypr = <span class="keyword">new</span> Employee();    <span class="comment">// 此时idCounter也将被递增一次</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="没有多重继承"><a href="#没有多重继承" class="headerlink" title="没有多重继承"></a>没有多重继承</h4><p>某些面向对象语言支持多重继承(Python)，对象可以从无关的父对象中继承属性和属性值。JavaScript不支持多重继承。JavaScript的属性继承是在运行时通过检索对象的原型链来实现的，因为对象只有一个原型与之关联，所以JavaScript无法动态的从多个原型链中继承。</p>
+<p>在JavaScript中，可以在构造函数中调用多个其他的构造函数，造成了多重继承的假象：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hobbist</span>(<span class="params">hobby</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.hobby = hobby || <span class="string">'code'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Engineer</span>(<span class="params">name, projs, mach, hobby</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.base1 = WorkerBee;</span><br><span class="line">  <span class="keyword">this</span>.base(name, <span class="string">'engineering'</span>, projs);</span><br><span class="line">  <span class="keyword">this</span>.base2 = Hobbist;</span><br><span class="line">  <span class="keyword">this</span>.base2(hobby);</span><br><span class="line">  <span class="keyword">this</span>.mach = mach || <span class="string">''</span>;</span><br><span class="line">&#125;</span><br><span class="line">Engineer.prototype = <span class="keyword">new</span> WorkerBee;</span><br><span class="line"><span class="keyword">var</span> dennis = <span class="keyword">new</span> Engineer(<span class="string">'Dennis'</span>, [<span class="string">'test'</span>], <span class="string">'hugo'</span>);</span><br><span class="line"></span><br><span class="line">dennis.name == <span class="string">'Dennis'</span>;</span><br><span class="line">dennis.dept == <span class="string">'engineering'</span>;</span><br><span class="line">dennis.peojects == [<span class="string">'test'</span>];</span><br><span class="line">dennis.machine == <span class="string">'hugo'</span>;</span><br><span class="line">dennis.hobby == <span class="string">'codde'</span>;</span><br><span class="line"></span><br><span class="line">Hobbyist.prototype.equipment = [<span class="string">"mask"</span>, <span class="string">"fins"</span>, <span class="string">"regulator"</span>, <span class="string">"bcd"</span>]</span><br><span class="line">dennis.equipment == <span class="literal">null</span>;    <span class="comment">// 不会继承</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>带键集合</title>
+    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
+    <content><![CDATA[<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h4 id="Map对象"><a href="#Map对象" class="headerlink" title="Map对象"></a>Map对象</h4><p>ES6新增Map对象用于将一个值映射到另一个值，一个Map对象就是一个简单的键值对映射集合，并可以按照数据插入时的顺序遍历所有的元素。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayings = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">sayings.set(<span class="string">'dog'</span>, <span class="string">'woof'</span>);</span><br><span class="line">sayings.set(<span class="string">'cat'</span>, <span class="string">'meow'</span>);</span><br><span class="line">sayings.set(<span class="string">'elephant'</span>, <span class="string">'toot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'fox'</span>)); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'dog'</span>));   <span class="comment">// woof</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// true</span></span><br><span class="line">sayings.delete(<span class="string">'dog'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// false</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> sayings) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> goes <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// dog goes woof</span></span><br><span class="line"><span class="comment">// cat goes meow</span></span><br><span class="line"><span class="comment">// elephant goes toot</span></span><br><span class="line">sayings.clear();</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+<p>Object与Map的区别：</p>
+<ul>
+<li>Object的键均为String类型，在map里键可以是任意类型。</li>
+<li>Object的长度必须手动计算。</li>
+<li>Map的遍历遵循元素的插入顺序。</li>
+<li>Object有prototype，映射中有一些缺省的键，可以使用<code>Object.create(null)</code>回避。</li>
+</ul>
+<p>下面三点可以决定用Object还是Map:</p>
+<ul>
+<li>如果键在运行时才知道，或者所有的键类型相同，所有的值类型相同，使用Map。</li>
+<li>如果需要将原始值存储为键，则使用map。Object将每个键视为字符串，不管是数字布尔值还是其他原始类型。</li>
+<li>如果需要对个别元素进行操作，使用Object。</li>
+</ul>
+<h4 id="WeakMap对象"><a href="#WeakMap对象" class="headerlink" title="WeakMap对象"></a>WeakMap对象</h4><p>WeakMap对象也是键值对的集合，但它的键必须是对象类型，值可以是任意类型。它的键被弱保持，当其值所指对象没有其他地方引用的时候，它会被GC回收掉。WeakMap的键是不可枚举的。</p>
+<p>WeakMap常被用来存储一个对象的私有数据或实现细节：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">consr privates = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Public</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = &#123;&#125;;    <span class="comment">// 私有数据</span></span><br><span class="line">  privates.set(<span class="keyword">this</span>, me);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Public.prototype,method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = privates.get(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Public;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="set对象"><a href="#set对象" class="headerlink" title="set对象"></a>set对象</h4><p>Set对象是一组数据的集合，这些值是不重复的，可以按照添加顺序来遍历：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line">mySet.add(<span class="string">'test'</span>);</span><br><span class="line">mySet.add(<span class="number">2</span>);</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(mySet.has(<span class="number">1</span>));  <span class="comment">// true             </span></span><br><span class="line">mySet.delete(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> mySet) <span class="built_in">console</span>.log(item);</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合转数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(mySet));    <span class="comment">// ["test", 2]</span></span><br><span class="line"><span class="built_in">console</span>.log([...mySet]);           <span class="comment">// ["test", 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转集合</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中一般使用数组来存储一组数据，集合对象有以下优势：</p>
+<ul>
+<li>数组中<code>indexOf</code>函数效率低下</li>
+<li>Set对象允许根据值删除元素，而数组必须使用基于下标的splice方法</li>
+<li>数组的<code>indexOf</code>方法无法找到<code>NaN</code>值</li>
+<li>Set对象存储不重复的值，所以不需要手动处理包含重复值的情况</li>
+</ul>
+<h4 id="WeakSet对象"><a href="#WeakSet对象" class="headerlink" title="WeakSet对象"></a>WeakSet对象</h4><p>WeakSet中的对象不重复且不可枚举，并且值必须是对象类型。如果集合中的对象不存在其他引用，则该对象将会被垃圾回收。</p>
+<h3 id="Map和Set的键和值相等判断"><a href="#Map和Set的键和值相等判断" class="headerlink" title="Map和Set的键和值相等判断"></a>Map和Set的键和值相等判断</h3><p>Map对象的键相等性和Set对象的值相等性均基于same-value-zero算法</p>
+<ul>
+<li>判断使用与<code>===</code>相似的规则。</li>
+<li><code>-0</code>和<code>+0</code>相等。</li>
+<li><code>NaN</code>与自身相等(与<code>===</code>有所不同)</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_Collections" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
       <categories>
         <category>wiki</category>
       </categories>
@@ -1287,59 +1423,6 @@
       </categories>
       <tags>
         <tag>方法论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>带键集合</title>
-    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
-    <content><![CDATA[<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h4 id="Map对象"><a href="#Map对象" class="headerlink" title="Map对象"></a>Map对象</h4><p>ES6新增Map对象用于将一个值映射到另一个值，一个Map对象就是一个简单的键值对映射集合，并可以按照数据插入时的顺序遍历所有的元素。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayings = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">sayings.set(<span class="string">'dog'</span>, <span class="string">'woof'</span>);</span><br><span class="line">sayings.set(<span class="string">'cat'</span>, <span class="string">'meow'</span>);</span><br><span class="line">sayings.set(<span class="string">'elephant'</span>, <span class="string">'toot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'fox'</span>)); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'dog'</span>));   <span class="comment">// woof</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// true</span></span><br><span class="line">sayings.delete(<span class="string">'dog'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// false</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> sayings) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> goes <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// dog goes woof</span></span><br><span class="line"><span class="comment">// cat goes meow</span></span><br><span class="line"><span class="comment">// elephant goes toot</span></span><br><span class="line">sayings.clear();</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
-
-<p>Object与Map的区别：</p>
-<ul>
-<li>Object的键均为String类型，在map里键可以是任意类型。</li>
-<li>Object的长度必须手动计算。</li>
-<li>Map的遍历遵循元素的插入顺序。</li>
-<li>Object有prototype，映射中有一些缺省的键，可以使用<code>Object.create(null)</code>回避。</li>
-</ul>
-<p>下面三点可以决定用Object还是Map:</p>
-<ul>
-<li>如果键在运行时才知道，或者所有的键类型相同，所有的值类型相同，使用Map。</li>
-<li>如果需要将原始值存储为键，则使用map。Object将每个键视为字符串，不管是数字布尔值还是其他原始类型。</li>
-<li>如果需要对个别元素进行操作，使用Object。</li>
-</ul>
-<h4 id="WeakMap对象"><a href="#WeakMap对象" class="headerlink" title="WeakMap对象"></a>WeakMap对象</h4><p>WeakMap对象也是键值对的集合，但它的键必须是对象类型，值可以是任意类型。它的键被弱保持，当其值所指对象没有其他地方引用的时候，它会被GC回收掉。WeakMap的键是不可枚举的。</p>
-<p>WeakMap常被用来存储一个对象的私有数据或实现细节：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">consr privates = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Public</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = &#123;&#125;;    <span class="comment">// 私有数据</span></span><br><span class="line">  privates.set(<span class="keyword">this</span>, me);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Public.prototype,method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = privates.get(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Public;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="set对象"><a href="#set对象" class="headerlink" title="set对象"></a>set对象</h4><p>Set对象是一组数据的集合，这些值是不重复的，可以按照添加顺序来遍历：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line">mySet.add(<span class="string">'test'</span>);</span><br><span class="line">mySet.add(<span class="number">2</span>);</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(mySet.has(<span class="number">1</span>));  <span class="comment">// true             </span></span><br><span class="line">mySet.delete(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> mySet) <span class="built_in">console</span>.log(item);</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合转数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(mySet));    <span class="comment">// ["test", 2]</span></span><br><span class="line"><span class="built_in">console</span>.log([...mySet]);           <span class="comment">// ["test", 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转集合</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>在JavaScript中一般使用数组来存储一组数据，集合对象有以下优势：</p>
-<ul>
-<li>数组中<code>indexOf</code>函数效率低下</li>
-<li>Set对象允许根据值删除元素，而数组必须使用基于下标的splice方法</li>
-<li>数组的<code>indexOf</code>方法无法找到<code>NaN</code>值</li>
-<li>Set对象存储不重复的值，所以不需要手动处理包含重复值的情况</li>
-</ul>
-<h4 id="WeakSet对象"><a href="#WeakSet对象" class="headerlink" title="WeakSet对象"></a>WeakSet对象</h4><p>WeakSet中的对象不重复且不可枚举，并且值必须是对象类型。如果集合中的对象不存在其他引用，则该对象将会被垃圾回收。</p>
-<h3 id="Map和Set的键和值相等判断"><a href="#Map和Set的键和值相等判断" class="headerlink" title="Map和Set的键和值相等判断"></a>Map和Set的键和值相等判断</h3><p>Map对象的键相等性和Set对象的值相等性均基于same-value-zero算法</p>
-<ul>
-<li>判断使用与<code>===</code>相似的规则。</li>
-<li><code>-0</code>和<code>+0</code>相等。</li>
-<li><code>NaN</code>与自身相等(与<code>===</code>有所不同)</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_Collections" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1794,166 +1877,6 @@
       </tags>
   </entry>
   <entry>
-    <title>语法和数据类型</title>
-    <url>/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
-    <content><![CDATA[<h2 id="JavaScript语法"><a href="#JavaScript语法" class="headerlink" title="JavaScript语法"></a>JavaScript语法</h2><h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>JavaScript区分大小写，并使用Unicode字符集。即变量<code>test</code>和<code>TEXT</code>是两个不同的变量，并且可以使用中文作为变量名，如：<code>var 中文;</code></p>
-<h3 id="分号可省略"><a href="#分号可省略" class="headerlink" title="分号可省略"></a>分号可省略</h3><p>每行代码结尾的分号可以省略，因为ECMAScript规定了在语句的末尾自动插入分号(ASI机制)。如果一行中有多条语句，那么这些语句必须以分号隔开。</p>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>JavaScript源码从左往右被扫描并转换成一系列由token、控制字符、行终止符、注释和空白字符组成的输入元素。</p>
-<ul>
-<li>控制字符<ul>
-<li>零宽非连字符(&lt;ZWNJ&gt;, U+200C)，放置在一些经常会被当成连字的字符之间，用于将它们分别以独立形式显示。</li>
-<li>零宽连字符(&lt;ZWJ&gt;, U+200D)，放置在一些通常不会被标记为连接字的字符之间，用于将这些字符以连字形式显示。</li>
-<li>字节顺序标记(&lt;BOM&gt;, U+FEFF)，在脚本开头使用，除了将脚本标记为Unicode格式以外，还用来标记文本的字节流方向。</li>
-</ul>
-</li>
-<li>空白符<ul>
-<li>制表符(&lt;HT&gt;, U+0009)，水平制表符，<code>\t</code></li>
-<li>垂直制表符(&lt;VT&gt;, U+000B)，垂直制表符，<code>\v</code></li>
-<li>分页符(&lt;FF&gt;, U+000C)，分页符，<code>\f</code></li>
-<li>空格(&lt;SP&gt;, U+0020)，空格</li>
-<li>无间断空格(&lt;NBSP&gt;, U+00A0)，在该空格处不会换行</li>
-</ul>
-</li>
-<li>行终止符<ul>
-<li>换行符(&lt;LF&gt;, U+000A)，在UNIX系统中起新行，<code>\n</code></li>
-<li>回车符(&lt;CR&gt;, U+000D)，在Commodore和早期的Mac系统中起新行，<code>\r</code></li>
-<li>行分隔符(&lt;LS&gt;, U+2028)</li>
-<li>段分隔符(&lt;PSs&gt;, U+2029)</li>
-</ul>
-</li>
-</ul>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>JavaScript的注释语法类似于C++，有两种注释方式：单行和多行。两种注释方式不能混用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">  多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量又叫标识符，需要遵循一定的规则：必须以字母、下划线(_)或者美元符($)开头，后续的字符也可以是数字(0-9)，可以使用ISO 8859-1或Unicode编码的字符作为标识符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> \u4e25 = <span class="number">1</span>;     <span class="comment">// 严的unicode编码为\u4e25</span></span><br><span class="line"><span class="built_in">console</span>.log(严);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>变量声明</p>
-<ul>
-<li>使用关键词<code>var</code>，例如<code>var test = 1;</code>。该语法可以声明局部变量和全局变量。</li>
-<li>直接赋值，例如<code>test = 1;</code>。在函数外使用这种形式赋值会产生一个全局变量，在严格模式下会产生错误。</li>
-<li>使用关键词<code>let</code>，例如<code>let test = 1;</code>。该语法可以用来声明块作用域的局部变量</li>
-</ul>
-</li>
-<li><p>变量求值</p>
-<p>用<code>var</code>或<code>let</code>声明的变量如果没有赋初始值，则其值为<code>undefined</code>。如果访问一个未声明的变量会抛出一个·<code>ReferenceError</code>异常。</p>
-<p>可以使用<code>undefined</code>来判断一个变量是否已经赋值，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test === <span class="literal">undefined</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于<code>undefined</code>在布尔类型环境中会被当做<code>false</code>，所以上面的代码可以简化成下面的形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在数值类型中<code>undefined</code>会被转成<code>NaN</code>，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="number">2</span>);    <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
-
-<p>空值<code>null</code>在数值类型中会被转换成0，在布尔类型中会准换成false，例如:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a + <span class="number">1</span>);    <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">if</span>(!a)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'null'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>变量的作用域</p>
-<p>在函数之外生声明的变量叫做全局变量，它可被当前文档中的任何其他代码访问。在函数内部声明的变量称为局部变量，只能在当前函数内部访问。    </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;    <span class="comment">// 全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> test;  <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在ECMAScript6之前没有块级作用域(即大括号之间的代码块)，语句块中声明的变量会称为语句块所在的作用域中的变量。如果使用ES6中的<code>let</code>声明，就会变为块级作用域。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> test = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">// ReferenceError</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>变量提升</p>
-<p>在JavaScript中可以先使用变量再进行声明，这被称为变量提升。感觉上提升是被移到了文档的最前面，但提升后的变量将返回<code>undefined</code>值，因此即便是在声明时赋值了初始值，也会返回<code>undefined</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-
-<p>在ECMAScript6中，使用<code>let</code>或<code>const</code>声明会将变量提升但不会被初始化，因此在变量声明之前就使用这个变量，将会抛出引用错误(RefenceError)。这个变量将从代码块一开始的时候就处在一个<strong>暂时性死区</strong>(temporal dead zone)，直到这个变量被声明为止。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数提升</p>
-<p>对于函数来说，只有函数声明会被提升，而函数表达式不会被提升。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test();    <span class="comment">// test!</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test!'</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2();  <span class="comment">// TypeError: test2 is not a function</span></span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test2!'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>全局变量</p>
-<p>全局变量实际上是全局对象的属性，在浏览器中默认的全局变量为<code>window</code>，可以使用<code>window.variable</code>的语法来设置和访问变量。</p>
-</li>
-<li><p>常量</p>
-<p>在ECMAScript6中，可以使用<code>const</code>关键字声明常量，常量不可以重新赋值，所以在声明时就需要赋值。常量作用域与<code>let</code>一样，在同一作用域中，不能使用变量名或函数名相同的名字来命名常量。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// SyntaxError: Identifier 'b' has already been declared</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>最新的ECMAScript定义了8中数据类型，分别为：</p>
-<ul>
-<li>原始类型<ul>
-<li>Boolean，有且只有两个值: <code>true</code>和<code>false</code></li>
-<li>Null，一个表明null值得特殊关键字，</li>
-<li>undefined，一个表示值未定义的顶级属性</li>
-<li>Number，整数或浮点数</li>
-<li>String，代表文本值的一系列字符</li>
-<li>Symbol，实例是唯一且不可变的数据类型</li>
-<li>BigInt，具有任意精度的整数</li>
-</ul>
-</li>
-<li>Object</li>
-</ul>
-<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>JavaScript是一门动态类型的语言，在声明变量时可以不必指定数据类型，数据类型会在代码执行时根据需要自动转换。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">// 此时a的类型为number</span></span><br><span class="line">a = <span class="string">'1234'</span>;    <span class="comment">// 此时a的类型为string</span></span><br></pre></td></tr></table></figure>
-
-<p>在包含数字和字符串的表达式中使用<code>+</code>运算，JavaScript会将数字隐式转换成字符串。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> + <span class="number">1</span>);    <span class="comment">// 371，类型为字符串，使用字符串的拼接操作</span></span><br></pre></td></tr></table></figure>
-
-<p>在涉及其他运算符时，JavaScript会将字符串隐式转换成数字</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> - <span class="number">1</span>);    <span class="comment">// 36，类型为数字</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量是在脚本中实际提供的固定值而不是变量，通常有以下类型的字面量：</p>
-<ul>
-<li><h5 id="数组字面量-Array-Literals"><a href="#数组字面量-Array-Literals" class="headerlink" title="数组字面量(Array Literals)"></a>数组字面量(Array Literals)</h5><p>数组字面量是0个或多个表达式的列表，每个表达式代表一个数组元素，并使用方括号<code>[]</code>括起来。使用数组字面量创建数组时，将使用指定的值作为其元素进行初始化，并且将其长度设置为指定的参数个数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, ,<span class="number">3</span>];</span><br><span class="line">nums[<span class="number">0</span>];    <span class="comment">// 1</span></span><br><span class="line">nums[<span class="number">1</span>];    <span class="comment">// undefined</span></span><br><span class="line">nums[<span class="number">2</span>];    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="布尔字面量-Boolean-Literals"><a href="#布尔字面量-Boolean-Literals" class="headerlink" title="布尔字面量(Boolean Literals)"></a>布尔字面量(Boolean Literals)</h4><p>有且仅有两个值：<code>true</code>和<code>false</code>。</p>
-</li>
-<li><h4 id="浮点数字面量-Float-point-Literals"><a href="#浮点数字面量-Float-point-Literals" class="headerlink" title="浮点数字面量(Float-point Literals)"></a>浮点数字面量(Float-point Literals)</h4><p>浮点数字面量可以有以下部分组成:</p>
-<ul>
-<li>一个带正负号(<code>+</code>、<code>-</code>)的十进制整数</li>
-<li>小数点<code>.</code></li>
-<li>小数部分(由一串十进制数表示)</li>
-<li>指数部分，即<code>e</code>或<code>E</code>后跟一个整数，该整数可以带正负号。</li>
-</ul>
-<p>浮点数字面量必须至少包含一位数字，并带有小数点或<code>e</code>。语法类似:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[(+|-)][digits].[digits][(E|e)[(+|-)]digits]</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="数字字面量-Numeric-Literals"><a href="#数字字面量-Numeric-Literals" class="headerlink" title="数字字面量(Numeric Literals)"></a>数字字面量(Numeric Literals)</h4><p>Number和BigInt类型可以使用十进制、十六进制、八进制和二进制表示。</p>
-<ul>
-<li>十进制的数字字面量是由前缀不为0的一串数字序列组成</li>
-<li>八进制的数字字面量是由前缀为<code>0</code>或者前缀为<code>0O</code>的只包含0-7的数字组成</li>
-<li>十六进制的数字字面量是由前缀为<code>0x</code>并且包含0-9和a-f的序列组成</li>
-<li>二进制的数字字面量是由前缀为<code>0b</code>并且只包含0-1的数字序列组成</li>
-</ul>
-</li>
-<li><h4 id="对象字面量-Object-Literals"><a href="#对象字面量-Object-Literals" class="headerlink" title="对象字面量(Object Literals)"></a>对象字面量(Object Literals)</h4><p>对象字面量是使用花括号<code>{}</code>括起来的0或多对<strong>属性名：属性值</strong>对的元素列表。不要在语句的开头使用对象字面量语法，这位被认为是一个块的开始</p>
-<h6 id="增强的对象字面量-Enhanced-Object-literals"><a href="#增强的对象字面量-Enhanced-Object-literals" class="headerlink" title="增强的对象字面量(Enhanced Object literals)"></a>增强的对象字面量(Enhanced Object literals)</h6><p>在ES2015中，对象字面量扩展了支持在创建时设置原型，简写了<code>foo: foo</code>形式的属性赋值和方法定义，支持父方法调用，以及使用表达式动态计算属性名。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  __proto__: theProtoObj,</span><br><span class="line">  handler, <span class="comment">// =&gt; handler: handler</span></span><br><span class="line">  toString() &#123;&#125;, <span class="comment">// =&gt; toString: function() &#123;&#125;</span></span><br><span class="line">  [<span class="string">'prop_'</span> + <span class="function">(<span class="params">(</span>) =&gt;</span> <span class="number">42</span>)()]: <span class="number">42</span> <span class="comment">// 动态计算属性名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="正则表达式字面量-RegExp-Literals"><a href="#正则表达式字面量-RegExp-Literals" class="headerlink" title="正则表达式字面量(RegExp Literals)"></a>正则表达式字面量(RegExp Literals)</h4><p>正则表达式字面量是被斜杠<code>/</code>围成的表达式，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="字符串字面量-String-Literals"><a href="#字符串字面量-String-Literals" class="headerlink" title="字符串字面量(String Literals)"></a>字符串字面量(String Literals)</h4><p>字符串字面量是由双引号<code>&quot;</code>或单引号<code>&#39;</code>括起来的0个或多个字符，字符被限制在相同类型的引号之间。例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'test'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure>
-
-<p>ES2015还提供了一种模板字面量(template literals)，模板字面量使用反引号(<strong>`</strong>)，其为构造字符串提供了语法糖，还可以在模板字符串前添加一个tag来自定义模板字符串的解析过程，以预防注入攻击或建立基于字符串的高级数据抽象。例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'bob'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);    <span class="comment">// Hello, bob</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>表达式与运算符</title>
     <url>/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html</url>
     <content><![CDATA[<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><p>一个赋值运算符将它右边操作数的值赋值给它左边的操作数。JavaScript包含的赋值表达式如下：</p>
@@ -2255,6 +2178,166 @@
 </ul>
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>语法和数据类型</title>
+    <url>/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
+    <content><![CDATA[<h2 id="JavaScript语法"><a href="#JavaScript语法" class="headerlink" title="JavaScript语法"></a>JavaScript语法</h2><h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>JavaScript区分大小写，并使用Unicode字符集。即变量<code>test</code>和<code>TEXT</code>是两个不同的变量，并且可以使用中文作为变量名，如：<code>var 中文;</code></p>
+<h3 id="分号可省略"><a href="#分号可省略" class="headerlink" title="分号可省略"></a>分号可省略</h3><p>每行代码结尾的分号可以省略，因为ECMAScript规定了在语句的末尾自动插入分号(ASI机制)。如果一行中有多条语句，那么这些语句必须以分号隔开。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>JavaScript源码从左往右被扫描并转换成一系列由token、控制字符、行终止符、注释和空白字符组成的输入元素。</p>
+<ul>
+<li>控制字符<ul>
+<li>零宽非连字符(&lt;ZWNJ&gt;, U+200C)，放置在一些经常会被当成连字的字符之间，用于将它们分别以独立形式显示。</li>
+<li>零宽连字符(&lt;ZWJ&gt;, U+200D)，放置在一些通常不会被标记为连接字的字符之间，用于将这些字符以连字形式显示。</li>
+<li>字节顺序标记(&lt;BOM&gt;, U+FEFF)，在脚本开头使用，除了将脚本标记为Unicode格式以外，还用来标记文本的字节流方向。</li>
+</ul>
+</li>
+<li>空白符<ul>
+<li>制表符(&lt;HT&gt;, U+0009)，水平制表符，<code>\t</code></li>
+<li>垂直制表符(&lt;VT&gt;, U+000B)，垂直制表符，<code>\v</code></li>
+<li>分页符(&lt;FF&gt;, U+000C)，分页符，<code>\f</code></li>
+<li>空格(&lt;SP&gt;, U+0020)，空格</li>
+<li>无间断空格(&lt;NBSP&gt;, U+00A0)，在该空格处不会换行</li>
+</ul>
+</li>
+<li>行终止符<ul>
+<li>换行符(&lt;LF&gt;, U+000A)，在UNIX系统中起新行，<code>\n</code></li>
+<li>回车符(&lt;CR&gt;, U+000D)，在Commodore和早期的Mac系统中起新行，<code>\r</code></li>
+<li>行分隔符(&lt;LS&gt;, U+2028)</li>
+<li>段分隔符(&lt;PSs&gt;, U+2029)</li>
+</ul>
+</li>
+</ul>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>JavaScript的注释语法类似于C++，有两种注释方式：单行和多行。两种注释方式不能混用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">  多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量又叫标识符，需要遵循一定的规则：必须以字母、下划线(_)或者美元符($)开头，后续的字符也可以是数字(0-9)，可以使用ISO 8859-1或Unicode编码的字符作为标识符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> \u4e25 = <span class="number">1</span>;     <span class="comment">// 严的unicode编码为\u4e25</span></span><br><span class="line"><span class="built_in">console</span>.log(严);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>变量声明</p>
+<ul>
+<li>使用关键词<code>var</code>，例如<code>var test = 1;</code>。该语法可以声明局部变量和全局变量。</li>
+<li>直接赋值，例如<code>test = 1;</code>。在函数外使用这种形式赋值会产生一个全局变量，在严格模式下会产生错误。</li>
+<li>使用关键词<code>let</code>，例如<code>let test = 1;</code>。该语法可以用来声明块作用域的局部变量</li>
+</ul>
+</li>
+<li><p>变量求值</p>
+<p>用<code>var</code>或<code>let</code>声明的变量如果没有赋初始值，则其值为<code>undefined</code>。如果访问一个未声明的变量会抛出一个·<code>ReferenceError</code>异常。</p>
+<p>可以使用<code>undefined</code>来判断一个变量是否已经赋值，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test === <span class="literal">undefined</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>undefined</code>在布尔类型环境中会被当做<code>false</code>，所以上面的代码可以简化成下面的形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在数值类型中<code>undefined</code>会被转成<code>NaN</code>，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="number">2</span>);    <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>空值<code>null</code>在数值类型中会被转换成0，在布尔类型中会准换成false，例如:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a + <span class="number">1</span>);    <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">if</span>(!a)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'null'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量的作用域</p>
+<p>在函数之外生声明的变量叫做全局变量，它可被当前文档中的任何其他代码访问。在函数内部声明的变量称为局部变量，只能在当前函数内部访问。    </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;    <span class="comment">// 全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> test;  <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ECMAScript6之前没有块级作用域(即大括号之间的代码块)，语句块中声明的变量会称为语句块所在的作用域中的变量。如果使用ES6中的<code>let</code>声明，就会变为块级作用域。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> test = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">// ReferenceError</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量提升</p>
+<p>在JavaScript中可以先使用变量再进行声明，这被称为变量提升。感觉上提升是被移到了文档的最前面，但提升后的变量将返回<code>undefined</code>值，因此即便是在声明时赋值了初始值，也会返回<code>undefined</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<p>在ECMAScript6中，使用<code>let</code>或<code>const</code>声明会将变量提升但不会被初始化，因此在变量声明之前就使用这个变量，将会抛出引用错误(RefenceError)。这个变量将从代码块一开始的时候就处在一个<strong>暂时性死区</strong>(temporal dead zone)，直到这个变量被声明为止。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数提升</p>
+<p>对于函数来说，只有函数声明会被提升，而函数表达式不会被提升。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test();    <span class="comment">// test!</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test!'</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2();  <span class="comment">// TypeError: test2 is not a function</span></span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test2!'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局变量</p>
+<p>全局变量实际上是全局对象的属性，在浏览器中默认的全局变量为<code>window</code>，可以使用<code>window.variable</code>的语法来设置和访问变量。</p>
+</li>
+<li><p>常量</p>
+<p>在ECMAScript6中，可以使用<code>const</code>关键字声明常量，常量不可以重新赋值，所以在声明时就需要赋值。常量作用域与<code>let</code>一样，在同一作用域中，不能使用变量名或函数名相同的名字来命名常量。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// SyntaxError: Identifier 'b' has already been declared</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>最新的ECMAScript定义了8中数据类型，分别为：</p>
+<ul>
+<li>原始类型<ul>
+<li>Boolean，有且只有两个值: <code>true</code>和<code>false</code></li>
+<li>Null，一个表明null值得特殊关键字，</li>
+<li>undefined，一个表示值未定义的顶级属性</li>
+<li>Number，整数或浮点数</li>
+<li>String，代表文本值的一系列字符</li>
+<li>Symbol，实例是唯一且不可变的数据类型</li>
+<li>BigInt，具有任意精度的整数</li>
+</ul>
+</li>
+<li>Object</li>
+</ul>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>JavaScript是一门动态类型的语言，在声明变量时可以不必指定数据类型，数据类型会在代码执行时根据需要自动转换。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">// 此时a的类型为number</span></span><br><span class="line">a = <span class="string">'1234'</span>;    <span class="comment">// 此时a的类型为string</span></span><br></pre></td></tr></table></figure>
+
+<p>在包含数字和字符串的表达式中使用<code>+</code>运算，JavaScript会将数字隐式转换成字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> + <span class="number">1</span>);    <span class="comment">// 371，类型为字符串，使用字符串的拼接操作</span></span><br></pre></td></tr></table></figure>
+
+<p>在涉及其他运算符时，JavaScript会将字符串隐式转换成数字</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> - <span class="number">1</span>);    <span class="comment">// 36，类型为数字</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量是在脚本中实际提供的固定值而不是变量，通常有以下类型的字面量：</p>
+<ul>
+<li><h5 id="数组字面量-Array-Literals"><a href="#数组字面量-Array-Literals" class="headerlink" title="数组字面量(Array Literals)"></a>数组字面量(Array Literals)</h5><p>数组字面量是0个或多个表达式的列表，每个表达式代表一个数组元素，并使用方括号<code>[]</code>括起来。使用数组字面量创建数组时，将使用指定的值作为其元素进行初始化，并且将其长度设置为指定的参数个数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, ,<span class="number">3</span>];</span><br><span class="line">nums[<span class="number">0</span>];    <span class="comment">// 1</span></span><br><span class="line">nums[<span class="number">1</span>];    <span class="comment">// undefined</span></span><br><span class="line">nums[<span class="number">2</span>];    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="布尔字面量-Boolean-Literals"><a href="#布尔字面量-Boolean-Literals" class="headerlink" title="布尔字面量(Boolean Literals)"></a>布尔字面量(Boolean Literals)</h4><p>有且仅有两个值：<code>true</code>和<code>false</code>。</p>
+</li>
+<li><h4 id="浮点数字面量-Float-point-Literals"><a href="#浮点数字面量-Float-point-Literals" class="headerlink" title="浮点数字面量(Float-point Literals)"></a>浮点数字面量(Float-point Literals)</h4><p>浮点数字面量可以有以下部分组成:</p>
+<ul>
+<li>一个带正负号(<code>+</code>、<code>-</code>)的十进制整数</li>
+<li>小数点<code>.</code></li>
+<li>小数部分(由一串十进制数表示)</li>
+<li>指数部分，即<code>e</code>或<code>E</code>后跟一个整数，该整数可以带正负号。</li>
+</ul>
+<p>浮点数字面量必须至少包含一位数字，并带有小数点或<code>e</code>。语法类似:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[(+|-)][digits].[digits][(E|e)[(+|-)]digits]</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="数字字面量-Numeric-Literals"><a href="#数字字面量-Numeric-Literals" class="headerlink" title="数字字面量(Numeric Literals)"></a>数字字面量(Numeric Literals)</h4><p>Number和BigInt类型可以使用十进制、十六进制、八进制和二进制表示。</p>
+<ul>
+<li>十进制的数字字面量是由前缀不为0的一串数字序列组成</li>
+<li>八进制的数字字面量是由前缀为<code>0</code>或者前缀为<code>0O</code>的只包含0-7的数字组成</li>
+<li>十六进制的数字字面量是由前缀为<code>0x</code>并且包含0-9和a-f的序列组成</li>
+<li>二进制的数字字面量是由前缀为<code>0b</code>并且只包含0-1的数字序列组成</li>
+</ul>
+</li>
+<li><h4 id="对象字面量-Object-Literals"><a href="#对象字面量-Object-Literals" class="headerlink" title="对象字面量(Object Literals)"></a>对象字面量(Object Literals)</h4><p>对象字面量是使用花括号<code>{}</code>括起来的0或多对<strong>属性名：属性值</strong>对的元素列表。不要在语句的开头使用对象字面量语法，这位被认为是一个块的开始</p>
+<h6 id="增强的对象字面量-Enhanced-Object-literals"><a href="#增强的对象字面量-Enhanced-Object-literals" class="headerlink" title="增强的对象字面量(Enhanced Object literals)"></a>增强的对象字面量(Enhanced Object literals)</h6><p>在ES2015中，对象字面量扩展了支持在创建时设置原型，简写了<code>foo: foo</code>形式的属性赋值和方法定义，支持父方法调用，以及使用表达式动态计算属性名。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  __proto__: theProtoObj,</span><br><span class="line">  handler, <span class="comment">// =&gt; handler: handler</span></span><br><span class="line">  toString() &#123;&#125;, <span class="comment">// =&gt; toString: function() &#123;&#125;</span></span><br><span class="line">  [<span class="string">'prop_'</span> + <span class="function">(<span class="params">(</span>) =&gt;</span> <span class="number">42</span>)()]: <span class="number">42</span> <span class="comment">// 动态计算属性名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="正则表达式字面量-RegExp-Literals"><a href="#正则表达式字面量-RegExp-Literals" class="headerlink" title="正则表达式字面量(RegExp Literals)"></a>正则表达式字面量(RegExp Literals)</h4><p>正则表达式字面量是被斜杠<code>/</code>围成的表达式，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="字符串字面量-String-Literals"><a href="#字符串字面量-String-Literals" class="headerlink" title="字符串字面量(String Literals)"></a>字符串字面量(String Literals)</h4><p>字符串字面量是由双引号<code>&quot;</code>或单引号<code>&#39;</code>括起来的0个或多个字符，字符被限制在相同类型的引号之间。例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'test'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>ES2015还提供了一种模板字面量(template literals)，模板字面量使用反引号(<strong>`</strong>)，其为构造字符串提供了语法糖，还可以在模板字符串前添加一个tag来自定义模板字符串的解析过程，以预防注入攻击或建立基于字符串的高级数据抽象。例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'bob'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);    <span class="comment">// Hello, bob</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
       <categories>

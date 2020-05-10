@@ -97,9 +97,18 @@
     <link href="https://musii.life/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html"/>
     <id>https://musii.life/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html</id>
     <published>2020-05-03T13:57:30.000Z</published>
-    <updated>2020-05-03T14:00:55.942Z</updated>
+    <updated>2020-05-10T08:02:01.319Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;JavaScript是基于原型的语言，它只有对象。原型对象可以作为一个模板，新对象可以从中获得原始的属性。任何对象都可以在创建对象时或在运行时指定其自身的属性。此外，任何对象都可以关联另一个对象的原型，从而允许第二个对象共享第一个对象的属性。&lt;/p
+        
+      
     
     </summary>
     
