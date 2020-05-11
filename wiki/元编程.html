@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">0</span>
+            <span class="post-count">194</span>
         </span>
     </span>
 
@@ -96,6 +96,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -108,7 +110,15 @@
       
 
       
-      
+      <blockquote>
+<p>从ECMAScript2015开始，JavaScript获得了<code>Proxy</code>和<code>Reflect</code>对象的支持，允许拦截并定义基本语言操作的自定义行为(例如属性查找、赋值、枚举和函数调用等)。借助这两个对象，可以在JavaScript元级别进行编程。</p>
+</blockquote>
+<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><p>在ES6中引入的Proxy对象可以拦截某些操作并实现自定义行为。例如获取一个对象上的属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  <span class="keyword">get</span>: function(target, name) &#123;</span><br><span class="line">    <span class="keyword">return</span> name <span class="keyword">in</span> target ? target[name] : <span class="number">42</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, handler);</span><br><span class="line">p.a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(p.a, p.b);    <span class="comment">// 1, 42</span></span><br></pre></td></tr></table></figure>
+
+<p>Proxy对象定义了一个目标(这里是一个对象)和一个实现了<code>get</code>方法的handle对象，代理的对象在获取未定义的属性时不会返回<code>undefined</code>而返回42。</p>
+<p>未完待续…</p>
+
       
       <!-- reward -->
       

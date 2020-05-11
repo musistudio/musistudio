@@ -40,9 +40,18 @@
     <link href="https://musii.life/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html"/>
     <id>https://musii.life/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</id>
     <published>2020-05-03T13:58:21.000Z</published>
-    <updated>2020-05-03T14:00:23.228Z</updated>
+    <updated>2020-05-11T13:01:34.698Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;从ECMAScript2015开始，JavaScript获得了&lt;code&gt;Proxy&lt;/code&gt;和&lt;code&gt;Reflect&lt;/code&gt;对象的支持，允许拦截并定义基本语言操作的自定义行为(例如属性查找、赋值、枚举和函数调用等)。借助这两个对象，
+        
+      
     
     </summary>
     
