@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-05-03T14:01:49.131Z</updated>
+  <updated>2020-06-18T18:36:27.997Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大学蒙太奇</title>
+    <link href="https://musii.life/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html"/>
+    <id>https://musii.life/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html</id>
+    <published>2020-06-18T16:08:59.000Z</published>
+    <updated>2020-06-18T18:36:27.997Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;转眼已经大学毕业了，回想起三年前那个拿着录取通知书来报道的我，还仿若昨日。算算拿到毕业证已经有两天了，便以这篇文章来记录一下我的大学生活吧，也算是没浪费这三年的光阴。至于名字，借鉴与&lt;a href=&quot;https://www.hahack.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;潘伟洲&lt;/a&gt;的年度总结，用蒙太奇手法记录我的大学生活，倒也比较合适。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="life" scheme="https://musii.life/categories/life/"/>
+    
+    
+      <category term="生活" scheme="https://musii.life/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解有限状态机</title>
+    <link href="https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html"/>
+    <id>https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html</id>
+    <published>2020-05-16T02:14:53.000Z</published>
+    <updated>2020-05-16T09:23:12.544Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;什么是有限状态机？&quot;&gt;&lt;a href=&quot;#什么是有限状态机？&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="code" scheme="https://musii.life/tags/code/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript模块</title>
@@ -502,63 +550,6 @@
       <category term="图床" scheme="https://musii.life/tags/%E5%9B%BE%E5%BA%8A/"/>
     
       <category term="阿里云" scheme="https://musii.life/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习的方法论一：知识溯源法</title>
-    <link href="https://musii.life/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html"/>
-    <id>https://musii.life/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</id>
-    <published>2020-04-10T05:35:41.000Z</published>
-    <updated>2020-04-11T02:39:04.646Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;有一千个读者，就有一千个哈姆雷特&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;什么是知识溯源法&quot;&gt;&lt;a href=&quot;#什么是知识溯源法&quot; class=&quot;headerlink&quot; title=&quot;什么是知识溯源法&quot;&gt;&lt;/a&gt;什么是知识溯源法&lt;/h4&gt;&lt;p&gt;在学习本方法之前我们先来看看百度百科的定义。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;溯源&lt;/em&gt;法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="学习" scheme="https://musii.life/categories/%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="方法论" scheme="https://musii.life/tags/%E6%96%B9%E6%B3%95%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用阿里云oss部署Vue项目</title>
-    <link href="https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html"/>
-    <id>https://musii.life/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</id>
-    <published>2019-11-08T17:24:31.000Z</published>
-    <updated>2020-04-09T07:50:23.063Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="code" scheme="https://musii.life/categories/code/"/>
-    
-    
-      <category term="vue" scheme="https://musii.life/tags/vue/"/>
-    
-      <category term="oss" scheme="https://musii.life/tags/oss/"/>
     
   </entry>
   

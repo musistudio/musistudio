@@ -85,6 +85,168 @@
     
     
     
+    <article id="post-大学蒙太奇" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html"
+    >大学蒙太奇</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html" class="article-date">
+  <time datetime="2020-06-18T16:08:59.000Z" itemprop="datePublished">2020-06-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/life/">life</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>转眼已经大学毕业了，回想起三年前那个拿着录取通知书来报道的我，还仿若昨日。算算拿到毕业证已经有两天了，便以这篇文章来记录一下我的大学生活吧，也算是没浪费这三年的光阴。至于名字，借鉴与<a href="https://www.hahack.com/" target="_blank" rel="noopener">潘伟洲</a>的年度总结，用蒙太奇手法记录我的大学生活，倒也比较合适。</p>
+      
+      <a class="article-more-link" href="/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  <!--  -->
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-理解有限状态机" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html"
+    >理解有限状态机</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html" class="article-date">
+  <time datetime="2020-05-16T02:14:53.000Z" itemprop="datePublished">2020-05-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/code/">code</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="什么是有限状态机？"><a href="#什么是有限状态机？" class="headerlink" title="什么是有限状态机？"></a>什么是有限状态机？</h2><p>有限状态机也叫状态机，是一种编程思想或者说是编程范式。在有限状态机中：</p>
+<ul>
+<li>每个状态都是一个机器<ul>
+<li>在每个机器中，可以做计算、存储或输出等等…</li>
+<li>所有的机器接受的输入是一致的</li>
+<li>状态机的每一个机器本身没有状态，如果我们用函数表示的话，它应该是纯函数(即不依赖于外部环境，无副作用)</li>
+</ul>
+</li>
+<li>每一个机器都知道下一个状态<ul>
+<li>每个机器都有确定的下一个状态(Moore)</li>
+<li>每个机器根据输入决定下一个状态(Melay)</li>
+</ul>
+</li>
+</ul>
+<h2 id="JavaScript中的有限状态机实现-Melay"><a href="#JavaScript中的有限状态机实现-Melay" class="headerlink" title="JavaScript中的有限状态机实现(Melay)"></a>JavaScript中的有限状态机实现(Melay)</h2><ul>
+<li><p>每个函数是一个状态，函数参数就是输入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">state</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do something here</span></span><br><span class="line">  <span class="keyword">return</span> next; <span class="comment">// 返回值作为下一个状态</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用状态机</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(input) &#123;</span><br><span class="line">	state = state(input); <span class="comment">// 把状态机的返回值作为下一个状态      </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/" rel="tag">code</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  <!--  -->
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-也谈Unicode和UTF-8" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -871,6 +1033,11 @@
   </article>
   
 
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+  </nav>
   
 </section>
 </div>
