@@ -1,6 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HTTP协议补充</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
+    <content><![CDATA[<blockquote>
+<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
+</blockquote>
+<ol>
+<li><p>HTTP协议格式</p>
+<p>HTTP协议的格式大致可划分成一下几个部分</p>
+<ul>
+<li>Request<ul>
+<li>Request line<ul>
+<li>method</li>
+<li>path</li>
+<li>Version</li>
+</ul>
+</li>
+<li>head</li>
+<li>body</li>
+</ul>
+</li>
+<li>Response<ul>
+<li>Response line<ul>
+<li>version</li>
+<li>Status code</li>
+<li>Statis text</li>
+</ul>
+</li>
+<li>head</li>
+<li>body<a id="more"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HTTP Method(方法)</p>
+<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+<li>TRACE</li>
+</ul>
+<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
+<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
+<p>CONNECT多用于HTTPS和WebSocket</p>
+<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
+</li>
+<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
+<p>常见的状态码有以下几种:</p>
+<ul>
+<li>1xx: 临时回应，表示客户端请继续</li>
+<li>2xx: 请求成功<ul>
+<li>200: 请求成功</li>
+</ul>
+</li>
+<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
+<li>301&amp;302：永久性与临时性跳转</li>
+<li>304：客户端缓存没有更新</li>
+</ul>
+</li>
+<li>4xx: 客户端请求错误<ul>
+<li>403：无权限</li>
+<li>404：表示请求的页面不存在</li>
+<li>418：这是一个彩蛋</li>
+</ul>
+</li>
+<li>5xx: 服务端请求错误<ul>
+<li>500: 服务端错误</li>
+<li>503: 服务端暂时性错误，可以稍后再试</li>
+</ul>
+</li>
+</ul>
+<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
+<p>2xx系列的状态码通常是网页请求成功的标志</p>
+<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
+<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
+</li>
+<li><p>HTTP Head(HTTP头)</p>
+<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
+<p>Request Header              </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Request Header</th>
+<th align="center">规定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Accept</td>
+<td align="center">浏览器端接收的格式</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">浏览器接收的编码方式</td>
+</tr>
+<tr>
+<td align="center">Accept_Language</td>
+<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTP协议初探</title>
+    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
+    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
+<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
+<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
+</blockquote>
+<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
+<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
+<a id="more"></a></li>
+<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
+</li>
+<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
+<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
+</li>
+<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
+<ol>
+<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
+<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
+<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
+<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
+</ol>
+<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
+</li>
+<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
+<ol>
+<li><p>Host头域</p>
+<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
+</li>
+<li><p>Referer头域</p>
+<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
+</li>
+<li><p>User-Agent头域</p>
+<p>User-Agent头域的内容包含发出请求的用户信息</p>
+</li>
+<li><p>Cache-Control头域</p>
+<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
+</li>
+<li><p>Date头域</p>
+<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
+</li>
+</ol>
+</li>
+<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
+<li><p>连接：Connection</p>
+<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
+<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
+<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
+</li>
+<li><p>消息：Message</p>
+<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
+</li>
+<li><p>请求：Request</p>
+<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
+</li>
+<li><p>响应：Response</p>
+<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
+</li>
+<li><p>资源：Resource</p>
+<p>由URI标识的网络数据对象或服务</p>
+</li>
+<li><p>实体：Entity</p>
+<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
+</li>
+<li><p>客户机：Client</p>
+<p>一个为发送请求目的而建立连接的应用程序</p>
+</li>
+<li><p>用户代理：UserAgent</p>
+<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
+</li>
+<li><p>服务器：Server</p>
+<p>一个接受连接并对请求返回信息的应用程序。</p>
+</li>
+<li><p>源服务器：Originserver</p>
+<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
+</li>
+<li><p>代理：Proxy</p>
+<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
+<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
+</li>
+<li><p>网关：Gateway</p>
+<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
+<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
+</li>
+<li><p>通道：Tunnel</p>
+<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
+</li>
+<li><p>缓存：Cache</p>
+<p>反应信息的局域存储。</p>
+</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JS中的事件机制</title>
     <url>/code/JS%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h4 id="1-ECMA的标准事件流"><a href="#1-ECMA的标准事件流" class="headerlink" title="1. ECMA的标准事件流"></a>1. ECMA的标准事件流</h4><p>ECMAScript的标准事件流共分为三个阶段: <strong>事件捕获阶段</strong>、<strong>处于目标阶段</strong>、<strong>事件冒泡阶段</strong>。</p>
@@ -443,221 +658,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HTTP协议初探</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E5%88%9D%E6%8E%A2.html</url>
-    <content><![CDATA[<h2 id="HTTP协议初探"><a href="#HTTP协议初探" class="headerlink" title="HTTP协议初探"></a>HTTP协议初探</h2><ul>
-<li><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
-<p>HTTP(Hyper Text Transfer Protocol)即超文本传输协议，它的发展是万维网协会(World Wide Web Consortium)和Internet小组IETF(Internet Engineering Task Force)合作的结果，最终发布了一系列的RFC。RFC 1945定义了HTTP/1.0版本，其中最著名的就是RFC 2616，其定义了普遍使用的一个版本——HTTP 1.1         </p>
-</blockquote>
-<p>HTTP协议是用于从www服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本，还确定传输文档中的哪一部分，以及哪部分内容首先显示等。</p>
-<p>HTTP是一个应用层协议，由请求和相应构成，是一个标准的C/S(客户端/服务器)模型。<strong>HTTP是一个无状态的协议</strong></p>
-<a id="more"></a></li>
-<li><h4 id="在TCP-IP协议栈中的位置"><a href="#在TCP-IP协议栈中的位置" class="headerlink" title="在TCP/IP协议栈中的位置"></a>在TCP/IP协议栈中的位置</h4><p>HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上(HTTPS)</p>
-</li>
-<li><h4 id="HTTP的请求相应模型"><a href="#HTTP的请求相应模型" class="headerlink" title="HTTP的请求相应模型"></a>HTTP的请求相应模型</h4><p>HTTP协议永远都是客户端发起请求，服务器返回相应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
-<p>HTTP协议是一个无状态的协议，同一个客户端的这次请求和上次请求是没有关系的。</p>
-</li>
-<li><h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p>一次HTTP操作称为一个事务，其工作过程课分为四部：</p>
-<ol>
-<li>首先客户机与服务器建立连接，只要单击某个超级链接，HTTP的工作开始</li>
-<li>建立链接后，客户机发送一个请求给服务器，请求方式的格式为:统一资源标识符(URL)、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容</li>
-<li>服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容</li>
-<li>客户端接收服务器所返回的信息通过浏览器显示出来，然后客户端与服务器断开链接</li>
-</ol>
-<p>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回给客户端</p>
-</li>
-<li><h4 id="头域"><a href="#头域" class="headerlink" title="头域"></a>头域</h4><p>每个头域由一个域名，冒号(:)和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处使用至少一个空格或制表符</p>
-<ol>
-<li><p>Host头域</p>
-<p>Host头域指定请求资源的Internet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回</p>
-</li>
-<li><p>Referer头域</p>
-<p> Referer头域允许客户端指定请求URI的源资源地址，这可以允许服务器生成回退链表，可用来登录、优化cache等。它也允许废除的或错误的连接由于维护的目的被追踪。如果请求的URI没有自己的URI地址，Referer不能被发送。如果指定的是部分URI地址，则此地址应该是一个相对地址。</p>
-</li>
-<li><p>User-Agent头域</p>
-<p>User-Agent头域的内容包含发出请求的用户信息</p>
-</li>
-<li><p>Cache-Control头域</p>
-<p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程。请求时的缓存指令包括<strong>no-cache</strong>、<strong>no-store</strong>、<strong>max-age</strong>、<strong>max-stale</strong>、<strong>min-fresh</strong>、<strong>only-if-cached</strong>，响应消息中的指令包括<strong>public</strong>、<strong>private</strong>、<strong>no-cache</strong>、<strong>no-store</strong>、<strong>no-transform</strong>、<strong>must-revalidate</strong>、<strong>proxy-revalidate</strong>、<strong>max-age</strong>。</p>
-</li>
-<li><p>Date头域</p>
-<p>Date头域表示消息发送的时间，时间的描述格式由<strong>rfc822</strong>定义。</p>
-</li>
-</ol>
-</li>
-<li><h4 id="HTTP协议中的几个重要概念"><a href="#HTTP协议中的几个重要概念" class="headerlink" title="HTTP协议中的几个重要概念"></a>HTTP协议中的几个重要概念</h4><ol>
-<li><p>连接：Connection</p>
-<p>一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。</p>
-<p>在HTTP/1.1中，request和response头中都有可能出现一个connection的头，此header的含义是client和server通信时对于长连接如何进行处理</p>
-<p>在HTTP/1.1中，client和server都是默认支持长连接的，如果client使用HTTP/1.1协议，但又不希望使用长连接，则需要在header中指明Connection的值为close。不论request还是response的header中包含了值为close的connection，都表明当前正在使用的tcp连接在当天请求处理完毕后会被断掉。以后client再进行新的请求时就必须创建新的tcp连接了</p>
-</li>
-<li><p>消息：Message</p>
-<p>HTTP通讯的基本单位，包括一个结构化的八元祖序列并通过连接传输</p>
-</li>
-<li><p>请求：Request</p>
-<p>一个从客户端到服务器的请求信息包括应用于资源的方法，资源的标识符和协议的版本号</p>
-</li>
-<li><p>响应：Response</p>
-<p>一个从服务器返回的信息包括HTTP协议的版本号，请求的状态和文档的MIME类型。</p>
-</li>
-<li><p>资源：Resource</p>
-<p>由URI标识的网络数据对象或服务</p>
-</li>
-<li><p>实体：Entity</p>
-<p>数据资源或来自服务资源的回应的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。</p>
-</li>
-<li><p>客户机：Client</p>
-<p>一个为发送请求目的而建立连接的应用程序</p>
-</li>
-<li><p>用户代理：UserAgent</p>
-<p>初始化一个请求的客户机。它们是浏览器、编辑器或者是其它用户工具。</p>
-</li>
-<li><p>服务器：Server</p>
-<p>一个接受连接并对请求返回信息的应用程序。</p>
-</li>
-<li><p>源服务器：Originserver</p>
-<p>是一个给定资源可以在其上驻留或被创建的服务器。</p>
-</li>
-<li><p>代理：Proxy</p>
-<p>一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求前，必须解释如果可能并重写它。</p>
-<p>代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。</p>
-</li>
-<li><p>网关：Gateway</p>
-<p>一个作为其它服务器中介媒介的服务器。与代理不同的是，网关接受请求对被请求的资源来说它就是源服务器。发出请求的客户机并没有意识到它在同网关打交道。</p>
-<p>网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。</p>
-</li>
-<li><p>通道：Tunnel</p>
-<p>通道是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通信，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。</p>
-</li>
-<li><p>缓存：Cache</p>
-<p>反应信息的局域存储。</p>
-</li>
-</ol>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTP协议补充</title>
-    <url>/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</url>
-    <content><![CDATA[<blockquote>
-<p>上次我们对HTTP协议已经有了吃不的了解，今天我们就来继续学习一下HTTP协议</p>
-</blockquote>
-<ol>
-<li><p>HTTP协议格式</p>
-<p>HTTP协议的格式大致可划分成一下几个部分</p>
-<ul>
-<li>Request<ul>
-<li>Request line<ul>
-<li>method</li>
-<li>path</li>
-<li>Version</li>
-</ul>
-</li>
-<li>head</li>
-<li>body</li>
-</ul>
-</li>
-<li>Response<ul>
-<li>Response line<ul>
-<li>version</li>
-<li>Status code</li>
-<li>Statis text</li>
-</ul>
-</li>
-<li>head</li>
-<li>body<a id="more"></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>HTTP Method(方法)</p>
-<p>HTTP Method是HTTP请求中Request部分，大概有以下几种定义:</p>
-<ul>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-<li>PUT</li>
-<li>DELETE</li>
-<li>CONNECT</li>
-<li>OPTIONS</li>
-<li>TRACE</li>
-</ul>
-<p>在这几种方法中，比较常用的是<strong>GET</strong>和<strong>POST</strong>方法，HEAD和GET类似，只返回请求头</p>
-<p>PUT和DELETE分别表示添加资源和删除资源，这只是一种语义上的约定，并没有强约束</p>
-<p>CONNECT多用于HTTPS和WebSocket</p>
-<p>OPTIONS和TRACE一般用于调试，多数线上服务器不支持</p>
-</li>
-<li><p>HTTP Status code(状态码)和HTTP status text(状态文本)</p>
-<p>常见的状态码有以下几种:</p>
-<ul>
-<li>1xx: 临时回应，表示客户端请继续</li>
-<li>2xx: 请求成功<ul>
-<li>200: 请求成功</li>
-</ul>
-</li>
-<li>3xx: 表示请求的目的有变化，希望客户端进一步处理<ul>
-<li>301&amp;302：永久性与临时性跳转</li>
-<li>304：客户端缓存没有更新</li>
-</ul>
-</li>
-<li>4xx: 客户端请求错误<ul>
-<li>403：无权限</li>
-<li>404：表示请求的页面不存在</li>
-<li>418：这是一个彩蛋</li>
-</ul>
-</li>
-<li>5xx: 服务端请求错误<ul>
-<li>500: 服务端错误</li>
-<li>503: 服务端暂时性错误，可以稍后再试</li>
-</ul>
-</li>
-</ul>
-<p>在前端开发的过程中，1xx系列的状态码被浏览器http库直接处理掉了，不会让上层知晓</p>
-<p>2xx系列的状态码通常是网页请求成功的标志</p>
-<p>3xx系列比较复杂，301和302两个状态表示当前资源已经被转移，只不过一个是永久性转移，一个是临时性转移。实际上301更接近于一种报错，提示客户端下次别来了</p>
-<p>产生304状态的前提是客户端本地已经有缓存的版本，并且在Request中告诉了服务端，当服务端通过时间或者tag发现没有更新的时候，就会返回一个不含body的304状态</p>
-</li>
-<li><p>HTTP Head(HTTP头)</p>
-<p>HTTP头可以看作一个键值对。原则上，HTTP头也是一种数据，我们可以自由定义HTTP头和值。在HTTP规范中规定了一些特殊的HTTP头。</p>
-<p>Request Header              </p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">Request Header</th>
-<th align="center">规定</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Accept</td>
-<td align="center">浏览器端接收的格式</td>
-</tr>
-<tr>
-<td align="center">Accept-Encoding</td>
-<td align="center">浏览器接收的编码方式</td>
-</tr>
-<tr>
-<td align="center">Accept_Language</td>
-<td align="center">浏览器接受的语言，用于服务端判断多语言</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JS的防抖和节流</title>
     <url>/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</url>
     <content><![CDATA[<h2 id="JS的防抖和节流"><a href="#JS的防抖和节流" class="headerlink" title="JS的防抖和节流"></a>JS的防抖和节流</h2><blockquote>
@@ -722,6 +722,17 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript模块</title>
+    <url>/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -895,75 +906,40 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript模块</title>
-    <url>/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用对象</title>
-    <url>/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html</url>
+    <title>也谈Unicode和UTF-8</title>
+    <url>/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html</url>
     <content><![CDATA[<blockquote>
-<p>JavaScript的设计是一个简单的基于对象的范式。一个对象就是一系列属性的集合，一个属性包含一个键和一个值。</p>
+<p>最近在学习字符集相关的内容，遂以此文进行记录。</p>
 </blockquote>
-<h3 id="对象和属性"><a href="#对象和属性" class="headerlink" title="对象和属性"></a>对象和属性</h3><p>一个JavaScript对象有很多属性。一个对象的属性可以被解释成一个附加到对象上的变量。对象的属性定义对象的特征，可以使用点符号<code>.</code>访问对象的属性：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.propertyName</span><br></pre></td></tr></table></figure>
-
-<p>一个对象的属性名可以是任何有效的JavaStript字符串，或者可以被转换成字符串的任何类型，包括空字符串。如果不是一个有效的标识符只能通过方括号标记访问：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  <span class="string">"a b"</span>: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj.a);      <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[<span class="string">'a b'</span>]); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>方括号中的所有键都将转换为字符串类型，对象只能使用String类型作为键。可以在<code>for...in</code>语句中使用方括号标记以枚举一个对象的所有属性：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showProps</span>(<span class="params">obj, objName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">if</span>(obj.hasOwnProperty(i)) &#123;</span><br><span class="line">       result += <span class="string">`<span class="subst">$&#123;objName&#125;</span>.<span class="subst">$&#123;i&#125;</span> = <span class="subst">$&#123;obj[i]&#125;</span>\n`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: <span class="string">'test'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(showProps(obj, <span class="string">'obj'</span>));    <span class="comment">// obj.a = 1</span></span><br><span class="line">                                       <span class="comment">// obj.b = 2</span></span><br><span class="line">                                       <span class="comment">// obj.c = test</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="枚举一个对象的所有属性"><a href="#枚举一个对象的所有属性" class="headerlink" title="枚举一个对象的所有属性"></a>枚举一个对象的所有属性</h3><p>从ES5开始，有三种原生的方法用于列出或枚举对象的属性：</p>
-<ul>
-<li><code>for...in</code>循环：该方法依次访问一个对象及其原型链中所有可枚举的属性</li>
-<li><code>Object.keys(o)</code>：该方法返回对象<code>o</code>自身包含(不包含原型链)的所有可枚举属性的名称的数组</li>
-<li><code>Object.getOwnPropertyNames(o)</code>：该方法返回对象<code>o</code>自身包含(不包含原型链)的所有属性(无论是否可枚举)的名称的数组</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="string">'test'</span>,</span><br><span class="line">  c: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// for...in循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span>  obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.keys;</span></span><br><span class="line"><span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(obj);</span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[key]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.getOwnPropertyName;</span></span><br><span class="line"><span class="keyword">let</span> names = <span class="built_in">Object</span>.getOwnPropertyNames(obj);</span><br><span class="line">names.forEach(<span class="function"><span class="params">name</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[name]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建一个新对象"><a href="#创建一个新对象" class="headerlink" title="创建一个新对象"></a>创建一个新对象</h3><p>可以使用对象字面量和构造函数来创建新对象。</p>
-<h4 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h4><ul>
-<li>语法</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  property: value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>使用构造函数创建对象需要两步：</p>
-<ol>
-<li>通过创建一个构造函数来定义对象的类型，通常构造函数的函数名首字母会大写。</li>
-<li>通过<code>new</code>创建对象实例。</li>
+<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><ol>
+<li><p>起源</p>
+<p>大家都知道计算机起源于美国，而美国人一开始通信用的是<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>字符，其包含所有大小写字母和常用的英文标点符号，足够美国人使用。后来计算机在其他国家普及，由于语种多样性ASCII字符不再满足需要。于是便有了欧洲的ISO 8859以及中文的GBK编码。但这样就有一个问题，美国的计算机接受到来自中国的电子邮件后无法正常显示内容。为了解决这种各国编码规范不统一的问题，<a href="https://en.wikipedia.org/wiki/The%20Unicode%20Consortium" target="_blank" rel="noopener">The Unicode Consortium</a>指定了Unicode(也叫国际码)标准。</p>
+</li>
+<li><p>编码方式</p>
+<p>当前的Unicode使用16位的编码空间，每个字符占2字节，理论上最多可表示65536个字符。基本满足各种语言的使用。基本多文种平面的字符的编码为U+hhhh，每个h代表一个十六进制的数字。</p>
+</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.make = make;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.year = year;</span><br><span class="line">  <span class="keyword">this</span>.oil = <span class="number">100</span>;</span><br><span class="line">  <span class="comment">// 定义方法</span></span><br><span class="line">  addOil = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.oil += value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 等价于下面的方式</span></span><br><span class="line">  <span class="comment">// addOil(value) &#123;</span></span><br><span class="line">  <span class="comment">//  this.oil += value</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br><span class="line">Car.prototype.color = <span class="string">'red'</span>;    <span class="comment">// 为对象添加属性</span></span><br><span class="line"><span class="keyword">let</span> myCar = <span class="keyword">new</span> Car(<span class="string">'China'</span>, <span class="string">'Test'</span>, <span class="number">2020</span>);    <span class="comment">// myCar是Car对象的一个实例，拥有make model year三个属性</span></span><br><span class="line">myCar.money = <span class="number">100000</span>;    <span class="comment">// 为实例添加属性</span></span><br><span class="line">myCar.run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 为实例添加方法</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'running'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(myCar.color);    <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(myCar.money);    <span class="comment">// 100000</span></span><br><span class="line">myCar.run();                 <span class="comment">// running</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="使用Object-create-方法"><a href="#使用Object-create-方法" class="headerlink" title="使用Object.create()方法"></a>使用<code>Object.create()</code>方法</h4><p>该方法允许在创建对象时选择一个原型对象且不用定义构造函数：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Animal = &#123;</span><br><span class="line">  type: <span class="string">'Invertebrates'</span>,</span><br><span class="line">  displayType: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.type);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> animal1 = <span class="built_in">Object</span>.create(Animal);  <span class="comment">// 创建新动物 animal1</span></span><br><span class="line">animal1.displayType();                <span class="comment">// Invertebrates</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fish = <span class="built_in">Object</span>.create(Animal); <span class="comment">// 创建新动物fish</span></span><br><span class="line">fish.type = <span class="string">'fish'</span>;</span><br><span class="line">fish.displayType();               <span class="comment">// fish</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="定义getters和setters"><a href="#定义getters和setters" class="headerlink" title="定义getters和setters"></a>定义getters和setters</h4><p><code>getter</code>是获取某个特定属性值的方法，<code>setter</code>是设置某个属性值的方法。定义getter和setter可以使用对象字面量方式添加，或使用添加方法的方式添加:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">7</span>,</span><br><span class="line">  <span class="keyword">get</span> b() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> c(c) &#123;</span><br><span class="line">    <span class="keyword">this</span>.c = c /<span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(o.a);    <span class="comment">// 7</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b);    <span class="comment">// 8</span></span><br><span class="line">o.c = <span class="number">50</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o.c);    <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 为定义好的类添加getter和setter</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="built_in">Date</span>.prototype;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(d, <span class="string">'year'</span>, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function() &#123;<span class="keyword">return</span> <span class="keyword">this</span>.getFullYear()&#125;,</span><br><span class="line">  <span class="keyword">set</span>: function(year) &#123;<span class="keyword">this</span>.setFullYear(year)&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();    <span class="comment">// 创建一个Date对象的实例</span></span><br><span class="line"><span class="built_in">console</span>.log(now.year);   <span class="comment">// 2020</span></span><br><span class="line">now.year = <span class="number">2021</span>;</span><br><span class="line"><span class="built_in">console</span>.log(now.year);   <span class="comment">// 2021</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h4><p><code>delete</code>操作符可以删除一个不是继承而来的属性：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">5</span>,</span><br><span class="line">  b: <span class="number">12</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">delete</span> obj.a;</span><br><span class="line"><span class="built_in">console</span>.log(obj);   <span class="comment">// &#123;b: 12&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一个全局变量不是使用var声明的也可以使用delete删除(默认是全局对象上的属性)</span></span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> a;</span><br></pre></td></tr></table></figure>
-
-<h4 id="比较对象"><a href="#比较对象" class="headerlink" title="比较对象"></a>比较对象</h4><p>在JavaScript中objects是一种引用类型。两个独立声明的对象永远不会相等，只有在比较一个对象和这个对象的引用时才会返回true。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fruit = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> fruit1 = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(fruit == fruit1);     <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(fruit === fruit1);    <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fruit = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> fruit1 = fruit;</span><br><span class="line"><span class="built_in">console</span>.log(fruit == fruit1);     <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(fruit === fruit1);    <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" rel="noopener">MDN</a></li>
-</ul>
+<a id="more"></a>
+<h4 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h4><ol>
+<li><p>起源</p>
+<p>在实际传输过程中，由于不同系统平台的设计不确定性，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为 <strong>Unicode转换格式</strong>（Unicode Transformation Format，简称为 UTF）。而UTF-8就是8位的unicode转换格式。</p>
+</li>
+<li><p>编码方式</p>
+<p>以8位为单元对UCS进行编码，每个使用UTF-8存储的字符，除了第一个自己外，其余字节的头两个比特都是以“10”开始，使文字处理器能够较快的找出每个字符的开始位置。为了兼容ASCII，UTF-8选择以可变长度存储Unicode。转换关系图如下：</p>
+<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-22_19-25-08.jpg" alt=""></p>
+</li>
+<li><p>Unicode转UTF-8</p>
+<p>已知“严”的unicode是4E25(100111000100101)， 根据上表，可以发现4E25处在第三行的<br>范围内(U+0800-U+FFFF), 因此“严”的UTF-8编码需要三个字节，即格式是<br>“1110xxxx 10xxxxxx 10xxxxxx”。 然后, 从“严”的最后一个二进制位开始，依次从后向前<br>填入格式中的x，多出的位补0。 这样就得到了“严”的UTF-8编码是”11100100 10111000<br>10100101”, 转换成十六进制就是E4B8A5。</p>
+<p>附JavaScript实现代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeUTF8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(str.codePointAt().toString(<span class="number">16</span>), <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">let</span> bCodes = str.codePointAt().toString(<span class="number">2</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> byte, template, result = <span class="string">''</span>, temp;</span><br><span class="line">    <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'007F'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'0xxxxxxx'</span>;</span><br><span class="line">        byte = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'07FF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'110xxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'FFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">3</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">4</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'11110xxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">5</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'3FFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'111110xx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'7FFFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1111110x10xxxxxx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    template = template.split(<span class="string">''</span>).reverse().map(<span class="function"><span class="params">t</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="string">'x'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCodes.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> bCodes.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    temp = <span class="built_in">parseInt</span>(template.reverse().join(<span class="string">''</span>), <span class="number">2</span>).toString(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">let</span> len = temp.length / byte</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;=byte;i++) &#123;</span><br><span class="line">        result += <span class="string">'\\x'</span> + temp.slice((i<span class="number">-1</span>)*len, i*len)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> encoding = <span class="function"><span class="params">str</span> =&gt;</span> str.split(<span class="string">''</span>).map(<span class="function"><span class="params">s</span> =&gt;</span> encodeUTF8(s)).join(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(encoding(<span class="string">'严厉'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>wiki</category>
+        <category>code</category>
       </categories>
       <tags>
-        <tag>w-JavaScript</tag>
+        <tag>charset</tag>
       </tags>
   </entry>
   <entry>
@@ -1067,62 +1043,6 @@
       </tags>
   </entry>
   <entry>
-    <title>也谈Unicode和UTF-8</title>
-    <url>/code/%E4%B9%9F%E8%B0%88Unicode%E5%92%8CUTF-8.html</url>
-    <content><![CDATA[<blockquote>
-<p>最近在学习字符集相关的内容，遂以此文进行记录。</p>
-</blockquote>
-<h4 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h4><ol>
-<li><p>起源</p>
-<p>大家都知道计算机起源于美国，而美国人一开始通信用的是<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>字符，其包含所有大小写字母和常用的英文标点符号，足够美国人使用。后来计算机在其他国家普及，由于语种多样性ASCII字符不再满足需要。于是便有了欧洲的ISO 8859以及中文的GBK编码。但这样就有一个问题，美国的计算机接受到来自中国的电子邮件后无法正常显示内容。为了解决这种各国编码规范不统一的问题，<a href="https://en.wikipedia.org/wiki/The%20Unicode%20Consortium" target="_blank" rel="noopener">The Unicode Consortium</a>指定了Unicode(也叫国际码)标准。</p>
-</li>
-<li><p>编码方式</p>
-<p>当前的Unicode使用16位的编码空间，每个字符占2字节，理论上最多可表示65536个字符。基本满足各种语言的使用。基本多文种平面的字符的编码为U+hhhh，每个h代表一个十六进制的数字。</p>
-</li>
-</ol>
-<a id="more"></a>
-<h4 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h4><ol>
-<li><p>起源</p>
-<p>在实际传输过程中，由于不同系统平台的设计不确定性，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为 <strong>Unicode转换格式</strong>（Unicode Transformation Format，简称为 UTF）。而UTF-8就是8位的unicode转换格式。</p>
-</li>
-<li><p>编码方式</p>
-<p>以8位为单元对UCS进行编码，每个使用UTF-8存储的字符，除了第一个自己外，其余字节的头两个比特都是以“10”开始，使文字处理器能够较快的找出每个字符的开始位置。为了兼容ASCII，UTF-8选择以可变长度存储Unicode。转换关系图如下：</p>
-<p><img src="https://code.aliyun.com/qingshanglishao/images/raw/master/Xnip2020-04-22_19-25-08.jpg" alt=""></p>
-</li>
-<li><p>Unicode转UTF-8</p>
-<p>已知“严”的unicode是4E25(100111000100101)， 根据上表，可以发现4E25处在第三行的<br>范围内(U+0800-U+FFFF), 因此“严”的UTF-8编码需要三个字节，即格式是<br>“1110xxxx 10xxxxxx 10xxxxxx”。 然后, 从“严”的最后一个二进制位开始，依次从后向前<br>填入格式中的x，多出的位补0。 这样就得到了“严”的UTF-8编码是”11100100 10111000<br>10100101”, 转换成十六进制就是E4B8A5。</p>
-<p>附JavaScript实现代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encodeUTF8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> code = <span class="built_in">parseInt</span>(str.codePointAt().toString(<span class="number">16</span>), <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">let</span> bCodes = str.codePointAt().toString(<span class="number">2</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> byte, template, result = <span class="string">''</span>, temp;</span><br><span class="line">    <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'007F'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'0xxxxxxx'</span>;</span><br><span class="line">        byte = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'07FF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'110xxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'FFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">3</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1110xxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">4</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'1FFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'11110xxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">5</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'3FFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'111110xx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(code&lt;<span class="built_in">parseInt</span>(<span class="string">'7FFFFFFF'</span>, <span class="number">16</span>)) &#123;</span><br><span class="line">        template = <span class="string">'1111110x10xxxxxx10xxxxxx10xxxxxx10xxxxxx10xxxxxx'</span></span><br><span class="line">        byte = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    template = template.split(<span class="string">''</span>).reverse().map(<span class="function"><span class="params">t</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(t == <span class="string">'x'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCodes.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> bCodes.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    temp = <span class="built_in">parseInt</span>(template.reverse().join(<span class="string">''</span>), <span class="number">2</span>).toString(<span class="number">16</span>)</span><br><span class="line">    <span class="keyword">let</span> len = temp.length / byte</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;=byte;i++) &#123;</span><br><span class="line">        result += <span class="string">'\\x'</span> + temp.slice((i<span class="number">-1</span>)*len, i*len)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> encoding = <span class="function"><span class="params">str</span> =&gt;</span> str.split(<span class="string">''</span>).map(<span class="function"><span class="params">s</span> =&gt;</span> encodeUTF8(s)).join(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(encoding(<span class="string">'严厉'</span>))</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>charset</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用阿里云oss部署Vue项目</title>
-    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
-<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
-<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
-<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
-</ol>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
-]]></content>
-      <categories>
-        <category>code</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>oss</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用阿里云代码托管平台托管博客图床</title>
     <url>/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</url>
     <content><![CDATA[<blockquote>
@@ -1174,6 +1094,86 @@
       </categories>
       <tags>
         <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用对象</title>
+    <url>/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html</url>
+    <content><![CDATA[<blockquote>
+<p>JavaScript的设计是一个简单的基于对象的范式。一个对象就是一系列属性的集合，一个属性包含一个键和一个值。</p>
+</blockquote>
+<h3 id="对象和属性"><a href="#对象和属性" class="headerlink" title="对象和属性"></a>对象和属性</h3><p>一个JavaScript对象有很多属性。一个对象的属性可以被解释成一个附加到对象上的变量。对象的属性定义对象的特征，可以使用点符号<code>.</code>访问对象的属性：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.propertyName</span><br></pre></td></tr></table></figure>
+
+<p>一个对象的属性名可以是任何有效的JavaStript字符串，或者可以被转换成字符串的任何类型，包括空字符串。如果不是一个有效的标识符只能通过方括号标记访问：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  <span class="string">"a b"</span>: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj.a);      <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[<span class="string">'a b'</span>]); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>方括号中的所有键都将转换为字符串类型，对象只能使用String类型作为键。可以在<code>for...in</code>语句中使用方括号标记以枚举一个对象的所有属性：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showProps</span>(<span class="params">obj, objName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">if</span>(obj.hasOwnProperty(i)) &#123;</span><br><span class="line">       result += <span class="string">`<span class="subst">$&#123;objName&#125;</span>.<span class="subst">$&#123;i&#125;</span> = <span class="subst">$&#123;obj[i]&#125;</span>\n`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="number">2</span>,</span><br><span class="line">  c: <span class="string">'test'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(showProps(obj, <span class="string">'obj'</span>));    <span class="comment">// obj.a = 1</span></span><br><span class="line">                                       <span class="comment">// obj.b = 2</span></span><br><span class="line">                                       <span class="comment">// obj.c = test</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="枚举一个对象的所有属性"><a href="#枚举一个对象的所有属性" class="headerlink" title="枚举一个对象的所有属性"></a>枚举一个对象的所有属性</h3><p>从ES5开始，有三种原生的方法用于列出或枚举对象的属性：</p>
+<ul>
+<li><code>for...in</code>循环：该方法依次访问一个对象及其原型链中所有可枚举的属性</li>
+<li><code>Object.keys(o)</code>：该方法返回对象<code>o</code>自身包含(不包含原型链)的所有可枚举属性的名称的数组</li>
+<li><code>Object.getOwnPropertyNames(o)</code>：该方法返回对象<code>o</code>自身包含(不包含原型链)的所有属性(无论是否可枚举)的名称的数组</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: <span class="string">'test'</span>,</span><br><span class="line">  c: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// for...in循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span>  obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.keys;</span></span><br><span class="line"><span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(obj);</span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[key]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object.getOwnPropertyName;</span></span><br><span class="line"><span class="keyword">let</span> names = <span class="built_in">Object</span>.getOwnPropertyNames(obj);</span><br><span class="line">names.forEach(<span class="function"><span class="params">name</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(obj[name]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建一个新对象"><a href="#创建一个新对象" class="headerlink" title="创建一个新对象"></a>创建一个新对象</h3><p>可以使用对象字面量和构造函数来创建新对象。</p>
+<h4 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h4><ul>
+<li>语法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  property: value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>使用构造函数创建对象需要两步：</p>
+<ol>
+<li>通过创建一个构造函数来定义对象的类型，通常构造函数的函数名首字母会大写。</li>
+<li>通过<code>new</code>创建对象实例。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.make = make;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.year = year;</span><br><span class="line">  <span class="keyword">this</span>.oil = <span class="number">100</span>;</span><br><span class="line">  <span class="comment">// 定义方法</span></span><br><span class="line">  addOil = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.oil += value</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 等价于下面的方式</span></span><br><span class="line">  <span class="comment">// addOil(value) &#123;</span></span><br><span class="line">  <span class="comment">//  this.oil += value</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br><span class="line">Car.prototype.color = <span class="string">'red'</span>;    <span class="comment">// 为对象添加属性</span></span><br><span class="line"><span class="keyword">let</span> myCar = <span class="keyword">new</span> Car(<span class="string">'China'</span>, <span class="string">'Test'</span>, <span class="number">2020</span>);    <span class="comment">// myCar是Car对象的一个实例，拥有make model year三个属性</span></span><br><span class="line">myCar.money = <span class="number">100000</span>;    <span class="comment">// 为实例添加属性</span></span><br><span class="line">myCar.run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 为实例添加方法</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'running'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(myCar.color);    <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(myCar.money);    <span class="comment">// 100000</span></span><br><span class="line">myCar.run();                 <span class="comment">// running</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用Object-create-方法"><a href="#使用Object-create-方法" class="headerlink" title="使用Object.create()方法"></a>使用<code>Object.create()</code>方法</h4><p>该方法允许在创建对象时选择一个原型对象且不用定义构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Animal = &#123;</span><br><span class="line">  type: <span class="string">'Invertebrates'</span>,</span><br><span class="line">  displayType: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.type);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> animal1 = <span class="built_in">Object</span>.create(Animal);  <span class="comment">// 创建新动物 animal1</span></span><br><span class="line">animal1.displayType();                <span class="comment">// Invertebrates</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fish = <span class="built_in">Object</span>.create(Animal); <span class="comment">// 创建新动物fish</span></span><br><span class="line">fish.type = <span class="string">'fish'</span>;</span><br><span class="line">fish.displayType();               <span class="comment">// fish</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="定义getters和setters"><a href="#定义getters和setters" class="headerlink" title="定义getters和setters"></a>定义getters和setters</h4><p><code>getter</code>是获取某个特定属性值的方法，<code>setter</code>是设置某个属性值的方法。定义getter和setter可以使用对象字面量方式添加，或使用添加方法的方式添加:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">7</span>,</span><br><span class="line">  <span class="keyword">get</span> b() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> c(c) &#123;</span><br><span class="line">    <span class="keyword">this</span>.c = c /<span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(o.a);    <span class="comment">// 7</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b);    <span class="comment">// 8</span></span><br><span class="line">o.c = <span class="number">50</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o.c);    <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 为定义好的类添加getter和setter</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="built_in">Date</span>.prototype;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(d, <span class="string">'year'</span>, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function() &#123;<span class="keyword">return</span> <span class="keyword">this</span>.getFullYear()&#125;,</span><br><span class="line">  <span class="keyword">set</span>: function(year) &#123;<span class="keyword">this</span>.setFullYear(year)&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();    <span class="comment">// 创建一个Date对象的实例</span></span><br><span class="line"><span class="built_in">console</span>.log(now.year);   <span class="comment">// 2020</span></span><br><span class="line">now.year = <span class="number">2021</span>;</span><br><span class="line"><span class="built_in">console</span>.log(now.year);   <span class="comment">// 2021</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h4><p><code>delete</code>操作符可以删除一个不是继承而来的属性：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">5</span>,</span><br><span class="line">  b: <span class="number">12</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">delete</span> obj.a;</span><br><span class="line"><span class="built_in">console</span>.log(obj);   <span class="comment">// &#123;b: 12&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一个全局变量不是使用var声明的也可以使用delete删除(默认是全局对象上的属性)</span></span><br><span class="line">a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> a;</span><br></pre></td></tr></table></figure>
+
+<h4 id="比较对象"><a href="#比较对象" class="headerlink" title="比较对象"></a>比较对象</h4><p>在JavaScript中objects是一种引用类型。两个独立声明的对象永远不会相等，只有在比较一个对象和这个对象的引用时才会返回true。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fruit = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> fruit1 = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(fruit == fruit1);     <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(fruit === fruit1);    <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fruit = &#123;<span class="attr">name</span>: <span class="string">'apple'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> fruit1 = fruit;</span><br><span class="line"><span class="built_in">console</span>.log(fruit == fruit1);     <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(fruit === fruit1);    <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用阿里云oss部署Vue项目</title>
+    <url>/code/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91oss%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为什么要用oss部署vue项目？使用oss部署前端项目可以利用oss的带宽以及cdn的加速来减少前端资源的加载速度。特别是当服务器的带宽小的情况下就显得更为重要，另外也可以使用oss配置免备案的域名。</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li>登陆阿里云控制台—&gt;对象存储oss—&gt;创建Bucket(设置区域把读写权限改为公共读就好了)</li>
+<li>选中Bucket后点击基础设置—&gt;静态页面—&gt;设置默认首页为index.html—&gt;完成后保存</li>
+<li>oss暂不支持vue的history路由，所以必须使用hash的路由，虽然可能不太美观，但由于我做的是微信H5页面所以基本上也看不到路由，也就不在意这些。</li>
+</ol>
+<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>目前使用的是手动上传的方式，后期可能会加上git hook 和 oss sdk来完成持续集成部分的东西，刚好我的毕设和这个相关可以花点时间研究一下。</p>
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>oss</tag>
       </tags>
   </entry>
   <entry>
@@ -1290,62 +1290,9 @@
       </tags>
   </entry>
   <entry>
-    <title>带键集合</title>
-    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
-    <content><![CDATA[<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h4 id="Map对象"><a href="#Map对象" class="headerlink" title="Map对象"></a>Map对象</h4><p>ES6新增Map对象用于将一个值映射到另一个值，一个Map对象就是一个简单的键值对映射集合，并可以按照数据插入时的顺序遍历所有的元素。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayings = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">sayings.set(<span class="string">'dog'</span>, <span class="string">'woof'</span>);</span><br><span class="line">sayings.set(<span class="string">'cat'</span>, <span class="string">'meow'</span>);</span><br><span class="line">sayings.set(<span class="string">'elephant'</span>, <span class="string">'toot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'fox'</span>)); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'dog'</span>));   <span class="comment">// woof</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// true</span></span><br><span class="line">sayings.delete(<span class="string">'dog'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// false</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> sayings) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> goes <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// dog goes woof</span></span><br><span class="line"><span class="comment">// cat goes meow</span></span><br><span class="line"><span class="comment">// elephant goes toot</span></span><br><span class="line">sayings.clear();</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
-
-<p>Object与Map的区别：</p>
-<ul>
-<li>Object的键均为String类型，在map里键可以是任意类型。</li>
-<li>Object的长度必须手动计算。</li>
-<li>Map的遍历遵循元素的插入顺序。</li>
-<li>Object有prototype，映射中有一些缺省的键，可以使用<code>Object.create(null)</code>回避。</li>
-</ul>
-<p>下面三点可以决定用Object还是Map:</p>
-<ul>
-<li>如果键在运行时才知道，或者所有的键类型相同，所有的值类型相同，使用Map。</li>
-<li>如果需要将原始值存储为键，则使用map。Object将每个键视为字符串，不管是数字布尔值还是其他原始类型。</li>
-<li>如果需要对个别元素进行操作，使用Object。</li>
-</ul>
-<h4 id="WeakMap对象"><a href="#WeakMap对象" class="headerlink" title="WeakMap对象"></a>WeakMap对象</h4><p>WeakMap对象也是键值对的集合，但它的键必须是对象类型，值可以是任意类型。它的键被弱保持，当其值所指对象没有其他地方引用的时候，它会被GC回收掉。WeakMap的键是不可枚举的。</p>
-<p>WeakMap常被用来存储一个对象的私有数据或实现细节：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">consr privates = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Public</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = &#123;&#125;;    <span class="comment">// 私有数据</span></span><br><span class="line">  privates.set(<span class="keyword">this</span>, me);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Public.prototype,method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = privates.get(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Public;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="set对象"><a href="#set对象" class="headerlink" title="set对象"></a>set对象</h4><p>Set对象是一组数据的集合，这些值是不重复的，可以按照添加顺序来遍历：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line">mySet.add(<span class="string">'test'</span>);</span><br><span class="line">mySet.add(<span class="number">2</span>);</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(mySet.has(<span class="number">1</span>));  <span class="comment">// true             </span></span><br><span class="line">mySet.delete(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> mySet) <span class="built_in">console</span>.log(item);</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合转数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(mySet));    <span class="comment">// ["test", 2]</span></span><br><span class="line"><span class="built_in">console</span>.log([...mySet]);           <span class="comment">// ["test", 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转集合</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>在JavaScript中一般使用数组来存储一组数据，集合对象有以下优势：</p>
-<ul>
-<li>数组中<code>indexOf</code>函数效率低下</li>
-<li>Set对象允许根据值删除元素，而数组必须使用基于下标的splice方法</li>
-<li>数组的<code>indexOf</code>方法无法找到<code>NaN</code>值</li>
-<li>Set对象存储不重复的值，所以不需要手动处理包含重复值的情况</li>
-</ul>
-<h4 id="WeakSet对象"><a href="#WeakSet对象" class="headerlink" title="WeakSet对象"></a>WeakSet对象</h4><p>WeakSet中的对象不重复且不可枚举，并且值必须是对象类型。如果集合中的对象不存在其他引用，则该对象将会被垃圾回收。</p>
-<h3 id="Map和Set的键和值相等判断"><a href="#Map和Set的键和值相等判断" class="headerlink" title="Map和Set的键和值相等判断"></a>Map和Set的键和值相等判断</h3><p>Map对象的键相等性和Set对象的值相等性均基于same-value-zero算法</p>
-<ul>
-<li>判断使用与<code>===</code>相似的规则。</li>
-<li><code>-0</code>和<code>+0</code>相等。</li>
-<li><code>NaN</code>与自身相等(与<code>===</code>有所不同)</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_Collections" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>大学蒙太奇</title>
     <url>/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html</url>
-    <content><![CDATA[<p>转眼已经大学毕业了，回想起三年前那个拿着录取通知书来报道的我，还仿若昨日。算算拿到毕业证已经有两天了，便以这篇文章来记录一下我的大学生活吧，也算是没浪费这三年的光阴。至于名字，借鉴与<a href="https://www.hahack.com/" target="_blank" rel="noopener">潘伟洲</a>的年度总结，用蒙太奇手法记录我的大学生活，倒也比较合适。</p>
+    <content><![CDATA[<p>转眼已经大学毕业了，回想起三年前那个拿着录取通知书来报道的我，还仿若昨日。算算拿到毕业证已经有两天了，便以这篇文章来记录一下我的大学生活吧，也算是没浪费这三年的光阴。至于名字，借鉴于<a href="https://www.hahack.com/" target="_blank" rel="noopener">潘伟洲</a>的年度总结，用蒙太奇手法记录我的大学生活，倒也比较合适。</p>
 <a id="more"></a>
 
 <h2 id="2017-初入校园-打比赛-入“逍遥”"><a href="#2017-初入校园-打比赛-入“逍遥”" class="headerlink" title="2017 初入校园 打比赛 入“逍遥”"></a>2017 初入校园 打比赛 入“逍遥”</h2><p>还记得在军训时，我就被黄老大找到，说要带带我。当初我单纯的就是张小白纸，并不知道这个“带带”是什么意思，也没去多想。我怎么也不会想到这句话给我整个的大学生涯造成了巨大的影响。</p>
@@ -1409,6 +1356,64 @@
       </categories>
       <tags>
         <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习的方法论一：知识溯源法</title>
+    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
+    <content><![CDATA[<blockquote>
+<p>有一千个读者，就有一千个哈姆雷特</p>
+</blockquote>
+<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
+<blockquote>
+<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
+</blockquote>
+<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
+<a id="more"></a>
+
+<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
+<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
+<ol>
+<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
+<blockquote>
+<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
+</blockquote>
+<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
+</li>
+<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
+<blockquote>
+<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
+</blockquote>
+<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
+<blockquote>
+<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
+</blockquote>
+<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
+<blockquote>
+<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
+</blockquote>
+</li>
+<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
+<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
+<blockquote>
+<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
+</blockquote>
+<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
+</li>
+<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
+<blockquote>
+<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
+</blockquote>
+<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
+</li>
+</ol>
+<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>方法论</tag>
       </tags>
   </entry>
   <entry>
@@ -1506,61 +1511,56 @@
       </tags>
   </entry>
   <entry>
-    <title>学习的方法论一：知识溯源法</title>
-    <url>/%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%80%EF%BC%9A%E7%9F%A5%E8%AF%86%E6%BA%AF%E6%BA%90%E6%B3%95.html</url>
-    <content><![CDATA[<blockquote>
-<p>有一千个读者，就有一千个哈姆雷特</p>
-</blockquote>
-<h4 id="什么是知识溯源法"><a href="#什么是知识溯源法" class="headerlink" title="什么是知识溯源法"></a>什么是知识溯源法</h4><p>在学习本方法之前我们先来看看百度百科的定义。</p>
-<blockquote>
-<p><em>溯源</em>法是一种追究根源的逆向思维方式，也是一种以倒推的方式追寻原因而达到解决问题的工作方式。</p>
-</blockquote>
-<p>我的理解就是对知识的起源做一个探寻。计算机的历史距今也不算太久，第一台图灵完备的电子计算机ENIAC诞生于1946年，所以计算机编程的相关知识大多都是可溯源的。</p>
-<a id="more"></a>
+    <title>带键集合</title>
+    <url>/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</url>
+    <content><![CDATA[<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h4 id="Map对象"><a href="#Map对象" class="headerlink" title="Map对象"></a>Map对象</h4><p>ES6新增Map对象用于将一个值映射到另一个值，一个Map对象就是一个简单的键值对映射集合，并可以按照数据插入时的顺序遍历所有的元素。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayings = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">sayings.set(<span class="string">'dog'</span>, <span class="string">'woof'</span>);</span><br><span class="line">sayings.set(<span class="string">'cat'</span>, <span class="string">'meow'</span>);</span><br><span class="line">sayings.set(<span class="string">'elephant'</span>, <span class="string">'toot'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'fox'</span>)); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.get(<span class="string">'dog'</span>));   <span class="comment">// woof</span></span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// true</span></span><br><span class="line">sayings.delete(<span class="string">'dog'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(sayings.has(<span class="string">'dog'</span>));   <span class="comment">// false</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> sayings) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> goes <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// dog goes woof</span></span><br><span class="line"><span class="comment">// cat goes meow</span></span><br><span class="line"><span class="comment">// elephant goes toot</span></span><br><span class="line">sayings.clear();</span><br><span class="line"><span class="built_in">console</span>.log(sayings.size);    <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="为什么要对知识进行溯源"><a href="#为什么要对知识进行溯源" class="headerlink" title="为什么要对知识进行溯源"></a>为什么要对知识进行溯源</h4><p>可以帮助我们了解该知识出现的历史背景，为什么会出现以及该知识所带来的影响。虽然网上现在的资料多到数不胜数，其中也不乏有一些大佬们的总结，读这些文章固然可以帮我们理解该知识点（站在巨人的肩膀上），但如果我们能拿到第一手资料的话或许我们会有一些不一样的理解（有一千个读者就有一千个哈姆雷特）。</p>
-<h4 id="怎么对知识进行溯源"><a href="#怎么对知识进行溯源" class="headerlink" title="怎么对知识进行溯源"></a>怎么对知识进行溯源</h4><p>下面我会以对<strong>面向对象编程(object-oriented programming)</strong>这个概念进行溯源为例：</p>
-<ol>
-<li><p>通过google查询object-oriented programming出现的历史，我在维基百科(wikipedia)中找到了这个词的History。摘抄部分如下：</p>
-<blockquote>
-<p>Terminology invoking “objects” and “oriented” in the modern sense of object-oriented programming made its first appearance at MIT in the late 1950s and early 1960s. In the environment of the artificial intelligence group, as early as 1960, “object” could refer to identified items (LISP) atoms) with properties (attributes);Alan Kay was later to cite a detailed understanding of LISP internals as a strong influence on his thinking in 1966</p>
-</blockquote>
-<p>大概意思就是面向对象这个术语最早出现在19世纪50年代末到60年代初，后来Alan Kay这个人详细的解释了这个术语的含义。</p>
-</li>
-<li><p>随后我在<a href="https://scholar.google.com" target="_blank" rel="noopener">谷歌学术</a>找到了Alan Kay发给别人的邮件阐述他对于object-oriented programming的理解。<a href="http://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en" target="_blank" rel="noopener">原文在这里</a>，摘抄部分如下:</p>
-<blockquote>
-<p>OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things. It can be done in Smalltalk and in LISP. There are possibly other<br>systems in which this is possible, but I’m not aware of them.</p>
-</blockquote>
-<p>大概意思就是面向对象操作仅意味着消息传递，本地保留和保护以及隐藏状态过程。</p>
-<blockquote>
-<p>I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages (so messaging came at the very beginning – it took a while to see how to do messaging in a programming language efficiently enough to be useful).</p>
-</blockquote>
-<p>正如Alan Kay说的，每个对象就像生物细胞那样，只负责消息传递，而代谢的任务则由细胞内部完成，外部不必介入。这不正是面向对象编程的三大特性之一的<strong>封装</strong>么。</p>
-<blockquote>
-<p>The term “polymorphism” was imposed much later (I think by Peter Wegner) and it isn’t quite valid.</p>
-</blockquote>
-</li>
-<li><p>Alan Kay提到他认为多态性是由Peter Wegner提出的，所以接下来继续通过谷歌学术搜到了这个人的论文</p>
-<p><a href="https://dl.acm.org/doi/abs/10.1145/382192.383004" target="_blank" rel="noopener">《Concepts and paradigms of object-oriented programming》</a>。论文中提到</p>
-<blockquote>
-<p> Inheritance is a mechanism for sharing and reusing behavior. It is distinguished from other behavior sharing mechanisms by delayed binding of self-reference so that<br>superclasses may merge their identity with the subclasses that inherit them. </p>
-</blockquote>
-<p>大概含义就是继承是共享和重用行为的一种机制，它与其他行为共享机制的区别在于延迟了对自我参照的绑定，所以父类可以将其与继承它们的子类合并。</p>
-</li>
-<li><p>而在他的论文<a href="https://dl.acm.org/doi/abs/10.1145/6041.6042" target="_blank" rel="noopener">《On understanding types, data abstraction, and polymorphism》</a>可以找到他对于多态性的解释，摘抄如下：</p>
-<blockquote>
-<p>Conventional typed languages, such as Pascal, are based on the idea that functions and procedures, and hence their operands, have a unique type. Such languages are said to be monomorphic, in the sense that every value and variable can be interpreted to be of one and only one type. Monomorphic programming languages may be contrasted with polymorphic languages in which some values and variables may have more than one type. Polymorphic functions are functions whose operands (actual parameters) can have more than one type. Polymorphic types may be defined as types whose operations are applicable to operands of more than one type. </p>
-</blockquote>
-<p>大概含义就是 多态与单态形成对比，传统类型的语言的函数和过程及其操作数具有唯一的类型，而多态是函数其操作数（实际参数）可以具有多种类型。</p>
-</li>
-</ol>
-<p>到此为止，对面向对象编程的溯源就结束了，在这个过程中，我们了解了其历史，并且重新的认识了面向对象的三大特性。(由于英语比较渣，有些地方可能翻译的不对 欢迎与我反馈)</p>
+<p>Object与Map的区别：</p>
+<ul>
+<li>Object的键均为String类型，在map里键可以是任意类型。</li>
+<li>Object的长度必须手动计算。</li>
+<li>Map的遍历遵循元素的插入顺序。</li>
+<li>Object有prototype，映射中有一些缺省的键，可以使用<code>Object.create(null)</code>回避。</li>
+</ul>
+<p>下面三点可以决定用Object还是Map:</p>
+<ul>
+<li>如果键在运行时才知道，或者所有的键类型相同，所有的值类型相同，使用Map。</li>
+<li>如果需要将原始值存储为键，则使用map。Object将每个键视为字符串，不管是数字布尔值还是其他原始类型。</li>
+<li>如果需要对个别元素进行操作，使用Object。</li>
+</ul>
+<h4 id="WeakMap对象"><a href="#WeakMap对象" class="headerlink" title="WeakMap对象"></a>WeakMap对象</h4><p>WeakMap对象也是键值对的集合，但它的键必须是对象类型，值可以是任意类型。它的键被弱保持，当其值所指对象没有其他地方引用的时候，它会被GC回收掉。WeakMap的键是不可枚举的。</p>
+<p>WeakMap常被用来存储一个对象的私有数据或实现细节：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">consr privates = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Public</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = &#123;&#125;;    <span class="comment">// 私有数据</span></span><br><span class="line">  privates.set(<span class="keyword">this</span>, me);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Public.prototype,method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> me = privates.get(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Public;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="set对象"><a href="#set对象" class="headerlink" title="set对象"></a>set对象</h4><p>Set对象是一组数据的集合，这些值是不重复的，可以按照添加顺序来遍历：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySet = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line">mySet.add(<span class="string">'test'</span>);</span><br><span class="line">mySet.add(<span class="number">2</span>);</span><br><span class="line">mySet.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(mySet.has(<span class="number">1</span>));  <span class="comment">// true             </span></span><br><span class="line">mySet.delete(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(mySet.size);    <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> mySet) <span class="built_in">console</span>.log(item);</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合转数组</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.from(mySet));    <span class="comment">// ["test", 2]</span></span><br><span class="line"><span class="built_in">console</span>.log([...mySet]);           <span class="comment">// ["test", 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转集合</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// &#123;1, 2, 3, 4&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中一般使用数组来存储一组数据，集合对象有以下优势：</p>
+<ul>
+<li>数组中<code>indexOf</code>函数效率低下</li>
+<li>Set对象允许根据值删除元素，而数组必须使用基于下标的splice方法</li>
+<li>数组的<code>indexOf</code>方法无法找到<code>NaN</code>值</li>
+<li>Set对象存储不重复的值，所以不需要手动处理包含重复值的情况</li>
+</ul>
+<h4 id="WeakSet对象"><a href="#WeakSet对象" class="headerlink" title="WeakSet对象"></a>WeakSet对象</h4><p>WeakSet中的对象不重复且不可枚举，并且值必须是对象类型。如果集合中的对象不存在其他引用，则该对象将会被垃圾回收。</p>
+<h3 id="Map和Set的键和值相等判断"><a href="#Map和Set的键和值相等判断" class="headerlink" title="Map和Set的键和值相等判断"></a>Map和Set的键和值相等判断</h3><p>Map对象的键相等性和Set对象的值相等性均基于same-value-zero算法</p>
+<ul>
+<li>判断使用与<code>===</code>相似的规则。</li>
+<li><code>-0</code>和<code>+0</code>相等。</li>
+<li><code>NaN</code>与自身相等(与<code>===</code>有所不同)</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_Collections" target="_blank" rel="noopener">MDN</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>学习</category>
+        <category>wiki</category>
       </categories>
       <tags>
-        <tag>方法论</tag>
+        <tag>w-JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1647,138 +1647,6 @@
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement" target="_blank" rel="noopener">MDN</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数字与日期</title>
-    <url>/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</url>
-    <content><![CDATA[<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
-<ul>
-<li><p>十进制数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二进制数</p>
-<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>八进制数</p>
-<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
-
-<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>十六进制数</p>
-<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.MAX_VALUE</td>
-<td align="center">可表示的最大值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_VALUE</td>
-<td align="center">可表示的最小值</td>
-</tr>
-<tr>
-<td align="center">Number.NaN</td>
-<td align="center">特指“非数字”</td>
-</tr>
-<tr>
-<td align="center">Number.NEGATIVE_INFINITY</td>
-<td align="center">特指“负无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.POSITIVE_INFINITY</td>
-<td align="center">特指“正无穷”，在溢出时返回</td>
-</tr>
-<tr>
-<td align="center">Number.EPSILON</td>
-<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
-</tr>
-<tr>
-<td align="center">Number.MIN_SAFE_INTEGER</td>
-<td align="center">JavaScript最小安全整数</td>
-</tr>
-<tr>
-<td align="center">Number.MAX_SAFE_INTEGER</td>
-<td align="center">JavaScript最大安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Number.parseFloat()</td>
-<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.parseInt()</td>
-<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
-</tr>
-<tr>
-<td align="center">Number.isFinite()</td>
-<td align="center">判断传入的值是否为有限数字</td>
-</tr>
-<tr>
-<td align="center">Number.isInteger()</td>
-<td align="center">判断传入的值是否为整数</td>
-</tr>
-<tr>
-<td align="center">Number.isNaN()</td>
-<td align="center">判断传入的值是否为<code>NaN</code></td>
-</tr>
-<tr>
-<td align="center">Number.isSafeInteger()</td>
-<td align="center">判断传入的值是否为安全整数</td>
-</tr>
-</tbody></table>
-<p><code>Number</code>原型上的方法：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">toExponential()</td>
-<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
-</tr>
-<tr>
-<td align="center">toFixed()</td>
-<td align="center">返回指定小数位数的表示形式</td>
-</tr>
-<tr>
-<td align="center">toPrecision()</td>
-<td align="center">返回一个指定精度的数字</td>
-</tr>
-</tbody></table>
-<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
 ]]></content>
       <categories>
         <category>wiki</category>
@@ -1980,6 +1848,333 @@
       </tags>
   </entry>
   <entry>
+    <title>数字与日期</title>
+    <url>/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</url>
+    <content><![CDATA[<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>在JavaScript中，数字以双精度64位二进制格式IEEE 754实现(一个介于±2−1023和±2+1024之间的数字，或者大约为±10−308到±10+308，数字精度为53位)。整数数字在运算完毕后，其值在±(253 − 1)内 可以认为是准确的，超出此范围后，数据已无法保证准确性。除了能表示浮点数，还可以表示<code>+Infinity(正无穷)</code>和<code>-Infinity(负无穷)</code>和<code>NaN(不是一个数字)</code>。</p>
+<ul>
+<li><p>十进制数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">123456</span>;    <span class="comment">// 123456</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0888</span>;      <span class="comment">// 888</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0777</span>;     <span class="comment">// 非严格模式下当做八进制处理 511</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二进制数</p>
+<p>二进制数字语法是以0开头，后面接一个大写或小写的拉丁文字母<code>B</code>(即<code>0b</code>或<code>0B</code>)，加入<code>0b</code>后边的数字不是0或1，则会报语法错误。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> FLT_SIGNBIT  = <span class="number">0b10000000000000000000000000000000</span>; <span class="comment">// 2147483648</span></span><br><span class="line"><span class="keyword">let</span> FLT_EXPONENT = <span class="number">0b01111111100000000000000000000000</span>; <span class="comment">// 2139095040</span></span><br><span class="line"><span class="keyword">let</span> FLT_MANTISSA = <span class="number">0B00000000011111111111111111111111</span>; <span class="comment">// 8388607</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">0</span>b313242;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>八进制数</p>
+<p>八进制数字语法是以0开头的，加入后面的数字不在0-7的范围内，则会被转成十进制数字。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0755</span>;    <span class="comment">// 493</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0911</span>;    <span class="comment">// 911</span></span><br></pre></td></tr></table></figure>
+
+<p>在ES5的严格模式下禁止使用八进制语法，八进制语法并不是ES5规范的一部分，但在所有浏览器中都支持八进制语法。在ES6中使用八进制需要给数字添加前缀<code>0o</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0o10</span>;    <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>十六进制数</p>
+<p>十六进制数字语法是以0开头，后接一个小写或大写的拉丁文字母X(即<code>0x</code>或<code>0X</code>)，如果<code>0x</code>后面的数字超过规定的范围，则会报语法错误：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0x123</span>;    <span class="comment">// 291</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0X456</span>;    <span class="comment">// 1110</span></span><br><span class="line"><span class="keyword">let</span> c = <span class="number">0</span>Xjhg;    <span class="comment">// Uncaught SyntaxError: Invalid or unexpected token</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1E3</span>;    <span class="comment">// 1000</span></span><br><span class="line"><span class="number">2e6</span>;    <span class="comment">// 2000000</span></span><br><span class="line"><span class="number">0.1e2</span>;  <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="数字对象"><a href="#数字对象" class="headerlink" title="数字对象"></a>数字对象</h4><p>内置的<code>Number</code>对象有一些有关数字的常量属性：</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.MAX_VALUE</td>
+<td align="center">可表示的最大值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_VALUE</td>
+<td align="center">可表示的最小值</td>
+</tr>
+<tr>
+<td align="center">Number.NaN</td>
+<td align="center">特指“非数字”</td>
+</tr>
+<tr>
+<td align="center">Number.NEGATIVE_INFINITY</td>
+<td align="center">特指“负无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.POSITIVE_INFINITY</td>
+<td align="center">特指“正无穷”，在溢出时返回</td>
+</tr>
+<tr>
+<td align="center">Number.EPSILON</td>
+<td align="center">表示1与可表示的大于的最小浮点数之间的差值</td>
+</tr>
+<tr>
+<td align="center">Number.MIN_SAFE_INTEGER</td>
+<td align="center">JavaScript最小安全整数</td>
+</tr>
+<tr>
+<td align="center">Number.MAX_SAFE_INTEGER</td>
+<td align="center">JavaScript最大安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Number.parseFloat()</td>
+<td align="center">把字符串参数解析成浮点数，和全局方法<code>parseFloat</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.parseInt()</td>
+<td align="center">把字符串参数解析成特定基数对应的整型数字，和全局方法<code>parseInt</code>作用一致</td>
+</tr>
+<tr>
+<td align="center">Number.isFinite()</td>
+<td align="center">判断传入的值是否为有限数字</td>
+</tr>
+<tr>
+<td align="center">Number.isInteger()</td>
+<td align="center">判断传入的值是否为整数</td>
+</tr>
+<tr>
+<td align="center">Number.isNaN()</td>
+<td align="center">判断传入的值是否为<code>NaN</code></td>
+</tr>
+<tr>
+<td align="center">Number.isSafeInteger()</td>
+<td align="center">判断传入的值是否为安全整数</td>
+</tr>
+</tbody></table>
+<p><code>Number</code>原型上的方法：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">toExponential()</td>
+<td align="center">返回一个数字的指数形式字符串，如：1.23e+2</td>
+</tr>
+<tr>
+<td align="center">toFixed()</td>
+<td align="center">返回指定小数位数的表示形式</td>
+</tr>
+<tr>
+<td align="center">toPrecision()</td>
+<td align="center">返回一个指定精度的数字</td>
+</tr>
+</tbody></table>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>JavaScript中没有日期对象，但是可以使用<code>Date</code>对象和其提供的方法来处理日期和时间。</p>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>索引集合</title>
+    <url>/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</url>
+    <content><![CDATA[<h3 id="数组对象"><a href="#数组对象" class="headerlink" title="数组对象"></a>数组对象</h3><p>数组是一个有序的数据集合，可以通过数组名称和索引进行访问。JavaScript中没有明确的数组数据类型，但可以使用内置的Array对象和其方法对数组进行操作。</p>
+<h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建数组有以下三种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用Array构造函数</span></span><br><span class="line"><span class="keyword">let</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用Array函数</span></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用数组字面量</span></span><br><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="填充数组"><a href="#填充数组" class="headerlink" title="填充数组"></a>填充数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以通过给元素赋值进行填充数组</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr [<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">arr [<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">arr [<span class="number">3</span>] = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);    <span class="comment">// [1, 2, empty, 3]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果索引是一个非整型数值，则将会被作为数组对象的属性存储，而非数组元素</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr[<span class="number">3.14</span>] = <span class="number">3.14</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);        <span class="comment">// [3.14: 3.14]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">3.14</span>]);  <span class="comment">// 3.14</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.hasOwnProperty(<span class="number">3.14</span>));  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="引用数组元素"><a href="#引用数组元素" class="headerlink" title="引用数组元素"></a>引用数组元素</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用数组名加索引的方式引用</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">0</span>]);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h4><p>在实施层面，JavaScript实际上是将元素作为标准的对象属性来存储。把索引作为属性名。<strong>length</strong>属性是特殊的，它总是返回最后一个元素的索引值+1，也可以通过改写<strong>length</strong>来修改数组：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [];</span><br><span class="line">arrs[<span class="number">100</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arrs.length);  <span class="comment">// 101</span></span><br><span class="line"></span><br><span class="line">arrs.length = <span class="number">0</span>;    <span class="comment">// 将length属性改为0会清空数组</span></span><br><span class="line"><span class="built_in">console</span>.log(arrs);  <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的操作是遍历数组的值，并以某种方式进行处理</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arrs.length; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arrs[i]);    <span class="comment">// 1, 2, 3, 4, 5, 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果确定数组中的元素没有一个false，例如只包含dom节点的数组，可以使用下面的方法</span></span><br><span class="line"><span class="comment">// 该方法可以避免检测数组长度的开销，并确保每次循环时都将div变量重新分配给当前项</span></span><br><span class="line"><span class="keyword">let</span> divs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, div; div = divs[i]; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用forEach方法</span></span><br><span class="line"><span class="comment">// 被传递给forEach的回调函数会在数组的每个元素上执行一次，元素作为参数传递给回调函数，未赋值的值不会在forEach循环迭代</span></span><br><span class="line">arrs.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 在数组定义时省略的元素不会在forEach遍历中列出，但手动赋值的undefined会被列出</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [,,<span class="literal">undefined</span>,<span class="number">1</span>];</span><br><span class="line">arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// undefined, 1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// concat()连接两个数组并返回一个新的数组</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr1.concat(arr2));    <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// join()将数组所有元素连接成一个字符串，并以参数作为分隔符</span></span><br><span class="line"><span class="built_in">console</span>.log(arr1.join(<span class="string">','</span>));      <span class="comment">// 1,2,3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// push()在数组末尾添加一个或多个元素，并返回数组操作后的长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.push(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>));    <span class="comment">// 6</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);                <span class="comment">// [4,5,6,"a","b","c"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// pop()从数组中移除最后一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.pop());         <span class="comment">// c</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);               <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// shift()从数组中移出第一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.shift());      <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [5,6,"a","b"] </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// unshift()在数组开头添加一个或多个元素，并返回数组的新长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.unshift(<span class="number">4</span>));   <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// slice(start_index, end_index)从数组提取一个片段，并作为一个新数组返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.slice(<span class="number">0</span>, <span class="number">3</span>));  <span class="comment">// [4,5,6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// splice(index, count_to_remove, addElment1...)从数组中移出一些元素，(可选)并替换它们</span></span><br><span class="line">arr2.splice(<span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reverse()颠倒数组元素的顺序</span></span><br><span class="line">arr2.reverse();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sort()给数组元素排序</span></span><br><span class="line">arr2.sort();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="comment">// sort也可以传一个回调函数来决定排序方法</span></span><br><span class="line">arr2.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b - a);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexOf(element[, fromIndex])在数组中搜索element并返回第一个匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.indexOf(<span class="number">9</span>));      <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// lastIndexOf(element[, fromIndex])从结尾开始反向搜索elemnt，并返回第一次匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.lastIndexOf(<span class="number">9</span>));  <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach(callback[, thisObject])在数组的每个元素上执行callback</span></span><br><span class="line">arr2.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// 9 8 7</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// map(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.map(<span class="function"><span class="params">item</span> =&gt;</span> item * <span class="number">2</span>));   <span class="comment">// [18, 16, 14, 12, 10, 8]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// filter(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值w为true的元素组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.filter(<span class="function"><span class="params">item</span> =&gt;</span> item % <span class="number">2</span> === <span class="number">0</span>));  <span class="comment">// [8, 6, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// every(callback[, thisObject])在数组的每个元素上执行callback，如果每次执行callback的返回值都为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.every(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">0</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// some(callback[, thisObject])在数组的每个元素上执行callback，如果有一次次执行callback的返回值为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.some(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">8</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduce(callback[, initialValue])使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值。</span></span><br><span class="line"><span class="comment">// 如果指定了initialValue，则使用initialValue作为第一个参数值并以数组中第一项的值作为第二个参数值来调用回调。如果未指定initialValue，则回调的前两个参数值将是数组的第一个和第二个元素。</span></span><br><span class="line"><span class="comment">// 9 + 8 + 7 + 6 + 5 + 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduceRight(callback[, initialValue])从最后一个元素开始，使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值</span></span><br><span class="line"><span class="comment">// 4 + 5 + 6 + 7 + 8 + 9</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用类数组对象"><a href="#使用类数组对象" class="headerlink" title="使用类数组对象"></a>使用类数组对象</h4><p>Array的原生(prototype)方法可以用来处理类似数组(例如arguments)行为的对象:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printArgumnets</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Array</span>.prototype.forEach.call(<span class="built_in">arguments</span>, item =&gt; <span class="built_in">console</span>.log(item));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型化数组"><a href="#类型化数组" class="headerlink" title="类型化数组"></a>类型化数组</h3><p>Typed Arrays是类数组对象，其提供访问原始二进制数据的机制</p>
+<h4 id="缓冲和视图：类型化的数组结构"><a href="#缓冲和视图：类型化的数组结构" class="headerlink" title="缓冲和视图：类型化的数组结构"></a>缓冲和视图：类型化的数组结构</h4><p>JavaScript类型数组被分解为缓冲(Buffer, 由ArrayBuffer实现)和视图(views)。缓冲是代表数据块的对象，它没有格式可言并没有提供任何机制来访问其内容。为了访问包含在缓冲区的内存需要使用视图，视图提供一个上下文，即数据类型、起始偏移量和元素数，这些元素将数据转换为实际类型数组。</p>
+<h4 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a>ArrayBuffer</h4><p>ArrayBuffer是一种数据类型，用于表示一个通用的、固定长度的二进制数据缓冲区。不能直接操作一个ArrayBuffer中的内容，需要创建一个数组类型视图或者DataView来代表特定格式的缓冲区，从而实现读写缓冲区中的内容。</p>
+<h4 id="类型数组视图"><a href="#类型数组视图" class="headerlink" title="类型数组视图"></a>类型数组视图</h4><p>类型数组属视图具有自描述性的名字，并且提供数据类型信息。例如<code>Int8</code>、<code>Unit32</code>、<code>Float64</code>等。</p>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>语法和数据类型</title>
+    <url>/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
+    <content><![CDATA[<h2 id="JavaScript语法"><a href="#JavaScript语法" class="headerlink" title="JavaScript语法"></a>JavaScript语法</h2><h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>JavaScript区分大小写，并使用Unicode字符集。即变量<code>test</code>和<code>TEXT</code>是两个不同的变量，并且可以使用中文作为变量名，如：<code>var 中文;</code></p>
+<h3 id="分号可省略"><a href="#分号可省略" class="headerlink" title="分号可省略"></a>分号可省略</h3><p>每行代码结尾的分号可以省略，因为ECMAScript规定了在语句的末尾自动插入分号(ASI机制)。如果一行中有多条语句，那么这些语句必须以分号隔开。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>JavaScript源码从左往右被扫描并转换成一系列由token、控制字符、行终止符、注释和空白字符组成的输入元素。</p>
+<ul>
+<li>控制字符<ul>
+<li>零宽非连字符(&lt;ZWNJ&gt;, U+200C)，放置在一些经常会被当成连字的字符之间，用于将它们分别以独立形式显示。</li>
+<li>零宽连字符(&lt;ZWJ&gt;, U+200D)，放置在一些通常不会被标记为连接字的字符之间，用于将这些字符以连字形式显示。</li>
+<li>字节顺序标记(&lt;BOM&gt;, U+FEFF)，在脚本开头使用，除了将脚本标记为Unicode格式以外，还用来标记文本的字节流方向。</li>
+</ul>
+</li>
+<li>空白符<ul>
+<li>制表符(&lt;HT&gt;, U+0009)，水平制表符，<code>\t</code></li>
+<li>垂直制表符(&lt;VT&gt;, U+000B)，垂直制表符，<code>\v</code></li>
+<li>分页符(&lt;FF&gt;, U+000C)，分页符，<code>\f</code></li>
+<li>空格(&lt;SP&gt;, U+0020)，空格</li>
+<li>无间断空格(&lt;NBSP&gt;, U+00A0)，在该空格处不会换行</li>
+</ul>
+</li>
+<li>行终止符<ul>
+<li>换行符(&lt;LF&gt;, U+000A)，在UNIX系统中起新行，<code>\n</code></li>
+<li>回车符(&lt;CR&gt;, U+000D)，在Commodore和早期的Mac系统中起新行，<code>\r</code></li>
+<li>行分隔符(&lt;LS&gt;, U+2028)</li>
+<li>段分隔符(&lt;PSs&gt;, U+2029)</li>
+</ul>
+</li>
+</ul>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>JavaScript的注释语法类似于C++，有两种注释方式：单行和多行。两种注释方式不能混用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">  多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量又叫标识符，需要遵循一定的规则：必须以字母、下划线(_)或者美元符($)开头，后续的字符也可以是数字(0-9)，可以使用ISO 8859-1或Unicode编码的字符作为标识符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> \u4e25 = <span class="number">1</span>;     <span class="comment">// 严的unicode编码为\u4e25</span></span><br><span class="line"><span class="built_in">console</span>.log(严);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>变量声明</p>
+<ul>
+<li>使用关键词<code>var</code>，例如<code>var test = 1;</code>。该语法可以声明局部变量和全局变量。</li>
+<li>直接赋值，例如<code>test = 1;</code>。在函数外使用这种形式赋值会产生一个全局变量，在严格模式下会产生错误。</li>
+<li>使用关键词<code>let</code>，例如<code>let test = 1;</code>。该语法可以用来声明块作用域的局部变量</li>
+</ul>
+</li>
+<li><p>变量求值</p>
+<p>用<code>var</code>或<code>let</code>声明的变量如果没有赋初始值，则其值为<code>undefined</code>。如果访问一个未声明的变量会抛出一个·<code>ReferenceError</code>异常。</p>
+<p>可以使用<code>undefined</code>来判断一个变量是否已经赋值，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test === <span class="literal">undefined</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>undefined</code>在布尔类型环境中会被当做<code>false</code>，所以上面的代码可以简化成下面的形式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在数值类型中<code>undefined</code>会被转成<code>NaN</code>，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="number">2</span>);    <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>空值<code>null</code>在数值类型中会被转换成0，在布尔类型中会准换成false，例如:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a + <span class="number">1</span>);    <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">if</span>(!a)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'null'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量的作用域</p>
+<p>在函数之外生声明的变量叫做全局变量，它可被当前文档中的任何其他代码访问。在函数内部声明的变量称为局部变量，只能在当前函数内部访问。    </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;    <span class="comment">// 全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> test;  <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ECMAScript6之前没有块级作用域(即大括号之间的代码块)，语句块中声明的变量会称为语句块所在的作用域中的变量。如果使用ES6中的<code>let</code>声明，就会变为块级作用域。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> test = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">// ReferenceError</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量提升</p>
+<p>在JavaScript中可以先使用变量再进行声明，这被称为变量提升。感觉上提升是被移到了文档的最前面，但提升后的变量将返回<code>undefined</code>值，因此即便是在声明时赋值了初始值，也会返回<code>undefined</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<p>在ECMAScript6中，使用<code>let</code>或<code>const</code>声明会将变量提升但不会被初始化，因此在变量声明之前就使用这个变量，将会抛出引用错误(RefenceError)。这个变量将从代码块一开始的时候就处在一个<strong>暂时性死区</strong>(temporal dead zone)，直到这个变量被声明为止。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数提升</p>
+<p>对于函数来说，只有函数声明会被提升，而函数表达式不会被提升。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test();    <span class="comment">// test!</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test!'</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2();  <span class="comment">// TypeError: test2 is not a function</span></span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test2!'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局变量</p>
+<p>全局变量实际上是全局对象的属性，在浏览器中默认的全局变量为<code>window</code>，可以使用<code>window.variable</code>的语法来设置和访问变量。</p>
+</li>
+<li><p>常量</p>
+<p>在ECMAScript6中，可以使用<code>const</code>关键字声明常量，常量不可以重新赋值，所以在声明时就需要赋值。常量作用域与<code>let</code>一样，在同一作用域中，不能使用变量名或函数名相同的名字来命名常量。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// SyntaxError: Identifier 'b' has already been declared</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>最新的ECMAScript定义了8中数据类型，分别为：</p>
+<ul>
+<li>原始类型<ul>
+<li>Boolean，有且只有两个值: <code>true</code>和<code>false</code></li>
+<li>Null，一个表明null值得特殊关键字，</li>
+<li>undefined，一个表示值未定义的顶级属性</li>
+<li>Number，整数或浮点数</li>
+<li>String，代表文本值的一系列字符</li>
+<li>Symbol，实例是唯一且不可变的数据类型</li>
+<li>BigInt，具有任意精度的整数</li>
+</ul>
+</li>
+<li>Object</li>
+</ul>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>JavaScript是一门动态类型的语言，在声明变量时可以不必指定数据类型，数据类型会在代码执行时根据需要自动转换。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">// 此时a的类型为number</span></span><br><span class="line">a = <span class="string">'1234'</span>;    <span class="comment">// 此时a的类型为string</span></span><br></pre></td></tr></table></figure>
+
+<p>在包含数字和字符串的表达式中使用<code>+</code>运算，JavaScript会将数字隐式转换成字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> + <span class="number">1</span>);    <span class="comment">// 371，类型为字符串，使用字符串的拼接操作</span></span><br></pre></td></tr></table></figure>
+
+<p>在涉及其他运算符时，JavaScript会将字符串隐式转换成数字</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> - <span class="number">1</span>);    <span class="comment">// 36，类型为数字</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量是在脚本中实际提供的固定值而不是变量，通常有以下类型的字面量：</p>
+<ul>
+<li><h5 id="数组字面量-Array-Literals"><a href="#数组字面量-Array-Literals" class="headerlink" title="数组字面量(Array Literals)"></a>数组字面量(Array Literals)</h5><p>数组字面量是0个或多个表达式的列表，每个表达式代表一个数组元素，并使用方括号<code>[]</code>括起来。使用数组字面量创建数组时，将使用指定的值作为其元素进行初始化，并且将其长度设置为指定的参数个数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, ,<span class="number">3</span>];</span><br><span class="line">nums[<span class="number">0</span>];    <span class="comment">// 1</span></span><br><span class="line">nums[<span class="number">1</span>];    <span class="comment">// undefined</span></span><br><span class="line">nums[<span class="number">2</span>];    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="布尔字面量-Boolean-Literals"><a href="#布尔字面量-Boolean-Literals" class="headerlink" title="布尔字面量(Boolean Literals)"></a>布尔字面量(Boolean Literals)</h4><p>有且仅有两个值：<code>true</code>和<code>false</code>。</p>
+</li>
+<li><h4 id="浮点数字面量-Float-point-Literals"><a href="#浮点数字面量-Float-point-Literals" class="headerlink" title="浮点数字面量(Float-point Literals)"></a>浮点数字面量(Float-point Literals)</h4><p>浮点数字面量可以有以下部分组成:</p>
+<ul>
+<li>一个带正负号(<code>+</code>、<code>-</code>)的十进制整数</li>
+<li>小数点<code>.</code></li>
+<li>小数部分(由一串十进制数表示)</li>
+<li>指数部分，即<code>e</code>或<code>E</code>后跟一个整数，该整数可以带正负号。</li>
+</ul>
+<p>浮点数字面量必须至少包含一位数字，并带有小数点或<code>e</code>。语法类似:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[(+|-)][digits].[digits][(E|e)[(+|-)]digits]</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="数字字面量-Numeric-Literals"><a href="#数字字面量-Numeric-Literals" class="headerlink" title="数字字面量(Numeric Literals)"></a>数字字面量(Numeric Literals)</h4><p>Number和BigInt类型可以使用十进制、十六进制、八进制和二进制表示。</p>
+<ul>
+<li>十进制的数字字面量是由前缀不为0的一串数字序列组成</li>
+<li>八进制的数字字面量是由前缀为<code>0</code>或者前缀为<code>0O</code>的只包含0-7的数字组成</li>
+<li>十六进制的数字字面量是由前缀为<code>0x</code>并且包含0-9和a-f的序列组成</li>
+<li>二进制的数字字面量是由前缀为<code>0b</code>并且只包含0-1的数字序列组成</li>
+</ul>
+</li>
+<li><h4 id="对象字面量-Object-Literals"><a href="#对象字面量-Object-Literals" class="headerlink" title="对象字面量(Object Literals)"></a>对象字面量(Object Literals)</h4><p>对象字面量是使用花括号<code>{}</code>括起来的0或多对<strong>属性名：属性值</strong>对的元素列表。不要在语句的开头使用对象字面量语法，这位被认为是一个块的开始</p>
+<h6 id="增强的对象字面量-Enhanced-Object-literals"><a href="#增强的对象字面量-Enhanced-Object-literals" class="headerlink" title="增强的对象字面量(Enhanced Object literals)"></a>增强的对象字面量(Enhanced Object literals)</h6><p>在ES2015中，对象字面量扩展了支持在创建时设置原型，简写了<code>foo: foo</code>形式的属性赋值和方法定义，支持父方法调用，以及使用表达式动态计算属性名。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  __proto__: theProtoObj,</span><br><span class="line">  handler, <span class="comment">// =&gt; handler: handler</span></span><br><span class="line">  toString() &#123;&#125;, <span class="comment">// =&gt; toString: function() &#123;&#125;</span></span><br><span class="line">  [<span class="string">'prop_'</span> + <span class="function">(<span class="params">(</span>) =&gt;</span> <span class="number">42</span>)()]: <span class="number">42</span> <span class="comment">// 动态计算属性名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="正则表达式字面量-RegExp-Literals"><a href="#正则表达式字面量-RegExp-Literals" class="headerlink" title="正则表达式字面量(RegExp Literals)"></a>正则表达式字面量(RegExp Literals)</h4><p>正则表达式字面量是被斜杠<code>/</code>围成的表达式，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="字符串字面量-String-Literals"><a href="#字符串字面量-String-Literals" class="headerlink" title="字符串字面量(String Literals)"></a>字符串字面量(String Literals)</h4><p>字符串字面量是由双引号<code>&quot;</code>或单引号<code>&#39;</code>括起来的0个或多个字符，字符被限制在相同类型的引号之间。例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'test'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>ES2015还提供了一种模板字面量(template literals)，模板字面量使用反引号(<strong>`</strong>)，其为构造字符串提供了语法糖，还可以在模板字符串前添加一个tag来自定义模板字符串的解析过程，以预防注入攻击或建立基于字符串的高级数据抽象。例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'bob'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);    <span class="comment">// Hello, bob</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>w-JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>理解有限状态机</title>
     <url>/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html</url>
     <content><![CDATA[<h2 id="什么是有限状态机？"><a href="#什么是有限状态机？" class="headerlink" title="什么是有限状态机？"></a>什么是有限状态机？</h2><p>有限状态机也叫状态机，是一种编程思想或者说是编程范式。在有限状态机中：</p>
@@ -2012,31 +2207,35 @@
       </tags>
   </entry>
   <entry>
-    <title>索引集合</title>
-    <url>/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</url>
-    <content><![CDATA[<h3 id="数组对象"><a href="#数组对象" class="headerlink" title="数组对象"></a>数组对象</h3><p>数组是一个有序的数据集合，可以通过数组名称和索引进行访问。JavaScript中没有明确的数组数据类型，但可以使用内置的Array对象和其方法对数组进行操作。</p>
-<h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建数组有以下三种方法：</span></span><br><span class="line"><span class="comment">// 1. 使用Array构造函数</span></span><br><span class="line"><span class="keyword">let</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 使用Array函数</span></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用数组字面量</span></span><br><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+    <title>迭代器与生成器</title>
+    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
+    <content><![CDATA[<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>在JavaScript中，迭代器是一个对象，它定义一个序列，并在终止时可能返回一个返回值。准确说，迭代器是使用<code>next</code>方法实现iterator protocol的任何一个对象，该方法返回具有两个属性的对象：<code>value</code>和<code>done</code>。<code>value</code>是序列中的next的值。<code>done</code>用来判断是否迭代完成，如果已经迭代到序列中的最后一个值，则为true。如果<code>value</code>和<code>done</code>一起存在，则是迭代器的返回值。</p>
+<p>迭代器一旦创建，就可以通过重复调用<code>next()</code>方法显示迭代。迭代一个迭代器被称为消费，因为它通常只能执行一次。在产生终止值之后，对<code>next()</code>的额外调用应该继续返回<code>{done: true}</code>。</p>
+<p>JavaScript中最常见的迭代器是数组迭代器，它只是按顺序返回关联数组中的每个值。数组必须完整分配，但迭代器仅在必要时使用。因此，迭代器可以表示大小不受限制的序列，例如0到Infinity之间的整数范围。例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRangeIterator</span>(<span class="params">start = <span class="number">0</span>, end = Infinite, step = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> nextIndex = start;</span><br><span class="line">  <span class="keyword">let</span> iterationCount = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> rangeIterator = &#123;</span><br><span class="line">    next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> result;</span><br><span class="line">      <span class="keyword">if</span>(nextIndex &lt; end) &#123;</span><br><span class="line">        result = &#123;<span class="attr">value</span>: nextIndex, <span class="attr">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">        nextIndex += step;</span><br><span class="line">        iterationCount++;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">value</span>: iterationCount, <span class="attr">done</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> rangeIterator;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">let</span> it = makeRangeIterator(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">let</span> result = it.next();</span><br><span class="line"><span class="keyword">while</span>(!result.done) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result.value);</span><br><span class="line">  result = it.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="填充数组"><a href="#填充数组" class="headerlink" title="填充数组"></a>填充数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以通过给元素赋值进行填充数组</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr [<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">arr [<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">arr [<span class="number">3</span>] = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);    <span class="comment">// [1, 2, empty, 3]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length);    <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果索引是一个非整型数值，则将会被作为数组对象的属性存储，而非数组元素</span></span><br><span class="line"><span class="keyword">let</span> arr = [];</span><br><span class="line">arr[<span class="number">3.14</span>] = <span class="number">3.14</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);        <span class="comment">// [3.14: 3.14]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">3.14</span>]);  <span class="comment">// 3.14</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.length); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.hasOwnProperty(<span class="number">3.14</span>));  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="生成器函数"><a href="#生成器函数" class="headerlink" title="生成器函数"></a>生成器函数</h4><p>虽然自定义的迭代器是一个有用的工具，但由于需要显示地维护其内部状态，需要谨慎使用。生成器函数提供了一个强大的选择：它允许你自定义一个包含自有迭代算法的函数，同时它可以自动的维护自己的状态。生成器函数使用<code>function*</code>语法编写。最初调用时，生成器函数不执行任何代码，而是返回一种称为Generator的迭代器。通过调用生成器的下一个方法消耗值时，Generator函数将执行，直到遇到yield关键字。可以根据需要多次调用该函数，并且每次都返回一个新的Generator，但每个Generator只能迭代一次。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">makeRangeIterator</span>(<span class="params">start = <span class="number">0</span>, end = Infinity, step = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = start, i &lt; end, i += step) &#123;</span><br><span class="line">    <span class="keyword">yield</span> i</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = makeRangeIterator(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>);</span><br><span class="line">a.next();    <span class="comment">// &#123;value: 1, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 5, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 7, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 9, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: uundefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="引用数组元素"><a href="#引用数组元素" class="headerlink" title="引用数组元素"></a>引用数组元素</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用数组名加索引的方式引用</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">0</span>]);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h4 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h4><p>若一个对象拥有迭代行为，比如在<code>for...of</code>中会循环一些值，那么该对象便是一个可迭代对象。某些内置对象(Array或Map)具有默认的迭代行为，而其他类型(Object)则没有。</p>
+<p>为了实现可迭代，对象必须实现<code>@@iterator</code>方法，这意味着这个对象(或其原型链中的任何一个对象)必须具有一个带<code>Symbol.iterator</code>键的属性。可以一次或多次迭代一个迭代器，只能迭代一次的iterables通常从他们的@@iterator方法中返回自身。可以多次迭代的方法必须在每次调用@@iterator时返回一个新的迭代器。</p>
+<h5 id="自定义的可迭代对象"><a href="#自定义的可迭代对象" class="headerlink" title="自定义的可迭代对象"></a>自定义的可迭代对象</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myIterable = &#123;</span><br><span class="line">  *[<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> myIterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">[...myIterable];    .. [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
 
-<h4 id="length属性"><a href="#length属性" class="headerlink" title="length属性"></a>length属性</h4><p>在实施层面，JavaScript实际上是将元素作为标准的对象属性来存储。把索引作为属性名。<strong>length</strong>属性是特殊的，它总是返回最后一个元素的索引值+1，也可以通过改写<strong>length</strong>来修改数组：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [];</span><br><span class="line">arrs[<span class="number">100</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arrs.length);  <span class="comment">// 101</span></span><br><span class="line"></span><br><span class="line">arrs.length = <span class="number">0</span>;    <span class="comment">// 将length属性改为0会清空数组</span></span><br><span class="line"><span class="built_in">console</span>.log(arrs);  <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+<h5 id="内置可迭代对象"><a href="#内置可迭代对象" class="headerlink" title="内置可迭代对象"></a>内置可迭代对象</h5><ul>
+<li>String</li>
+<li>Array</li>
+<li>TypedArray</li>
+<li>Map</li>
+<li>Set</li>
+</ul>
+<h5 id="用于可迭代对象的语法"><a href="#用于可迭代对象的语法" class="headerlink" title="用于可迭代对象的语法"></a>用于可迭代对象的语法</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for...of循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> vaule <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展运算符</span></span><br><span class="line">[...<span class="string">'abc'</span>];    <span class="comment">// [a, b, c]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line">&#125;</span><br><span class="line">gen().next();    <span class="comment">// &#123;value: 'a', done: false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解构</span></span><br><span class="line">[a, b, c] = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);</span><br><span class="line">a; <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arrs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的操作是遍历数组的值，并以某种方式进行处理</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arrs.length; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arrs[i]);    <span class="comment">// 1, 2, 3, 4, 5, 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果确定数组中的元素没有一个false，例如只包含dom节点的数组，可以使用下面的方法</span></span><br><span class="line"><span class="comment">// 该方法可以避免检测数组长度的开销，并确保每次循环时都将div变量重新分配给当前项</span></span><br><span class="line"><span class="keyword">let</span> divs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, div; div = divs[i]; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用forEach方法</span></span><br><span class="line"><span class="comment">// 被传递给forEach的回调函数会在数组的每个元素上执行一次，元素作为参数传递给回调函数，未赋值的值不会在forEach循环迭代</span></span><br><span class="line">arrs.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 在数组定义时省略的元素不会在forEach遍历中列出，但手动赋值的undefined会被列出</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [,,<span class="literal">undefined</span>,<span class="number">1</span>];</span><br><span class="line">arr1.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// undefined, 1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="高级生成器"><a href="#高级生成器" class="headerlink" title="高级生成器"></a>高级生成器</h5><p>生成器会按需计算它们的产生值，这使得它们能够有效表示一个计算成本很高的序列。<code>next()</code>方法也接受一个参数用于修改生成器内部状态。传递给<code>next()</code>的参数值会被yield接受，传给第一个<code>next()</code>的值会被忽略。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fn1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> fn2 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> current = fn1;</span><br><span class="line">    fn1 = fn2;</span><br><span class="line">    fn2 = current + fn1;</span><br><span class="line">    <span class="keyword">var</span> reset = <span class="keyword">yield</span> current;</span><br><span class="line">    <span class="keyword">if</span>(reset) &#123;</span><br><span class="line">      fn = <span class="number">0</span>;</span><br><span class="line">      fn = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sequence = fibonacci();</span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next(<span class="literal">true</span>).value);    <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// concat()连接两个数组并返回一个新的数组</span></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr1.concat(arr2));    <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// join()将数组所有元素连接成一个字符串，并以参数作为分隔符</span></span><br><span class="line"><span class="built_in">console</span>.log(arr1.join(<span class="string">','</span>));      <span class="comment">// 1,2,3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// push()在数组末尾添加一个或多个元素，并返回数组操作后的长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.push(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>));    <span class="comment">// 6</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);                <span class="comment">// [4,5,6,"a","b","c"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// pop()从数组中移除最后一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.pop());         <span class="comment">// c</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);               <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// shift()从数组中移出第一个元素，并返回该元素</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.shift());      <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [5,6,"a","b"] </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// unshift()在数组开头添加一个或多个元素，并返回数组的新长度</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.unshift(<span class="number">4</span>));   <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2);              <span class="comment">// [4,5,6,"a","b"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// slice(start_index, end_index)从数组提取一个片段，并作为一个新数组返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.slice(<span class="number">0</span>, <span class="number">3</span>));  <span class="comment">// [4,5,6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// splice(index, count_to_remove, addElment1...)从数组中移出一些元素，(可选)并替换它们</span></span><br><span class="line">arr2.splice(<span class="number">3</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reverse()颠倒数组元素的顺序</span></span><br><span class="line">arr2.reverse();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sort()给数组元素排序</span></span><br><span class="line">arr2.sort();</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="comment">// sort也可以传一个回调函数来决定排序方法</span></span><br><span class="line">arr2.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b - a);</span><br><span class="line"><span class="built_in">console</span>.log(arr2);         <span class="comment">// [9, 8, 7, 6, 5, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// indexOf(element[, fromIndex])在数组中搜索element并返回第一个匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.indexOf(<span class="number">9</span>));      <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// lastIndexOf(element[, fromIndex])从结尾开始反向搜索elemnt，并返回第一次匹配的索引</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.lastIndexOf(<span class="number">9</span>));  <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// forEach(callback[, thisObject])在数组的每个元素上执行callback</span></span><br><span class="line">arr2.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item);    <span class="comment">// 9 8 7</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// map(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.map(<span class="function"><span class="params">item</span> =&gt;</span> item * <span class="number">2</span>));   <span class="comment">// [18, 16, 14, 12, 10, 8]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// filter(callback[, thisObject])在数组的每个元素上执行callback，并将每次执行callback时的返回值w为true的元素组成新数组并返回</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.filter(<span class="function"><span class="params">item</span> =&gt;</span> item % <span class="number">2</span> === <span class="number">0</span>));  <span class="comment">// [8, 6, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// every(callback[, thisObject])在数组的每个元素上执行callback，如果每次执行callback的返回值都为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.every(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">0</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// some(callback[, thisObject])在数组的每个元素上执行callback，如果有一次次执行callback的返回值为true则返回true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.some(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">8</span>));         <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduce(callback[, initialValue])使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值。</span></span><br><span class="line"><span class="comment">// 如果指定了initialValue，则使用initialValue作为第一个参数值并以数组中第一项的值作为第二个参数值来调用回调。如果未指定initialValue，则回调的前两个参数值将是数组的第一个和第二个元素。</span></span><br><span class="line"><span class="comment">// 9 + 8 + 7 + 6 + 5 + 4</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reduceRight(callback[, initialValue])从最后一个元素开始，使用回调函数callback(first_value, second_value)把数组所有元素计算成一个单一值</span></span><br><span class="line"><span class="comment">// 4 + 5 + 6 + 7 + 8 + 9</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.reduce(<span class="function">(<span class="params">first, second</span>) =&gt;</span> first + second));  <span class="comment">// 39</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="使用类数组对象"><a href="#使用类数组对象" class="headerlink" title="使用类数组对象"></a>使用类数组对象</h4><p>Array的原生(prototype)方法可以用来处理类似数组(例如arguments)行为的对象:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printArgumnets</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Array</span>.prototype.forEach.call(<span class="built_in">arguments</span>, item =&gt; <span class="built_in">console</span>.log(item));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="类型化数组"><a href="#类型化数组" class="headerlink" title="类型化数组"></a>类型化数组</h3><p>Typed Arrays是类数组对象，其提供访问原始二进制数据的机制</p>
-<h4 id="缓冲和视图：类型化的数组结构"><a href="#缓冲和视图：类型化的数组结构" class="headerlink" title="缓冲和视图：类型化的数组结构"></a>缓冲和视图：类型化的数组结构</h4><p>JavaScript类型数组被分解为缓冲(Buffer, 由ArrayBuffer实现)和视图(views)。缓冲是代表数据块的对象，它没有格式可言并没有提供任何机制来访问其内容。为了访问包含在缓冲区的内存需要使用视图，视图提供一个上下文，即数据类型、起始偏移量和元素数，这些元素将数据转换为实际类型数组。</p>
-<h4 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a>ArrayBuffer</h4><p>ArrayBuffer是一种数据类型，用于表示一个通用的、固定长度的二进制数据缓冲区。不能直接操作一个ArrayBuffer中的内容，需要创建一个数组类型视图或者DataView来代表特定格式的缓冲区，从而实现读写缓冲区中的内容。</p>
-<h4 id="类型数组视图"><a href="#类型数组视图" class="headerlink" title="类型数组视图"></a>类型数组视图</h4><p>类型数组属视图具有自描述性的名字，并且提供数据类型信息。例如<code>Int8</code>、<code>Unit32</code>、<code>Float64</code>等。</p>
+<p>可以通过调用其<code>throw()</code>方法强制生成器抛出异常，并传递应该抛出的异常值。这个异常将从当前挂起的生成器上下文中抛出，就好像当前挂起得<code>yield</code>是一个<code>throw value</code>语句。如果在抛出异常的处理期间没有遇到<code>yield</code>则异常通过调用<code>throw()</code>向上传播，对next的后续调用将导致<code>done</code>为true。生成器具有<code>return(value)</code>方法，返回给定的值并完成生成器本身。</p>
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections" target="_blank" rel="noopener">MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -2348,205 +2547,6 @@
 </ul>
 <h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>语法和数据类型</title>
-    <url>/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
-    <content><![CDATA[<h2 id="JavaScript语法"><a href="#JavaScript语法" class="headerlink" title="JavaScript语法"></a>JavaScript语法</h2><h4 id="大小写敏感"><a href="#大小写敏感" class="headerlink" title="大小写敏感"></a>大小写敏感</h4><p>JavaScript区分大小写，并使用Unicode字符集。即变量<code>test</code>和<code>TEXT</code>是两个不同的变量，并且可以使用中文作为变量名，如：<code>var 中文;</code></p>
-<h3 id="分号可省略"><a href="#分号可省略" class="headerlink" title="分号可省略"></a>分号可省略</h3><p>每行代码结尾的分号可以省略，因为ECMAScript规定了在语句的末尾自动插入分号(ASI机制)。如果一行中有多条语句，那么这些语句必须以分号隔开。</p>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>JavaScript源码从左往右被扫描并转换成一系列由token、控制字符、行终止符、注释和空白字符组成的输入元素。</p>
-<ul>
-<li>控制字符<ul>
-<li>零宽非连字符(&lt;ZWNJ&gt;, U+200C)，放置在一些经常会被当成连字的字符之间，用于将它们分别以独立形式显示。</li>
-<li>零宽连字符(&lt;ZWJ&gt;, U+200D)，放置在一些通常不会被标记为连接字的字符之间，用于将这些字符以连字形式显示。</li>
-<li>字节顺序标记(&lt;BOM&gt;, U+FEFF)，在脚本开头使用，除了将脚本标记为Unicode格式以外，还用来标记文本的字节流方向。</li>
-</ul>
-</li>
-<li>空白符<ul>
-<li>制表符(&lt;HT&gt;, U+0009)，水平制表符，<code>\t</code></li>
-<li>垂直制表符(&lt;VT&gt;, U+000B)，垂直制表符，<code>\v</code></li>
-<li>分页符(&lt;FF&gt;, U+000C)，分页符，<code>\f</code></li>
-<li>空格(&lt;SP&gt;, U+0020)，空格</li>
-<li>无间断空格(&lt;NBSP&gt;, U+00A0)，在该空格处不会换行</li>
-</ul>
-</li>
-<li>行终止符<ul>
-<li>换行符(&lt;LF&gt;, U+000A)，在UNIX系统中起新行，<code>\n</code></li>
-<li>回车符(&lt;CR&gt;, U+000D)，在Commodore和早期的Mac系统中起新行，<code>\r</code></li>
-<li>行分隔符(&lt;LS&gt;, U+2028)</li>
-<li>段分隔符(&lt;PSs&gt;, U+2029)</li>
-</ul>
-</li>
-</ul>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>JavaScript的注释语法类似于C++，有两种注释方式：单行和多行。两种注释方式不能混用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">  多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量又叫标识符，需要遵循一定的规则：必须以字母、下划线(_)或者美元符($)开头，后续的字符也可以是数字(0-9)，可以使用ISO 8859-1或Unicode编码的字符作为标识符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> \u4e25 = <span class="number">1</span>;     <span class="comment">// 严的unicode编码为\u4e25</span></span><br><span class="line"><span class="built_in">console</span>.log(严);    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>变量声明</p>
-<ul>
-<li>使用关键词<code>var</code>，例如<code>var test = 1;</code>。该语法可以声明局部变量和全局变量。</li>
-<li>直接赋值，例如<code>test = 1;</code>。在函数外使用这种形式赋值会产生一个全局变量，在严格模式下会产生错误。</li>
-<li>使用关键词<code>let</code>，例如<code>let test = 1;</code>。该语法可以用来声明块作用域的局部变量</li>
-</ul>
-</li>
-<li><p>变量求值</p>
-<p>用<code>var</code>或<code>let</code>声明的变量如果没有赋初始值，则其值为<code>undefined</code>。如果访问一个未声明的变量会抛出一个·<code>ReferenceError</code>异常。</p>
-<p>可以使用<code>undefined</code>来判断一个变量是否已经赋值，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test === <span class="literal">undefined</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于<code>undefined</code>在布尔类型环境中会被当做<code>false</code>，所以上面的代码可以简化成下面的形式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;</span><br><span class="line"><span class="keyword">if</span>(test) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量未赋值'</span>); </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test变量已赋值'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在数值类型中<code>undefined</code>会被转成<code>NaN</code>，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="number">2</span>);    <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
-
-<p>空值<code>null</code>在数值类型中会被转换成0，在布尔类型中会准换成false，例如:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a + <span class="number">1</span>);    <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">if</span>(!a)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'null'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>变量的作用域</p>
-<p>在函数之外生声明的变量叫做全局变量，它可被当前文档中的任何其他代码访问。在函数内部声明的变量称为局部变量，只能在当前函数内部访问。    </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test;    <span class="comment">// 全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> test;  <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在ECMAScript6之前没有块级作用域(即大括号之间的代码块)，语句块中声明的变量会称为语句块所在的作用域中的变量。如果使用ES6中的<code>let</code>声明，就会变为块级作用域。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> test = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test);    <span class="comment">// ReferenceError</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>变量提升</p>
-<p>在JavaScript中可以先使用变量再进行声明，这被称为变量提升。感觉上提升是被移到了文档的最前面，但提升后的变量将返回<code>undefined</code>值，因此即便是在声明时赋值了初始值，也会返回<code>undefined</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-
-<p>在ECMAScript6中，使用<code>let</code>或<code>const</code>声明会将变量提升但不会被初始化，因此在变量声明之前就使用这个变量，将会抛出引用错误(RefenceError)。这个变量将从代码块一开始的时候就处在一个<strong>暂时性死区</strong>(temporal dead zone)，直到这个变量被声明为止。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);    <span class="comment">// ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数提升</p>
-<p>对于函数来说，只有函数声明会被提升，而函数表达式不会被提升。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">test();    <span class="comment">// test!</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test!'</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2();  <span class="comment">// TypeError: test2 is not a function</span></span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'test2!'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>全局变量</p>
-<p>全局变量实际上是全局对象的属性，在浏览器中默认的全局变量为<code>window</code>，可以使用<code>window.variable</code>的语法来设置和访问变量。</p>
-</li>
-<li><p>常量</p>
-<p>在ECMAScript6中，可以使用<code>const</code>关键字声明常量，常量不可以重新赋值，所以在声明时就需要赋值。常量作用域与<code>let</code>一样，在同一作用域中，不能使用变量名或函数名相同的名字来命名常量。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// SyntaxError: Identifier 'b' has already been declared</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>最新的ECMAScript定义了8中数据类型，分别为：</p>
-<ul>
-<li>原始类型<ul>
-<li>Boolean，有且只有两个值: <code>true</code>和<code>false</code></li>
-<li>Null，一个表明null值得特殊关键字，</li>
-<li>undefined，一个表示值未定义的顶级属性</li>
-<li>Number，整数或浮点数</li>
-<li>String，代表文本值的一系列字符</li>
-<li>Symbol，实例是唯一且不可变的数据类型</li>
-<li>BigInt，具有任意精度的整数</li>
-</ul>
-</li>
-<li>Object</li>
-</ul>
-<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>JavaScript是一门动态类型的语言，在声明变量时可以不必指定数据类型，数据类型会在代码执行时根据需要自动转换。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;    <span class="comment">// 此时a的类型为number</span></span><br><span class="line">a = <span class="string">'1234'</span>;    <span class="comment">// 此时a的类型为string</span></span><br></pre></td></tr></table></figure>
-
-<p>在包含数字和字符串的表达式中使用<code>+</code>运算，JavaScript会将数字隐式转换成字符串。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> + <span class="number">1</span>);    <span class="comment">// 371，类型为字符串，使用字符串的拼接操作</span></span><br></pre></td></tr></table></figure>
-
-<p>在涉及其他运算符时，JavaScript会将字符串隐式转换成数字</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'37'</span> - <span class="number">1</span>);    <span class="comment">// 36，类型为数字</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量是在脚本中实际提供的固定值而不是变量，通常有以下类型的字面量：</p>
-<ul>
-<li><h5 id="数组字面量-Array-Literals"><a href="#数组字面量-Array-Literals" class="headerlink" title="数组字面量(Array Literals)"></a>数组字面量(Array Literals)</h5><p>数组字面量是0个或多个表达式的列表，每个表达式代表一个数组元素，并使用方括号<code>[]</code>括起来。使用数组字面量创建数组时，将使用指定的值作为其元素进行初始化，并且将其长度设置为指定的参数个数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, ,<span class="number">3</span>];</span><br><span class="line">nums[<span class="number">0</span>];    <span class="comment">// 1</span></span><br><span class="line">nums[<span class="number">1</span>];    <span class="comment">// undefined</span></span><br><span class="line">nums[<span class="number">2</span>];    <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="布尔字面量-Boolean-Literals"><a href="#布尔字面量-Boolean-Literals" class="headerlink" title="布尔字面量(Boolean Literals)"></a>布尔字面量(Boolean Literals)</h4><p>有且仅有两个值：<code>true</code>和<code>false</code>。</p>
-</li>
-<li><h4 id="浮点数字面量-Float-point-Literals"><a href="#浮点数字面量-Float-point-Literals" class="headerlink" title="浮点数字面量(Float-point Literals)"></a>浮点数字面量(Float-point Literals)</h4><p>浮点数字面量可以有以下部分组成:</p>
-<ul>
-<li>一个带正负号(<code>+</code>、<code>-</code>)的十进制整数</li>
-<li>小数点<code>.</code></li>
-<li>小数部分(由一串十进制数表示)</li>
-<li>指数部分，即<code>e</code>或<code>E</code>后跟一个整数，该整数可以带正负号。</li>
-</ul>
-<p>浮点数字面量必须至少包含一位数字，并带有小数点或<code>e</code>。语法类似:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">[(+|-)][digits].[digits][(E|e)[(+|-)]digits]</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="数字字面量-Numeric-Literals"><a href="#数字字面量-Numeric-Literals" class="headerlink" title="数字字面量(Numeric Literals)"></a>数字字面量(Numeric Literals)</h4><p>Number和BigInt类型可以使用十进制、十六进制、八进制和二进制表示。</p>
-<ul>
-<li>十进制的数字字面量是由前缀不为0的一串数字序列组成</li>
-<li>八进制的数字字面量是由前缀为<code>0</code>或者前缀为<code>0O</code>的只包含0-7的数字组成</li>
-<li>十六进制的数字字面量是由前缀为<code>0x</code>并且包含0-9和a-f的序列组成</li>
-<li>二进制的数字字面量是由前缀为<code>0b</code>并且只包含0-1的数字序列组成</li>
-</ul>
-</li>
-<li><h4 id="对象字面量-Object-Literals"><a href="#对象字面量-Object-Literals" class="headerlink" title="对象字面量(Object Literals)"></a>对象字面量(Object Literals)</h4><p>对象字面量是使用花括号<code>{}</code>括起来的0或多对<strong>属性名：属性值</strong>对的元素列表。不要在语句的开头使用对象字面量语法，这位被认为是一个块的开始</p>
-<h6 id="增强的对象字面量-Enhanced-Object-literals"><a href="#增强的对象字面量-Enhanced-Object-literals" class="headerlink" title="增强的对象字面量(Enhanced Object literals)"></a>增强的对象字面量(Enhanced Object literals)</h6><p>在ES2015中，对象字面量扩展了支持在创建时设置原型，简写了<code>foo: foo</code>形式的属性赋值和方法定义，支持父方法调用，以及使用表达式动态计算属性名。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  __proto__: theProtoObj,</span><br><span class="line">  handler, <span class="comment">// =&gt; handler: handler</span></span><br><span class="line">  toString() &#123;&#125;, <span class="comment">// =&gt; toString: function() &#123;&#125;</span></span><br><span class="line">  [<span class="string">'prop_'</span> + <span class="function">(<span class="params">(</span>) =&gt;</span> <span class="number">42</span>)()]: <span class="number">42</span> <span class="comment">// 动态计算属性名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="正则表达式字面量-RegExp-Literals"><a href="#正则表达式字面量-RegExp-Literals" class="headerlink" title="正则表达式字面量(RegExp Literals)"></a>正则表达式字面量(RegExp Literals)</h4><p>正则表达式字面量是被斜杠<code>/</code>围成的表达式，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="字符串字面量-String-Literals"><a href="#字符串字面量-String-Literals" class="headerlink" title="字符串字面量(String Literals)"></a>字符串字面量(String Literals)</h4><p>字符串字面量是由双引号<code>&quot;</code>或单引号<code>&#39;</code>括起来的0个或多个字符，字符被限制在相同类型的引号之间。例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'test'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">"test"</span>;</span><br></pre></td></tr></table></figure>
-
-<p>ES2015还提供了一种模板字面量(template literals)，模板字面量使用反引号(<strong>`</strong>)，其为构造字符串提供了语法糖，还可以在模板字符串前添加一个tag来自定义模板字符串的解析过程，以预防注入攻击或建立基于字符串的高级数据抽象。例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'bob'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>);    <span class="comment">// Hello, bob</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" rel="noopener">MDN</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>w-JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迭代器与生成器</title>
-    <url>/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</url>
-    <content><![CDATA[<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>在JavaScript中，迭代器是一个对象，它定义一个序列，并在终止时可能返回一个返回值。准确说，迭代器是使用<code>next</code>方法实现iterator protocol的任何一个对象，该方法返回具有两个属性的对象：<code>value</code>和<code>done</code>。<code>value</code>是序列中的next的值。<code>done</code>用来判断是否迭代完成，如果已经迭代到序列中的最后一个值，则为true。如果<code>value</code>和<code>done</code>一起存在，则是迭代器的返回值。</p>
-<p>迭代器一旦创建，就可以通过重复调用<code>next()</code>方法显示迭代。迭代一个迭代器被称为消费，因为它通常只能执行一次。在产生终止值之后，对<code>next()</code>的额外调用应该继续返回<code>{done: true}</code>。</p>
-<p>JavaScript中最常见的迭代器是数组迭代器，它只是按顺序返回关联数组中的每个值。数组必须完整分配，但迭代器仅在必要时使用。因此，迭代器可以表示大小不受限制的序列，例如0到Infinity之间的整数范围。例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRangeIterator</span>(<span class="params">start = <span class="number">0</span>, end = Infinite, step = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> nextIndex = start;</span><br><span class="line">  <span class="keyword">let</span> iterationCount = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> rangeIterator = &#123;</span><br><span class="line">    next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> result;</span><br><span class="line">      <span class="keyword">if</span>(nextIndex &lt; end) &#123;</span><br><span class="line">        result = &#123;<span class="attr">value</span>: nextIndex, <span class="attr">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">        nextIndex += step;</span><br><span class="line">        iterationCount++;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">value</span>: iterationCount, <span class="attr">done</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> rangeIterator;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">let</span> it = makeRangeIterator(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">let</span> result = it.next();</span><br><span class="line"><span class="keyword">while</span>(!result.done) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result.value);</span><br><span class="line">  result = it.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="生成器函数"><a href="#生成器函数" class="headerlink" title="生成器函数"></a>生成器函数</h4><p>虽然自定义的迭代器是一个有用的工具，但由于需要显示地维护其内部状态，需要谨慎使用。生成器函数提供了一个强大的选择：它允许你自定义一个包含自有迭代算法的函数，同时它可以自动的维护自己的状态。生成器函数使用<code>function*</code>语法编写。最初调用时，生成器函数不执行任何代码，而是返回一种称为Generator的迭代器。通过调用生成器的下一个方法消耗值时，Generator函数将执行，直到遇到yield关键字。可以根据需要多次调用该函数，并且每次都返回一个新的Generator，但每个Generator只能迭代一次。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">makeRangeIterator</span>(<span class="params">start = <span class="number">0</span>, end = Infinity, step = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = start, i &lt; end, i += step) &#123;</span><br><span class="line">    <span class="keyword">yield</span> i</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = makeRangeIterator(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>);</span><br><span class="line">a.next();    <span class="comment">// &#123;value: 1, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 5, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 7, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: 9, done: false&#125;</span></span><br><span class="line">a.next();    <span class="comment">// &#123;value: uundefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h4><p>若一个对象拥有迭代行为，比如在<code>for...of</code>中会循环一些值，那么该对象便是一个可迭代对象。某些内置对象(Array或Map)具有默认的迭代行为，而其他类型(Object)则没有。</p>
-<p>为了实现可迭代，对象必须实现<code>@@iterator</code>方法，这意味着这个对象(或其原型链中的任何一个对象)必须具有一个带<code>Symbol.iterator</code>键的属性。可以一次或多次迭代一个迭代器，只能迭代一次的iterables通常从他们的@@iterator方法中返回自身。可以多次迭代的方法必须在每次调用@@iterator时返回一个新的迭代器。</p>
-<h5 id="自定义的可迭代对象"><a href="#自定义的可迭代对象" class="headerlink" title="自定义的可迭代对象"></a>自定义的可迭代对象</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myIterable = &#123;</span><br><span class="line">  *[<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> myIterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">[...myIterable];    .. [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-
-<h5 id="内置可迭代对象"><a href="#内置可迭代对象" class="headerlink" title="内置可迭代对象"></a>内置可迭代对象</h5><ul>
-<li>String</li>
-<li>Array</li>
-<li>TypedArray</li>
-<li>Map</li>
-<li>Set</li>
-</ul>
-<h5 id="用于可迭代对象的语法"><a href="#用于可迭代对象的语法" class="headerlink" title="用于可迭代对象的语法"></a>用于可迭代对象的语法</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for...of循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> vaule <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展运算符</span></span><br><span class="line">[...<span class="string">'abc'</span>];    <span class="comment">// [a, b, c]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line">&#125;</span><br><span class="line">gen().next();    <span class="comment">// &#123;value: 'a', done: false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解构</span></span><br><span class="line">[a, b, c] = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);</span><br><span class="line">a; <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="高级生成器"><a href="#高级生成器" class="headerlink" title="高级生成器"></a>高级生成器</h5><p>生成器会按需计算它们的产生值，这使得它们能够有效表示一个计算成本很高的序列。<code>next()</code>方法也接受一个参数用于修改生成器内部状态。传递给<code>next()</code>的参数值会被yield接受，传给第一个<code>next()</code>的值会被忽略。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fn1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> fn2 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> current = fn1;</span><br><span class="line">    fn1 = fn2;</span><br><span class="line">    fn2 = current + fn1;</span><br><span class="line">    <span class="keyword">var</span> reset = <span class="keyword">yield</span> current;</span><br><span class="line">    <span class="keyword">if</span>(reset) &#123;</span><br><span class="line">      fn = <span class="number">0</span>;</span><br><span class="line">      fn = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sequence = fibonacci();</span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next(<span class="literal">true</span>).value);    <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(sequence.next().value);    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>可以通过调用其<code>throw()</code>方法强制生成器抛出异常，并传递应该抛出的异常值。这个异常将从当前挂起的生成器上下文中抛出，就好像当前挂起得<code>yield</code>是一个<code>throw value</code>语句。如果在抛出异常的处理期间没有遇到<code>yield</code>则异常通过调用<code>throw()</code>向上传播，对next的后续调用将导致<code>done</code>为true。生成器具有<code>return(value)</code>方法，返回给定的值并完成生成器本身。</p>
-<h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators" target="_blank" rel="noopener">MDN</a></li>
 </ul>
 ]]></content>
       <categories>
