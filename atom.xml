@@ -42,17 +42,24 @@
     <link href="https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html"/>
     <id>https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html</id>
     <published>2020-05-16T02:14:53.000Z</published>
-    <updated>2020-06-19T07:33:50.756Z</updated>
+    <updated>2020-06-19T07:40:07.617Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;什么是有限状态机？&quot;&gt;&lt;a href=&quot;#什么是有限状态机？&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;什么是有限状态机？&quot;&gt;&lt;a href=&quot;#什么是有限状态机？&quot; class=&quot;headerlink&quot; title=&quot;什么是有限状态机？&quot;&gt;&lt;/a&gt;什么是有限状态机？&lt;/h2&gt;&lt;p&gt;有限状态机也叫状态机，是一种编程思想或者说是编程范式。在有限状态机中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个状态都是一个机器&lt;ul&gt;
+&lt;li&gt;在每个机器中，可以做计算、存储或输出等等…&lt;/li&gt;
+&lt;li&gt;所有的机器接受的输入是一致的&lt;/li&gt;
+&lt;li&gt;状态机的每一个机器本身没有状态，如果我们用函数表示的话，它应该是纯函数(即不依赖于外部环境，无副作用)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;每一个机器都知道下一个状态&lt;ul&gt;
+&lt;li&gt;每个机器都有确定的下一个状态(Moore)&lt;/li&gt;
+&lt;li&gt;每个机器根据输入决定下一个状态(Melay)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
