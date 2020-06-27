@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="baidu-site-verification" content="waHQhRn0Yd" />
+  <meta name="referrer" content="no-referrer" />
+   
+  <meta name="keywords" content="musi, 慕司, musii, musi&#39;s life" />
+   
+  <meta name="description" content="the blog of musi" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>
+    HTML中的那些事儿 |  musi&#39;s life
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="alternate" href="/atom.xml" title="musi's life" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-HTML中的那些事儿" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  HTML中的那些事儿
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html" class="article-date">
+  <time datetime="2020-06-25T13:43:11.000Z" itemprop="datePublished">2020-06-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/code/">code</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">16 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <blockquote>
+<p><strong>超文本标记语言</strong>（英语：<strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage，简称：<strong>HTML</strong>）是一种用于创建网页的标准标记语言。HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计网页、网页应用程序以及移动应用程序的用户界面。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="HTML简史"><a href="#HTML简史" class="headerlink" title="HTML简史"></a>HTML简史</h2><ul>
+<li><p>1993年中期<a href="https://zh.wikipedia.org/wiki/互联网工程任务组" target="_blank" rel="noopener">互联网工程任务组</a>（IETF）发布首个HTML规范提案。</p>
+</li>
+<li><p>1995年11月24日  HTML 2.0作为IETF RFC 1866发布，追加RFC的附加功能：</p>
+<ul>
+<li>1995年11月25日：<a href="https://tools.ietf.org/html/rfc1867" target="_blank" rel="noopener">RFC 1867</a>（基于表单的文件上传）</li>
+<li>1996年5月：<a href="https://tools.ietf.org/html/rfc1942" target="_blank" rel="noopener">RFC 1942</a>（表格）</li>
+<li>1996年8月：<a href="https://tools.ietf.org/html/rfc1980" target="_blank" rel="noopener">RFC 1980</a>（客户端图像映射）</li>
+</ul>
+</li>
+<li><p>1997年1月：<a href="https://tools.ietf.org/html/rfc2070" target="_blank" rel="noopener">RFC 2070</a>（<a href="https://zh.wikipedia.org/wiki/国际化与本地化" target="_blank" rel="noopener">国际化</a>）</p>
+</li>
+<li><p>1997年1月14日  HTML 3.2作为W3C推荐标准发布。这是首个完全由W3C开发并标准化的版本，因IETF于1996年9月12日关闭它的HTML工作组。</p>
+</li>
+<li><p>1997年12月18日 HTML 4.0作为W3C推荐标准发布。它提供三种变化：</p>
+<ul>
+<li>严格(Strict)，过时的元素被禁止。</li>
+<li>过渡(Transitional)，过时的元素被允许。</li>
+<li>框架集(Frameset)，大多只与框架相关的元素被允许。</li>
+</ul>
+</li>
+<li><p>1998年4月24日 HTML 4.0进行微调，不增加版本号。</p>
+</li>
+<li><p>1999年12月24日  HTML 4.01作为W3C推荐标准发布。它同样提供三种变化，最终勘误版于2001年5月12日发布。</p>
+</li>
+<li><p>2000年5月  ISO/IEC 15445:2000（”ISO HTML”，基于HTML 4.01严格版）作为ISO/IEC国际标准发布。在ISO中这一标准位于[ISO/IEC JTC 1/SC 34]域（ISO/IEC联合技术委员会1、小组委员会34 – 文档描述与处理语言）。</p>
+</li>
+<li><p>2014年10月28日  HTML 5作为W3C推荐标准发布。</p>
+</li>
+</ul>
+<h2 id="语义类标签"><a href="#语义类标签" class="headerlink" title="语义类标签"></a>语义类标签</h2><h4 id="什么是语义类标签"><a href="#什么是语义类标签" class="headerlink" title="什么是语义类标签"></a>什么是语义类标签</h4><p>超文本标记语言是由一个个标签组成，其中语义类标签是会经常出现的一类标签，它们的特点是视觉表现上都差不多，主要的区别在于它们表示了不同的语义，比如<code>section</code>、<code>nav</code>、<code>p</code>这些都是语义类的标签。</p>
+<p>语义是我们说话表达的意思，多数的语义实际上都是由文字来承载的。语义类标签则是对文字的补充，比如标题、自然段、章节、列表，这些内容都是纯文字无法表达的，我们需要依靠语义标签代为表达。</p>
+<h3 id="为什么要用语义类标签"><a href="#为什么要用语义类标签" class="headerlink" title="为什么要用语义类标签"></a>为什么要用语义类标签</h3><ul>
+<li>语义类标签对开发者更为友好，使用语义类标签增强了可读性，即便是在没有 CSS 的时候，开发者也能够清晰地看出网页的结构，也更为便于团队的开发和维护。</li>
+<li>除了对人类友好之外，语义类标签也十分适宜机器阅读。它的文字表现力丰富，更适合搜索引擎检索（SEO），也可以让搜索引擎爬虫更好地获取到更多有效信息，有效提升网页的搜索量，并且语义类还可以支持读屏软件，根据文章可以自动生成目录等等。</li>
+</ul>
+<h3 id="怎么合理使用语义类标签"><a href="#怎么合理使用语义类标签" class="headerlink" title="怎么合理使用语义类标签"></a>怎么合理使用语义类标签</h3><ul>
+<li><p>场景一：作为自然语言和纯文本的补充，用来表达一定的结构或者消除歧义。例：</p>
+<p><code>&lt;em&gt;</code> 标签标记出需要用户着重阅读的内容， <code>&lt;em&gt;</code> 元素是可以嵌套的，嵌套层次越深，则其包含的内容被认定为越需要着重阅读。通常该元素会被浏览器展示为斜体文本， 但是它不应该仅仅用于应用斜体样式，如果仅需要斜体样式应使用css样式实现。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 现有两句话 --&gt;</span></span><br><span class="line">今天我吃了一个苹果。</span><br><span class="line">今天我吃了一个苹果。</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 如果着重标签的位置不一样所表达的含义就完全不一样 --&gt;</span></span><br><span class="line">今天我吃了一个<span class="tag">&lt;<span class="name">em</span>&gt;</span>苹果<span class="tag">&lt;/<span class="name">em</span>&gt;</span>。</span><br><span class="line">今天我吃了<span class="tag">&lt;<span class="name">em</span>&gt;</span>一个<span class="tag">&lt;/<span class="name">em</span>&gt;</span>苹果。</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 前一句的侧重点在于种类上，侧重表达我吃的是苹果而不是香蕉橙子。 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 前二句的侧重点在于数量上，侧重表达我吃的是一个不是两个三个。 --&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>场景二：文章标题摘要。例：</p>
+<p>h1-h6 是最基本的标题，它们表示了文章中不同层级的标题。有些时候，我们会有副标题，为了避免副标题产生额外的一个层级，我们使用 hgroup 标签。在 hgroup 中的 h1-h6 被视为同一标题的不同组成部分。</p>
+<p>未使用group标签：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML中的那些事儿<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML简史<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>balah balah<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成以下标题结构：</p>
+<ul>
+<li>HTML中的那些事儿<ul>
+<li>HTML简史</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>使用hgroup标签：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">hgroup</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML中的那些事儿<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML简史<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hgroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>balah balah<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成以下标题结构：</p>
+<ul>
+<li>HTML中的那些事儿——HTML简史</li>
+<li>…</li>
+</ul>
+<p>从 HTML 5 开始，我们有了 section 标签，这个标签可不仅仅是一个“有语义的 div”，它会改变 h1-h6 的语义。section 的嵌套会使得其中的 h1-h6 下降一级，因此，在 HTML5 以后，我们只需要 section 和 h1 就足以形成文档的树形结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML中的那些事儿<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>balah balah balah balah<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML简史<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>balah balah<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>语义类标签<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>balah balah<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">......</span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成以下标题结构：</p>
+<p>HTML中的那些事儿</p>
+<ul>
+<li>HTML简史</li>
+<li>语义类标签</li>
+</ul>
+</li>
+<li><p>场景三：适合机器阅读的整体结构</p>
+<p>应用了语义化结构的页面，可以明确地提示出页面信息的主次关系，它能让浏览器很好地支持“阅读视图功能”，还可以让搜索引擎的命中率提升，同时，它也对视障用户的读屏软件更友好。我们正确使用整体结构类的语义标签，可以让页面对机器更友好。这是一个典型的body结构</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">            ……</span><br><span class="line">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aside</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">            ……</span><br><span class="line">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aside</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span>……<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span>……<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span>……<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">address</span>&gt;</span>……<span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>header，通常出现在前部，表示导航或者介绍性的内容。</li>
+<li>footer，通常出现在尾部，包含一些作者信息、相关链接、版权信息等。</li>
+<li>aside，表示跟文章主体不那么相关的部分，它可能包含导航、广告等工具性质的内容。aside 很容易被理解为侧边栏，实际上二者是包含关系，侧边栏是 aside，aside 不一定是侧边栏。</li>
+<li>address，表示“文章（作者）的联系方式”，address 明确地只关联到 article 和 body。</li>
+</ul>
+</li>
+</ul>
+<p>如果你无法做到准确使用这些语义类标签，那建议你先不要使用，以免造成歧义。比如有些前端工程师喜欢给所有并列关系的元素都套上 ul。ul 多数出现正在行文的中间，它的上文多数在提示：要列举某些项。但是，如果所有并列关系都用 ul，会造成大量冗余标签。</p>
+<h2 id="元信息类标签"><a href="#元信息类标签" class="headerlink" title="元信息类标签"></a>元信息类标签</h2><p>所谓元信息，是指描述自身的信息，元信息类标签，就是 HTML 用于描述文档自身的一类标签，它们通常出现在 head 标签中，一般都不会在页面被显示出来。元信息多数情况下是给浏览器、搜索引擎等机器阅读的，有时候这些信息会在页面之外显示给用户，有时候则不会。</p>
+<h4 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h4><p>head 标签本身并不携带任何信息，它主要是作为盛放其它语义类标签的容器使用。head 标签规定了自身必须是 html 标签中的第一个标签，它的内容必须包含一个 title标签，并且最多只能包含一个base标签 。如果文档作为 iframe，或者有其他方式指定了文档标题时，可以允许不包含 title 标签。</p>
+<h3 id="title标签"><a href="#title标签" class="headerlink" title="title标签"></a>title标签</h3><p>title 标签表示文档的标题，这主要是考虑到 title 作为元信息，可能会被用在浏览器收藏夹、微信推送卡片、微博等各种场景，这时侯往往是上下文缺失的，所以 title 应该是完整地概括整个网页内容的。而 h1 则仅仅用于页面展示，它可以默认具有上下文，并且有链接辅助，所以可以简写，即便无法概括全文，也不会有很大的影响。</p>
+<h3 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h3><p>base 标签实际上是个历史遗留标签。它的作用是给页面上所有的 URL 相对地址提供一个基础。base 标签最多只有一个，它改变全局的链接地址，它是一个非常危险的标签，容易造成跟 JavaScript 的配合问题，所以在实际开发中，我比较建议你使用 JavaScript 来代替 base 标签。</p>
+<h3 id="meta标签"><a href="#meta标签" class="headerlink" title="meta标签"></a>meta标签</h3><p>meta 标签是一组键值对，它是一种通用的元信息表示标签。在 head 中可以出现任意多个 meta 标签。一般的 meta 标签由 name 和 content 两个属性来定义。name 表示元信息的名，content 则用于表示元信息的值。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HTML中meta标签新增charset属性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> &gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- http-equiv属性表示执行一个命令 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 并且指定了http编码方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- viewport没有在HTML标准中定义，却是移动端开发的事实标准 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=500, initial-scale=1"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="链接元素"><a href="#链接元素" class="headerlink" title="链接元素"></a>链接元素</h2><p>超链接是HTML里最重要的元素之一，没有了超链接的HTML不足以叫超文本。HTML里除了<code>a</code>标签是链接元素之外，还有<code>area</code>标签和<code>link</code>标签。</p>
+<h4 id="link标签"><a href="#link标签" class="headerlink" title="link标签"></a>link标签</h4><p>link标签会产生一个链接，它可能生成超链接，这些超链接不会像a标签那样显示在网页中，也可能会生成外部资源链接。在多数浏览器中，生成超链接的link标签不产生任何作用，但这些lInk标签被搜索引擎和一些浏览器插件识别。另外一些link标签会把外部的资源链接到文档中，即实际下载这些资源。</p>
+<ul>
+<li><p>超链接类link</p>
+<p>超链接型link标签是一种被动型链接，即用户不操作就不会主动下载。link标签具有特定的rel属性，会成为特定类型的link标签。产生超链接型的link标签包括：</p>
+<ul>
+<li><p><code>rel=&quot;canonical&quot;</code>型link</p>
+<p>这个标签提示页面的主URL，在网站中可能存在多个URL指向同一个页面的情况，搜索引擎访问这类页面时会去掉重复的URL，这个link会提示搜索引擎保留那一个URL。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"canonical"</span> <span class="attr">href</span>=<span class="string">"..."</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>rel=&quot;alternate&quot;</code>型link</p>
+<p>这个标签提示页面它的变形形式，通常是给搜索引擎使用的。最常见的场景是rss订阅。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"alternate"</span> <span class="attr">type</span>=<span class="string">"application/rss+xml"</span> <span class="attr">title</span>=<span class="string">"RSS"</span> <span class="attr">href</span>=<span class="string">"..."</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>rel=&quot;prev&quot;</code>型link和<code>rel=&quot;next&quot;</code>型link</p>
+<p>在互联网应用中，很多网页都属于一个序列。比如分页浏览、图片展示等，每个网页是序列中的一个项。这种时候就适合用<code>prev</code>和<code>next</code>型link，用来告诉搜索引擎或者浏览器它的前一项和后一项，这有助于页面的批量展示。</p>
+</li>
+<li><p>其他超链接类的link</p>
+<p>其他超链接类link标签都表示一个跟当前文档相关联的信息，可以把这样的link标签视为一种带链接功能的meta标签。</p>
+<ul>
+<li><p>rel=”author”</p>
+<p>链接到本页面的作者，一般是mailto:协议</p>
+</li>
+<li><p>rel=”help”</p>
+<p>链接到本页面的帮助页</p>
+</li>
+<li><p>rel=”license”</p>
+<p>链接到本页面的版权信息页</p>
+</li>
+<li><p>rel=”search”</p>
+<p>链接到本页面的搜索页面(一般用于站内搜索)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>外部资源类link</p>
+<p>外部资源类link标签会主动下载，并且根据rel类型做不同的处理。外部资源类link标签包括：</p>
+<ul>
+<li><p>具有icon型的link</p>
+<p>这类链接表示页面的icon，多数浏览器会读取icon型link并把icon展示出来。icon型link是唯一一个外部资源类的元信息link，其他元信息类link都是超链接，这意味着icon型link中的图标地址默认会被浏览器下载使用。</p>
+<p>如果没有指定icon型link，多数浏览器会使用域名根目录下的favicon.ico文件，即使不存在该文件也会请求下载，所以从性能考虑，一定要保证页面中具有icon型的link。只有icon型的link有有效的sizes属性，HTML标准允许出现多个icon型link，并且用sizes指定它适合的icon尺寸。</p>
+</li>
+<li><p>预处理类link</p>
+<p>预处理类link允许我们控制浏览器提前针对一些资源去做一些操作以提高性能(不当使用反而会降低性能)</p>
+<ul>
+<li><p>dns-prefetch型link</p>
+<p>提前对一个域名做dns查询，这中link的href属性只有域名有意义。</p>
+</li>
+<li><p>preconnect型link</p>
+<p>提前对一个服务器建立TCP连接</p>
+</li>
+<li><p>prefetch型link</p>
+<p>提取href指定的url内容</p>
+</li>
+<li><p>preload型link</p>
+<p>提前加载href指定的url</p>
+</li>
+<li><p>prerender型link</p>
+<p>提前渲染href指定的url</p>
+</li>
+</ul>
+</li>
+<li><p>moduleopreload型的link</p>
+<p>预先加载(完成下载并放入内存，但不会执行)一个JavaScript模块，保证JS模块不必等到执行时才加载。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"modulepreload"</span> <span class="attr">href</span>=<span class="string">"app.js"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stylesheet型的link</p>
+<p>基本用法是从一个css文件创建一个样式表，这里的type属性可以没有，如果有，则其值必须是<code>text/css</code>才会生效。rel前可以加上<code>alternate</code>，即<code>rel=&quot;alternate stylesheet&quot;</code>，此时必须指定type属性。这可以为页面创建一份变体样式，一些浏览器支持从浏览器菜单中切换这些样式，但大部分浏览器不支持这个功能。</p>
+</li>
+<li><p>pingback型的link</p>
+<p>该类型的link表示本网页被引用时应该使用的pingback地址，这个机制是一份独立的标准，遵循pingback协议的网站在引用本页面时会向这个pingback url发送一个消息。     </p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="a标签"><a href="#a标签" class="headerlink" title="a标签"></a>a标签</h3><p>a标签是<strong>anchor</strong>的缩写，意为锚点，用来表示文档中特定的位置。a标签其实同时充当了链接和目标点的角色，当a有href属性时它是链接，当它有name时，它是链接的目标。</p>
+<p>a标签和link标签一样也可以拥有rel属性：</p>
+<ul>
+<li><p>alternate</p>
+</li>
+<li><p>author</p>
+</li>
+<li><p>help</p>
+</li>
+<li><p>license</p>
+</li>
+<li><p>next</p>
+</li>
+<li><p>prev</p>
+</li>
+<li><p>search</p>
+</li>
+<li><p>tag</p>
+<p>表示本网页所属的标签</p>
+</li>
+<li><p>bookmark</p>
+<p>到上级章节的链接·</p>
+</li>
+<li><p>nofollow</p>
+<p>此链接不会被搜索引擎索引</p>
+</li>
+<li><p>noopener</p>
+<p>此链接打开的网页无法使用opener来获得当前页面的窗口</p>
+</li>
+<li><p>noreferrer</p>
+<p>此链接打开的网页无法使用referrer来获得当前页面的url</p>
+</li>
+<li><p>opener</p>
+<p>打开的网页可以使用 window.opener 来访问当前页面的 window 对象，这是 a 标签的默认行为</p>
+</li>
+</ul>
+<h3 id="area标签"><a href="#area标签" class="headerlink" title="area标签"></a>area标签</h3><p>area标签和a标签类似，但它是区域型链接。area标签支持的rel与a标签一样，它是整个HTML规则中唯一支持非矩形热区的标签，它的shape属性支持三种类型：</p>
+<ul>
+<li><p>圆形</p>
+<p>circle或circ，coords支持三个值，分别为中心点的x,y坐标和圆形半径r</p>
+</li>
+<li><p>矩形</p>
+<p>rectangle或rect，coords支持两个值，分别为两个对角顶点坐标(x1,y1)和(x2,y2)</p>
+</li>
+<li><p>多边形</p>
+<p>polygon或poly，coords至少包括6个值，表示多边形的各个顶点</p>
+</li>
+</ul>
+<p>area标签必须跟img标签和map标签配合使用：这个例子展示了在一张图片上画热区并且产生链接，分别使用了矩形、圆形和多边形三种 area。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line"> Please select a shape:</span><br><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"shapes.png"</span> <span class="attr">usemap</span>=<span class="string">"#shapes"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">alt</span>=<span class="string">"Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star."</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">map</span> <span class="attr">name</span>=<span class="string">"shapes"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">rect</span> <span class="attr">coords</span>=<span class="string">"50,50,100,100"</span>&gt;</span> <span class="comment">&lt;!-- the hole in the red box --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">rect</span> <span class="attr">coords</span>=<span class="string">"25,25,125,125"</span> <span class="attr">href</span>=<span class="string">"red.html"</span> <span class="attr">alt</span>=<span class="string">"Red box."</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">circle</span> <span class="attr">coords</span>=<span class="string">"200,75,50"</span> <span class="attr">href</span>=<span class="string">"green.html"</span> <span class="attr">alt</span>=<span class="string">"Green circle."</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">poly</span> <span class="attr">coords</span>=<span class="string">"325,25,262,125,388,125"</span> <span class="attr">href</span>=<span class="string">"blue.html"</span> <span class="attr">alt</span>=<span class="string">"Blue triangle."</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">poly</span> <span class="attr">coords</span>=<span class="string">"450,25,435,60,400,75,435,90,450,125,465,90,500,75,465,60"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">href</span>=<span class="string">"yellow.html"</span> <span class="attr">alt</span>=<span class="string">"Yellow star."</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/" rel="tag">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  <!-- 
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">大学蒙太奇</div>
+      </a>
+    
+  </nav>
+
+
+   -->
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'MW6bR7WF9Kpm6AMnLuN65aOC-gzGzoHsz',
+        app_key: 'afI22BXuDWgP8nqP1Lhy720E',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'true',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        musi
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/side.png" alt="musi&#39;s life" style="border-radius: 50%;"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/wiki">wiki</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+
+      // wiki折叠
+      const collapses = (document.querySelector('#wiki') && document.querySelector('#wiki').querySelectorAll('.collapse')) || [];
+      for(let i=0;i<collapses.length;i++) {
+        $(`#${collapses[i].id}`).on('hide.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-right', 'fa-hand-o-down')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder-open', 'fa-folder')
+          }
+        })
+        $(`#${collapses[i].id}`).on('show.bs.collapse', function () {
+          if(collapses[i].id == 'info') {
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-hand-o-down', 'fa-hand-o-right')
+          }else{
+            collapses[i].parentNode.querySelector('.fa').className = collapses[i].parentNode.querySelector('.fa').className.replace('fa-folder', 'fa-folder-open')
+          }
+        })
+      }
+      
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['身在黑暗，心向光明', '历尽千帆，何不激起浪花一朵朵', '知其荣，守其辱，为天下谷'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>

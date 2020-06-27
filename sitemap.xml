@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</loc>
+    
+    <lastmod>2020-06-27T16:04:12.134Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</loc>
+    
+    <lastmod>2020-06-27T15:51:02.164Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://musii.life/about/index.html</loc>
     
     <lastmod>2020-06-20T04:54:32.660Z</lastmod>
@@ -173,13 +187,6 @@
     <loc>https://musii.life/code/JS%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81.html</loc>
     
     <lastmod>2020-04-09T07:50:58.971Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://musii.life/code/HTTP%E5%8D%8F%E8%AE%AE%E8%A1%A5%E5%85%85.html</loc>
-    
-    <lastmod>2020-04-09T07:50:41.042Z</lastmod>
     
   </url>
   

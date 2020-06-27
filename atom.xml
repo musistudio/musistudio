@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-06-19T02:36:29.536Z</updated>
+  <updated>2020-06-27T16:04:12.134Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTML中的那些事儿</title>
+    <link href="https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html"/>
+    <id>https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</id>
+    <published>2020-06-25T13:43:11.000Z</published>
+    <updated>2020-06-27T16:04:12.134Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;超文本标记语言&lt;/strong&gt;（英语：&lt;strong&gt;H&lt;/strong&gt;yper&lt;strong&gt;T&lt;/strong&gt;ext &lt;strong&gt;M&lt;/strong&gt;arkup &lt;strong&gt;L&lt;/strong&gt;anguage，简称：&lt;strong&gt;HTML&lt;/strong&gt;）是一种用于创建网页的标准标记语言。HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计网页、网页应用程序以及移动应用程序的用户界面。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="HTML" scheme="https://musii.life/tags/HTML/"/>
+    
+      <category term="前端" scheme="https://musii.life/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="code" scheme="https://musii.life/tags/code/"/>
+    
+  </entry>
   
   <entry>
     <title>大学蒙太奇</title>
@@ -531,32 +558,6 @@
     
     
       <category term="charset" scheme="https://musii.life/tags/charset/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用阿里云代码托管平台托管博客图床</title>
-    <link href="https://musii.life/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html"/>
-    <id>https://musii.life/%E6%8A%98%E8%85%BE/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%B9%B3%E5%8F%B0%E6%89%98%E7%AE%A1%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A.html</id>
-    <published>2020-04-11T02:51:47.000Z</published>
-    <updated>2020-04-11T03:23:39.500Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;无折腾，不青春&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;p&gt;博客的图床在试过QQ空间相册(防盗链)，百度网盘(时间限制)之后，发现还是需要一个稳定点的图床比较好。github够稳定但是网速是在不敢恭维，突然想起之前在做&lt;a href=&quot;https://github.com/musistudio/wukong-robot-install-script&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;wukong-robot-install-script&lt;/a&gt;的时候我用用过&lt;a href=&quot;https://code.aliyun.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;阿里云的代码托管平台&lt;/a&gt;进行仓库加速，使用的时候速度的确挺快的。那能不能使用这个来托管博客的图床呢？&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="折腾" scheme="https://musii.life/categories/%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="图床" scheme="https://musii.life/tags/%E5%9B%BE%E5%BA%8A/"/>
-    
-      <category term="阿里云" scheme="https://musii.life/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
     
   </entry>
   
