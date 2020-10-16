@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-10-14T04:12:02.142Z</updated>
+  <updated>2020-10-16T05:01:44.544Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>策略模式</title>
+    <link href="https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2020-10-16T04:49:57.566Z</published>
+    <updated>2020-10-16T05:01:44.544Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。&lt;/p&gt;
+&lt;h2 id=&quot;案例&quot;&gt;&lt;a href=&quot;#案例&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>JS数组去重的那些事</title>
@@ -513,33 +541,6 @@
         
         
           &lt;h2 id=&quot;流程控制&quot;&gt;&lt;a href=&quot;#流程控制&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>语法和数据类型</title>
-    <link href="https://musii.life/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html"/>
-    <id>https://musii.life/wiki/%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</id>
-    <published>2020-04-25T02:10:04.000Z</published>
-    <updated>2020-04-25T16:25:22.967Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;JavaScript语法&quot;&gt;&lt;a href=&quot;#JavaScript语法&quot; class=&quot;headerlink&quot; title=&quot;JavaScript语法&quot;&gt;&lt;/a&gt;JavaScript语法&lt;/h2&gt;&lt;h4 id=&quot;大小写敏感&quot;&gt;&lt;a href=&quot;#大小写敏感&quot;
         
       
     

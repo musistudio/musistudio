@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    JS数组去重的那些事 |  musi&#39;s life
+    策略模式 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-JS数组去重的那些事" class="article article-type-post" itemscope
+  <article id="post-策略模式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  JS数组去重的那些事
+  策略模式
 </h1>
  
 
@@ -65,14 +65,10 @@
 
     
     <div class="article-meta">
-      <a href="/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html" class="article-date">
-  <time datetime="2020-10-13T23:13:31.000Z" itemprop="datePublished">2020-10-14</time>
+      <a href="/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html" class="article-date">
+  <time datetime="2020-10-16T04:49:57.566Z" itemprop="datePublished">2020-10-16</time>
 </a>
       
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/code/">code</a>
-  </div>
-
       
       
 <div class="word_count">
@@ -80,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">864</span>
+            <span class="post-count">356</span>
         </span>
     </span>
 
@@ -89,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4 分钟</span>
+            <span class="post-count">1 分钟</span>
         </span>
     </span>
 </div>
@@ -114,27 +110,13 @@
       
 
       
-      <blockquote>
-<p>JS的数组去重是一道面试高频题，在团队最近一次的Code Review也遇到了相关问题，在此记录一下。</p>
-</blockquote>
-<a id="more"></a>
+      <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h4 id="1-代码重构"><a href="#1-代码重构" class="headerlink" title="1. 代码重构"></a>1. 代码重构</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">summaryList.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (item.saasAttr === <span class="string">'userAvatar'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.headImg = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'userName'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.headName = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'type'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.headType = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'memo'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.memo = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'images'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.imgList = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'communicateTime'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.communicateTime = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'communicateBusinessLinkText'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.communicateBusinessLinkText = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'customerNameLinkText'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.customerNameLinkText = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'contactNameLinkText'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.contactNameLinkText = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'address'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.address = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">this</span>.addressExtra = summaryList[index].extra</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.saasAttr === <span class="string">'video'</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.videoData = summaryList[index].value[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-普通数组"><a href="#1-普通数组" class="headerlink" title="1. 普通数组"></a>1. 普通数组</h2><p>对于普通数组，我们很容易就能写出下面这种代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;numbers.length<span class="number">-1</span>;i++) &#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> j=i+<span class="number">1</span>;j&lt;numbers.length;j++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(numbers[i] === numbers[j]) &#123;</span><br><span class="line">      number.splice(j, <span class="number">1</span>);</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码大量使用了<code>if...else...</code>，可以使用策略模式重构:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> relationsMap = &#123;</span><br><span class="line">  userAvatar: <span class="string">'headImg'</span>,</span><br><span class="line">  userName: <span class="string">'headName'</span>,</span><br><span class="line">  type: <span class="string">'headType'</span>,</span><br><span class="line">  images: <span class="string">'imgList'</span>,</span><br><span class="line">  communicateTime,</span><br><span class="line">  communicateBusinessLinkText,</span><br><span class="line">  customerNameLinkText,</span><br><span class="line">  contactNameLinkText,</span><br><span class="line">  address,</span><br><span class="line">  memo,</span><br><span class="line">  video</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">summaryList.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">  relationsMap[item.saasAttr] &amp;&amp; (<span class="keyword">this</span>[relationsMap[item.saasAttr]] = item.value[<span class="number">0</span>])</span><br><span class="line">  item.saasAttr === <span class="string">'address'</span> &amp;&amp; (<span class="keyword">this</span>.addressExtra = item.extra)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>思路也很简单，就是使用双重for循环去遍历数组，时间复杂度为O(n2)。那么有没有稍微优雅一点的方法呢？看下面代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> res = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;numbers.length<span class="number">-1</span>;i++) &#123;</span><br><span class="line">  <span class="keyword">if</span>(!res.includes(numbers[i])) &#123;</span><br><span class="line">     res.push(numbers[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>是不是看起来要比之前的代码简短点？这里开辟了一个新的数组<code>res</code>，但数组的查找是O(n)的复杂度，所以这里的复杂度也是O(n2)。那有没有效率更高一点的方法呢？看下面代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> hash = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;numbers.length<span class="number">-1</span>;i++) &#123;</span><br><span class="line">  <span class="keyword">if</span>(!hash[numbers[i]]) &#123;</span><br><span class="line">     hash[numbers[i]] = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">numbers = <span class="built_in">Object</span>.keys(hash);</span><br></pre></td></tr></table></figure>
-
-<p>这里把数组换成了对象，对象的查找是O(1)的时间复杂度，所以这里的时间复杂度为O(n)。那么有没有更短一点的方法了呢？在ES6中我们可以使用<code>Set</code>数据结构来去重:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line">numbers = [...new <span class="built_in">Set</span>(numbers)];</span><br></pre></td></tr></table></figure>
-
-<p>是不是更简洁呢？而且使用<code>Set</code>数据结构去重效率也更高。那既然上了ES6了，有没有其他方法呢？看下面代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用filter，去重的本质就是按照数据唯一的特点筛选数组，filter刚好可以筛选，所以与去重的行为是一致的</span></span><br><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line">numbers.filter(<span class="function">(<span class="params">item, index, currentArr</span>) =&gt;</span> currentArr.indexOf(item) === index); <span class="comment">// 时间复杂度为O(n2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在filter的基础上使用空间换时间的思想提高效率</span></span><br><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> hash = &#123;&#125;;</span><br><span class="line">numbers.filter(<span class="function"><span class="params">item</span> =&gt;</span> hash[item] ? <span class="literal">false</span> : hash[item] = <span class="literal">true</span>);  <span class="comment">// 时间复杂度为O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用reduce去重，改自MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce</span></span><br><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line">numbers.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> pre.includes(cur) ? pre : [...pre, cur], []);  <span class="comment">// 时间复杂度为O(n2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在reduce的基础上使用空间换时间的思想提高效率</span></span><br><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> hash = &#123;&#125;;</span><br><span class="line">numbers.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> (hash[cur] || (hash[cur] = <span class="literal">true</span>) &amp;&amp; pre.push(cur), pre), []); <span class="comment">// 时间复杂度为O(n)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-复杂数组"><a href="#2-复杂数组" class="headerlink" title="2. 复杂数组"></a>2. 复杂数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用filter</span></span><br><span class="line"><span class="keyword">let</span> numbers = [&#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;];</span><br><span class="line">numbers.filter(<span class="function">(<span class="params">itemObj, index, currentArr</span>) =&gt;</span> currentArr.findIndex(<span class="function"><span class="params">itemObj2</span> =&gt;</span> itemObj2.user === itemObj.user) === index);  <span class="comment">// 时间复杂度为O(n2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在filter的基础上使用空间换时间的思想提高效率</span></span><br><span class="line"><span class="keyword">let</span> numbers = [&#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> hash = &#123;&#125;;</span><br><span class="line">numbers.filter(<span class="function"><span class="params">item</span> =&gt;</span> hash[item.user] ? <span class="literal">false</span> : hash[item.user] = <span class="literal">true</span>);  <span class="comment">// 时间复杂度为O(n)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用reduce去重</span></span><br><span class="line"><span class="keyword">let</span> numbers = [&#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;];</span><br><span class="line">numbers.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> pre.find(<span class="function"><span class="params">item</span> =&gt;</span> item.user === cur.user) ? pre : [...pre, cur], []);  <span class="comment">// 时间复杂度为O(n2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在reduce的基础上使用空间换时间的思想提高效率</span></span><br><span class="line"><span class="keyword">let</span> numbers = [&#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">user</span>: <span class="number">2</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> hash = &#123;&#125;;</span><br><span class="line">numbers.reduce(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> (hash[cur.user] || (hash[cur.user] = <span class="literal">true</span>) &amp;&amp; pre.push(cur), pre), []); <span class="comment">// 时间复杂度为O(n)</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-使用策略模式计算奖金"><a href="#2-使用策略模式计算奖金" class="headerlink" title="2. 使用策略模式计算奖金"></a>2. 使用策略模式计算奖金</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义薪资计算类</span></span><br><span class="line"><span class="keyword">const</span> Strategies = &#123;</span><br><span class="line">  S: <span class="function"><span class="params">salary</span> =&gt;</span> salary * <span class="number">4</span>,</span><br><span class="line">  A: <span class="function"><span class="params">salary</span> =&gt;</span> salary * <span class="number">3</span>,</span><br><span class="line">  B: <span class="function"><span class="params">salary</span> =&gt;</span> salary * <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义薪资计算方法调用薪资计算类</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calcBonus</span>(<span class="params">level, salary</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> Strategies[level](salary);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 如果以后需要添加C级D级的计算只需要在Strategies类里添加C和D就可以了。可扩展性较好。</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -204,15 +186,13 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
 
     </footer>
 
@@ -222,19 +202,10 @@
   
   <nav class="article-nav">
     
-      <a href="/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            策略模式
-          
-        </div>
-      </a>
     
-    
-      <a href="/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html" class="article-nav-link">
+      <a href="/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">单例模式</div>
+        <div class="article-nav-title">JS数组去重的那些事</div>
       </a>
     
   </nav>
