@@ -2866,4 +2866,48 @@
         <tag>w-设计模式</tag>
       </tags>
   </entry>
+  <entry>
+    <title>JS日期的那些事儿</title>
+    <url>/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</url>
+    <content><![CDATA[<blockquote>
+<p>ECMAScript的日期参考了Java早期版本中的java.util.Date的设计，但由于浏览器对于Date的实现方式不一致导致了一些列的问题。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-认识UTC与GMT"><a href="#1-认识UTC与GMT" class="headerlink" title="1. 认识UTC与GMT"></a>1. 认识UTC与GMT</h3><p><strong>协调世界时</strong>(英: <strong>C</strong>oordinated <strong>U</strong>niversal <strong>T</strong>ime  法: <strong>T</strong>emps <strong>U</strong>niversel <strong>C</strong>oordonné，作为英语和法语的妥协简称为<strong>UTC</strong>)，其在时刻上尽量接近于格林威治标准时间(GMT)。该时间系统被广泛用于互联网和万维网的标准中，如网络时间协议(<strong>N</strong>etwork <strong>T</strong>ime <strong>P</strong>rotocol <strong>NTP</strong>)就是协调世界时在互联网汇中使用的一种方式。PS: 如果本地时间比UTC时间快，例如中国大陆的时间比UTC快8小时，就会写作UTC+8，俗称东八区。</p>
+<p><strong>格林威治标准时间</strong>（<strong>G</strong>reenwich <strong>M</strong>ean <strong>T</strong>ime）是指位于英国伦敦郊区的皇家格林尼治天文台当地的平太阳时。由于地球每天的自转是有些不规则的，而且正在缓慢减速，因此格林尼治平时基于天文观测本身的缺陷，已经被协调世界时取代。</p>
+<h3 id="2-ECMAScript中的Date对象"><a href="#2-ECMAScript中的Date对象" class="headerlink" title="2. ECMAScript中的Date对象"></a>2. ECMAScript中的Date对象</h3><p>ECMAScript中的Date对象记录的是从1970年1月1日(UTC)到现在所经过的毫秒数，虽然其核心时间值是UTC，但获取基本日期和时间的基本方法都是在本地时区和偏移量下工作的。需要注意的是，最大日期和最大安全整数不同(Number.MAX_SAFE_INTEGER为9,007,199,254,740,991而日期的范围为±8,640,000,000,000,000毫秒)。</p>
+<p>以一个函数的形式来调用Date对象，会返回一个代表当前日期和时间的字符串。</p>
+<ul>
+<li><p>构造函数</p>
+<p>Date对象的构造函数有四种基本形式：</p>
+<ol>
+<li>没有参数: 如果没有提供参数，返回当前时刻的日期和时间。</li>
+<li>UNIX时间戳：表示1970年1月1日00:00:00(UTC)以来的毫秒数</li>
+<li>时间戳字符串：表示日期的字符串，应符合RFC2822或ISO8601的格式。由于浏览器之间的差异性，不推荐使用该方法解析日期字符串(在ISO8601中，只有日期会被处理为UTC时间)</li>
+<li>分别提供日期与时间的每一个成员。<ul>
+<li>year: 表示年份的整数值，0-99会被映射至1900年-1999年，其他值代表实际年份。</li>
+<li>monthIndex: 表示月份的整数值，从0(1月)到11(12月)</li>
+<li>date: 表示一个月中的第几天的整数值，从1开始，默认为1</li>
+<li>hours: 表示一天中的小时数的整数值(24小时制)，默认为0</li>
+<li>minutes: 表示一个完整的时间中的分钟部分的整数值，默认为0</li>
+<li>seconds: 表示一个完整时间中的秒钟部分的整数值，默认为0</li>
+<li>Milliseconds: 表示一个完整时间中的毫秒部分的整数值，默认为0</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>解析时间字符串</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 以下代码摘自Dayjs</span></span><br><span class="line"><span class="keyword">const</span> parseDate = <span class="function">(<span class="params">cfg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; date, utc &#125; = cfg</span><br><span class="line">  <span class="keyword">const</span> isUndefined = <span class="function"><span class="params">s</span> =&gt;</span> s === <span class="literal">undefined</span></span><br><span class="line">  <span class="keyword">if</span> (date === <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="literal">NaN</span>) <span class="comment">// null is invalid</span></span><br><span class="line">  <span class="keyword">if</span> (isUndefined(date)) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>() <span class="comment">// today</span></span><br><span class="line">  <span class="keyword">if</span> (date <span class="keyword">instanceof</span> <span class="built_in">Date</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(date)</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> date === <span class="string">'string'</span> &amp;&amp; !<span class="regexp">/Z$/i</span>.test(date)) &#123;</span><br><span class="line">    <span class="keyword">const</span> d = date.match(<span class="regexp">/^(\d&#123;4&#125;)[-/]?(\d&#123;1,2&#125;)?[-/]?(\d&#123;0,2&#125;)[^0-9]*(\d&#123;1,2&#125;)?:?(\d&#123;1,2&#125;)?:?(\d&#123;1,2&#125;)?.?(\d+)?$/</span>)</span><br><span class="line">    <span class="keyword">if</span> (d) &#123;</span><br><span class="line">      <span class="keyword">const</span> m = d[<span class="number">2</span>] - <span class="number">1</span> || <span class="number">0</span></span><br><span class="line">      <span class="keyword">const</span> ms = (d[<span class="number">7</span>] || <span class="string">'0'</span>).substring(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">      <span class="keyword">if</span> (utc) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.UTC(d[<span class="number">1</span>], m, d[<span class="number">3</span>]</span><br><span class="line">          || <span class="number">1</span>, d[<span class="number">4</span>] || <span class="number">0</span>, d[<span class="number">5</span>] || <span class="number">0</span>, d[<span class="number">6</span>] || <span class="number">0</span>, ms))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(d[<span class="number">1</span>], m, d[<span class="number">3</span>]</span><br><span class="line">          || <span class="number">1</span>, d[<span class="number">4</span>] || <span class="number">0</span>, d[<span class="number">5</span>] || <span class="number">0</span>, d[<span class="number">6</span>] || <span class="number">0</span>, ms)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(date) <span class="comment">// everything else</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
 </search>

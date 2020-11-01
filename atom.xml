@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-10-16T05:01:44.544Z</updated>
+  <updated>2020-11-01T07:08:27.691Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JS日期的那些事儿</title>
+    <link href="https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html"/>
+    <id>https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</id>
+    <published>2020-10-31T15:29:19.000Z</published>
+    <updated>2020-11-01T07:08:27.691Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;ECMAScript的日期参考了Java早期版本中的java.util.Date的设计，但由于浏览器对于Date的实现方式不一致导致了一些列的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>策略模式</title>
@@ -514,33 +537,6 @@
           &lt;p&gt;JavaScript提供了以下循环语句：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;h4 id=&quot;for语句&quot;&gt;&lt;a href=&quot;#for语句&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>流程控制与错误处理</title>
-    <link href="https://musii.life/wiki/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86.html"/>
-    <id>https://musii.life/wiki/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86.html</id>
-    <published>2020-04-25T16:29:04.000Z</published>
-    <updated>2020-04-26T02:28:28.692Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;流程控制&quot;&gt;&lt;a href=&quot;#流程控制&quot; class=&quot;headerlink&quot;
         
       
     
