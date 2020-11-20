@@ -2910,4 +2910,78 @@
         <tag>w-JavaScript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>serverless给前端带来的技术变革</title>
+    <url>/%E5%AD%A6%E4%B9%A0/serverless%E7%BB%99%E5%89%8D%E7%AB%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8F%98%E9%9D%A9.html</url>
+    <content><![CDATA[<blockquote>
+<p>Serverless Compute是指构建和运行不需要服务器管理的应用程序的概念。它描述了一种更细粒度的部署模型，应用程序捆绑一个或多个function(FaaS)，上传到平台，然后执行，伸缩和计费，以响应当前所需的确切需求。 —— 《CNCF Serverless White Paper》</p>
+</blockquote>
+<h2 id="什么是serverless"><a href="#什么是serverless" class="headerlink" title="什么是serverless"></a>什么是serverless</h2><ol>
+<li>狭义上的serverless = FaaS + BaaS，由serverless白皮书1.0提出，是目前serverless的最佳实践。<ul>
+<li>FaaS(stateless): 函数即服务，采用EDD(Event Drive Development)的方式运行和管理代码，函数作为开发者部署程序的最小单元，无需关注服务器甚至是技术栈即可对其进行扩展。</li>
+<li>BaaS(stateful): 后端即服务，基于第三方API的服务。可代替应用程序的核心功能。</li>
+</ul>
+</li>
+<li>广义上的serverless，指的是开发者不需要过多的关注服务器的平台和运维，让开发者专注于业务开发的一种云计算模式。由于这种模式服务器对开发者是透明的所以又被翻译成无服务器。</li>
+</ol>
+<h2 id="为什么是前端"><a href="#为什么是前端" class="headerlink" title="为什么是前端"></a>为什么是前端</h2><p>近年来前端生态圈的迅速发展，前端这个职业也在快速发展。从一开始的“切图仔”到服务于后端的模板再到前后端分离专注于用户交互的开发方式，Node.js的出现让前端开发者拥有了部分后端的能力，DevOps概念的提出前端也开始介入部分运维的工作。一职多能已是前端这个职业的趋势。</p>
+<h2 id="serverless给前端带来了什么"><a href="#serverless给前端带来了什么" class="headerlink" title="serverless给前端带来了什么"></a>serverless给前端带来了什么</h2><ol>
+<li><p>赋能前端</p>
+<p>进一步降低后端的门槛，使得前端可以更多的参与业务交付，同时也提升了前端的发展空间。</p>
+</li>
+<li><p>研发提效</p>
+<p>采用云端一体化的方式进行研发，相比于传统的前后端分离的方式进行开发、发布，能极大提高项目的开发和交付速度。</p>
+</li>
+<li><p>弱化运维</p>
+<p>开发者基本不再需要关注服务器，不再需要考虑流量、并发等一系列问题，减少前端的学习和开发成本。</p>
+</li>
+</ol>
+<h2 id="serverless是未来？未来已来"><a href="#serverless是未来？未来已来" class="headerlink" title="serverless是未来？未来已来!"></a>serverless是未来？未来已来!</h2><ol>
+<li><p>serverless发展历程:</p>
+<p>2012年  Iron.io的副总裁Ken首次提出serverless的概念</p>
+<p>2014年 AWS率先推出Lambda即函数计算</p>
+<p>2017年 各大云厂商纷纷实现serverless，并各自推出自己的serverless框架</p>
+<p>2018年 微信小程序率先推出云开发，打造云端一体化的开发方式。腾讯用微信周边生态将serverless技术大规模落地，随后各大厂商纷纷效仿，现在云开发几乎已成小程序的标配。</p>
+</li>
+</ol>
+<img src="https://upload-images.jianshu.io/upload_images/2509688-86d4747424b11cfc.png?imageMogr2/auto-orient/strip|imageView2/2/w/638/format/webp" alt="云计算发展历程" style="zoom:200%;" />
+
+<ol start="2">
+<li><p>云计算的发展历程:</p>
+<p>IDC → IaaS(基础设施即服务) → PaaS(平台即服务) → Serverless(无服务器计算)</p>
+<p>从IDC → IaaS，用户不用关注真实的物理资源。</p>
+<p>从IaaS → PaaS，用户不再关注操作系统，数据库，中间件等基础软件。</p>
+<p>从PaaS → serverless, 用户可以很少甚至不用关注backend，app可以简化为一个单页面程序。</p>
+</li>
+</ol>
+<h2 id="serverless的优势"><a href="#serverless的优势" class="headerlink" title="serverless的优势"></a>serverless的优势</h2><ul>
+<li><p>低成本</p>
+<ul>
+<li>开发成本: 开发者直接调用的是服务化的组件，如对象存储，授权服务等，可以缩短开发周期，降低开发难度。</li>
+<li>运维成本: 用户的服务器、数据库将被托管至云厂商，用户将不再参与基础设施及软件的维护。</li>
+</ul>
+</li>
+<li><p>按需付费</p>
+<p>按请求次数及运行时间和cpu算力进行收费，不调用不收费。</p>
+</li>
+<li><p>高扩展</p>
+<p>拥有完全自动的、有弹性的、且由服务提供者所管理扩展方式。</p>
+</li>
+<li><p>NoOps</p>
+<p>开发者只需关注自身业务不需要关注服务器的运维。</p>
+</li>
+</ul>
+<h2 id="软件开发没有银弹——serverless的不足"><a href="#软件开发没有银弹——serverless的不足" class="headerlink" title="软件开发没有银弹——serverless的不足"></a>软件开发没有银弹——serverless的不足</h2><ul>
+<li>与云厂商绑定 每个云厂商的serverless框架实现方式并不统一，迁移比较困难。</li>
+<li>相较于传统开发增加了冷启动耗时。</li>
+<li>开发生态还不完善，缺少好用的开发和调试工具。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
 </search>
