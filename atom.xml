@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>musi&#39;s life</title>
+  
+  <subtitle>the blog of musi</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://musii.life/"/>
+  <updated>2020-11-20T13:15:46.638Z</updated>
+  <id>https://musii.life/</id>
+  
+  <author>
+    <name>musi</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>策略模式</title>
+    <link href="https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2020-11-20T13:15:46.638Z</published>
+    <updated>2020-11-20T13:15:46.638Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。&lt;/p&gt;
+&lt;h2 id=&quot;案例&quot;&gt;&lt;a href=&quot;#案例&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS日期的那些事儿</title>
+    <link href="https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html"/>
+    <id>https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</id>
+    <published>2020-10-31T15:29:19.000Z</published>
+    <updated>2020-11-20T13:15:46.635Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;ECMAScript的日期参考了Java早期版本中的java.util.Date的设计，但由于浏览器对于Date的实现方式不一致导致了一些列的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS数组去重的那些事</title>
+    <link href="https://musii.life/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html"/>
+    <id>https://musii.life/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html</id>
+    <published>2020-10-13T23:13:31.000Z</published>
+    <updated>2020-11-20T13:15:46.635Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;JS的数组去重是一道面试高频题，在团队最近一次的Code Review也遇到了相关问题，在此记录一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>单例模式</title>
+    <link href="https://musii.life/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2020-09-02T04:48:17.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;保证一个类仅有一个实例，并提供一个访问它的全局访问点。&lt;/p&gt;
+&lt;h2 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML中的那些事儿</title>
+    <link href="https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html"/>
+    <id>https://musii.life/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</id>
+    <published>2020-06-25T13:43:11.000Z</published>
+    <updated>2020-11-20T13:15:46.635Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;超文本标记语言&lt;/strong&gt;（英语：&lt;strong&gt;H&lt;/strong&gt;yper&lt;strong&gt;T&lt;/strong&gt;ext &lt;strong&gt;M&lt;/strong&gt;arkup &lt;strong&gt;L&lt;/strong&gt;anguage，简称：&lt;strong&gt;HTML&lt;/strong&gt;）是一种用于创建网页的标准标记语言。HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计网页、网页应用程序以及移动应用程序的用户界面。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="HTML" scheme="https://musii.life/tags/HTML/"/>
+    
+      <category term="前端" scheme="https://musii.life/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="code" scheme="https://musii.life/tags/code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大学蒙太奇</title>
+    <link href="https://musii.life/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html"/>
+    <id>https://musii.life/life/%E5%A4%A7%E5%AD%A6%E8%92%99%E5%A4%AA%E5%A5%87.html</id>
+    <published>2020-06-18T16:08:59.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;转眼已经大学毕业了，回想起三年前那个拿着录取通知书来报道的我，还仿若昨日。算算拿到毕业证已经有两天了，便以这篇文章来记录一下我的大学生活吧，也算是没浪费这三年的光阴。至于名字，借鉴于&lt;a href=&quot;https://www.hahack.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;潘伟洲&lt;/a&gt;的年度总结，用蒙太奇手法记录我的大学生活，倒也比较合适。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="life" scheme="https://musii.life/categories/life/"/>
+    
+    
+      <category term="生活" scheme="https://musii.life/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解有限状态机</title>
+    <link href="https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html"/>
+    <id>https://musii.life/code/%E7%90%86%E8%A7%A3%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.html</id>
+    <published>2020-05-16T02:14:53.000Z</published>
+    <updated>2020-11-20T13:15:46.638Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;什么是有限状态机？&quot;&gt;&lt;a href=&quot;#什么是有限状态机？&quot; class=&quot;headerlink&quot; title=&quot;什么是有限状态机？&quot;&gt;&lt;/a&gt;什么是有限状态机？&lt;/h2&gt;&lt;p&gt;有限状态机也叫状态机，是一种编程思想或者说是编程范式。在有限状态机中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个状态都是一个机器&lt;ul&gt;
+&lt;li&gt;在每个机器中，可以做计算、存储或输出等等…&lt;/li&gt;
+&lt;li&gt;所有的机器接受的输入是一致的&lt;/li&gt;
+&lt;li&gt;状态机的每一个机器本身没有状态，如果我们用函数表示的话，它应该是纯函数(即不依赖于外部环境，无副作用)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;每一个机器都知道下一个状态&lt;ul&gt;
+&lt;li&gt;每个机器都有确定的下一个状态(Moore)&lt;/li&gt;
+&lt;li&gt;每个机器根据输入决定下一个状态(Melay)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="code" scheme="https://musii.life/tags/code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript模块</title>
+    <link href="https://musii.life/wiki/JavaScript%E6%A8%A1%E5%9D%97.html"/>
+    <id>https://musii.life/wiki/JavaScript%E6%A8%A1%E5%9D%97.html</id>
+    <published>2020-05-03T13:58:30.000Z</published>
+    <updated>2020-11-20T13:15:46.635Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>元编程</title>
+    <link href="https://musii.life/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html"/>
+    <id>https://musii.life/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html</id>
+    <published>2020-05-03T13:58:21.000Z</published>
+    <updated>2020-11-20T13:15:46.636Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;从ECMAScript2015开始，JavaScript获得了&lt;code&gt;Proxy&lt;/code&gt;和&lt;code&gt;Reflect&lt;/code&gt;对象的支持，允许拦截并定义基本语言操作的自定义行为(例如属性查找、赋值、枚举和函数调用等)。借助这两个对象，
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>迭代器与生成器</title>
+    <link href="https://musii.life/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html"/>
+    <id>https://musii.life/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html</id>
+    <published>2020-05-03T13:58:16.000Z</published>
+    <updated>2020-11-20T13:15:46.639Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;迭代器&quot;&gt;&lt;a href=&quot;#迭代器&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Promises</title>
+    <link href="https://musii.life/wiki/Promises.html"/>
+    <id>https://musii.life/wiki/Promises.html</id>
+    <published>2020-05-03T13:58:02.000Z</published>
+    <updated>2020-11-20T13:15:46.636Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;约定&quot;&gt;&lt;a href=&quot;#约定&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>对象模型的细节</title>
+    <link href="https://musii.life/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html"/>
+    <id>https://musii.life/wiki/%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%86%E8%8A%82.html</id>
+    <published>2020-05-03T13:57:30.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;JavaScript是基于原型的语言，它只有对象。原型对象可以作为一个模板，新对象可以从中获得原始的属性。任何对象都可以在创建对象时或在运行时指定其自身的属性。此外，任何对象都可以关联另一个对象的原型，从而允许第二个对象共享第一个对象的属性。&lt;/p
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用对象</title>
+    <link href="https://musii.life/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html"/>
+    <id>https://musii.life/wiki/%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1.html</id>
+    <published>2020-05-03T13:57:20.000Z</published>
+    <updated>2020-11-20T13:15:46.636Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;JavaScript的设计是一个简单的基于对象的范式。一个对象就是一系列属性的集合，一个属性包含一个键和一个值。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;对象和属性&quot;&gt;&lt;a href=&quot;#对象和属性&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>带键集合</title>
+    <link href="https://musii.life/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html"/>
+    <id>https://musii.life/wiki/%E5%B8%A6%E9%94%AE%E9%9B%86%E5%90%88.html</id>
+    <published>2020-05-03T13:57:10.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;映射&quot;&gt;&lt;a href=&quot;#映射&quot; class=&quot;headerlink&quot; title=&quot;映射&quot;&gt;&lt;/a&gt;映射&lt;/h3&gt;&lt;h4 id=&quot;Map对象&quot;&gt;&lt;a href=&quot;#Map对象&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>索引集合</title>
+    <link href="https://musii.life/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html"/>
+    <id>https://musii.life/wiki/%E7%B4%A2%E5%BC%95%E9%9B%86%E5%90%88.html</id>
+    <published>2020-05-03T13:56:43.000Z</published>
+    <updated>2020-11-20T13:15:46.638Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;数组对象&quot;&gt;&lt;a href=&quot;#数组对象&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文本格式化</title>
+    <link href="https://musii.life/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html"/>
+    <id>https://musii.life/wiki/%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96.html</id>
+    <published>2020-05-03T13:56:32.000Z</published>
+    <updated>2020-11-20T13:15:46.638Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;字符串&quot;&gt;&lt;a href=&quot;#字符串&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数字与日期</title>
+    <link href="https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html"/>
+    <id>https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</id>
+    <published>2020-05-03T12:54:05.000Z</published>
+    <updated>2020-11-20T13:15:46.638Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;数字&quot;&gt;&lt;a href=&quot;#数字&quot; class=&quot;headerlink&quot; title=&quot;数字&quot;&gt;&lt;/a&gt;数字&lt;/h3&gt;&lt;p&gt;在JavaScript中，数字以双精度64位二进制格式IEEE
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>表达式与运算符</title>
+    <link href="https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html"/>
+    <id>https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html</id>
+    <published>2020-05-03T00:27:44.000Z</published>
+    <updated>2020-11-20T13:15:46.639Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;h4 id=&quot;赋值运算符&quot;&gt;&lt;a href=&quot;#赋值运算符&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>函数</title>
+    <link href="https://musii.life/wiki/%E5%87%BD%E6%95%B0.html"/>
+    <id>https://musii.life/wiki/%E5%87%BD%E6%95%B0.html</id>
+    <published>2020-04-26T17:10:47.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;函数定义&quot;&gt;&lt;a href=&quot;#函数定义&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>循环与迭代</title>
+    <link href="https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html"/>
+    <id>https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html</id>
+    <published>2020-04-26T08:22:52.000Z</published>
+    <updated>2020-11-20T13:15:46.637Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;JavaScript提供了以下循环语句：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h4 id=&quot;for语句&quot;&gt;&lt;a href=&quot;#for语句&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
+    
+  </entry>
+  
+</feed>
