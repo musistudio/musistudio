@@ -2916,6 +2916,8 @@
     <content><![CDATA[<blockquote>
 <p>Serverless Compute是指构建和运行不需要服务器管理的应用程序的概念。它描述了一种更细粒度的部署模型，应用程序捆绑一个或多个function(FaaS)，上传到平台，然后执行，伸缩和计费，以响应当前所需的确切需求。 —— 《CNCF Serverless White Paper》</p>
 </blockquote>
+<a id="more"></a>
+
 <h2 id="什么是serverless"><a href="#什么是serverless" class="headerlink" title="什么是serverless"></a>什么是serverless</h2><ol>
 <li>狭义上的serverless = FaaS + BaaS，由serverless白皮书1.0提出，是目前serverless的最佳实践。<ul>
 <li>FaaS(stateless): 函数即服务，采用EDD(Event Drive Development)的方式运行和管理代码，函数作为开发者部署程序的最小单元，无需关注服务器甚至是技术栈即可对其进行扩展。</li>
