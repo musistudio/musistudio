@@ -47,304 +47,404 @@
 <body>
   <div id="app">
     <main class="content on">
-      <section class="outer" id="wiki">
+      <link rel="stylesheet" href="//at.alicdn.com/t/font_2374061_7uvb8wj9ba5.css">
+<style>
+  iframe{
+    width: 100%;
+    height: calc(100vh - 100px);
+  }
+  i{
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+<section class="outer" id="wiki">
 
   
-  <h1 class="page-type-title">wiki</h1>
+    <div class="row" style="display: flex;justify-content: space-between;">
+      <h1 class="page-type-title">
+        wiki
+      </h1>
+      <div style="display: flex;align-items: center;justify-content: space-between;width: 80px;">
+        <i class="iconfont icon-chazhaobiaodanliebiao"></i>
+        <i class="iconfont icon-guanxitu"></i>
+        <i class="iconfont icon-naotu"></i>
+      </div>
+    </div>
 
-  <div class="row page">
-    <div class="col-md-12">
-      <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索"
-        class="st-search-input st-default-search-input form-control"
-        style="margin-bottom:1em;padding: 5px;font-size: 16px;" />
-      <div id="local-search-result" class="local-search-result"></div>
+    <div class="row page">
+      <div class="col-md-12" id="list">
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索"
+          class="st-search-input st-default-search-input form-control"
+          style="margin-bottom:1em;padding: 5px;font-size: 16px;" />
+        <div id="local-search-result" class="local-search-result"></div>
 
-      <div class="accordion" id="notebook" style="margin-top: 10px;">
+        <div class="accordion" id="notebook" style="margin-top: 10px;">
 
-        <div class="card">
-          <div class="card-header" id="about">
-            <h2 class="mb-0">
-              <button style="font-size: 20px;box-shadow: none;" class="btn btn-block text-left" type="button"
-                data-toggle="collapse" data-target="#info" aria-expanded="true" aria-controls="info">
-                <i class="fa fa-hand-o-right"></i> 关于wiki
-              </button>
-            </h2>
-          </div>
-
-          <div id="info" class="collapse show" aria-labelledby="headingInfo" data-parent="#notebook">
-            <div class="card-body" style="font-size: 16px;">
-              <div>wiki是我的个人学习笔记库</div>
-              <div>每当我看到一个知识点时都会在此记录</div>
-              <div>以便于日后形成自己的知识体系</div>
+          <div class="card">
+            <div class="card-header" id="about">
+              <h2 class="mb-0">
+                <button style="font-size: 20px;box-shadow: none;" class="btn btn-block text-left" type="button"
+                  data-toggle="collapse" data-target="#info" aria-expanded="true" aria-controls="info">
+                  <i class="fa fa-hand-o-right"></i> 关于wiki
+                </button>
+              </h2>
             </div>
-          </div>
-        </div>
 
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-              <button style="font-size: 16px;color: #333;box-shadow: none;" class="btn btn-block text-left" type="button"
-                data-toggle="collapse" data-target="#JavaScript"
-                aria-controls="#JavaScript">
-                <i class="fa fa-folder"></i> JavaScript
-              </button>
-            </h2>
-          </div>
-
-
-          <div id="JavaScript" class="collapse" data-parent="#notebook">
-            <div class="card-body">
-              <ul class="post" style="font-size: 16px;padding-left: 30px;">
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/JavaScript的前世今生.html">JavaScript的前世今生</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/语法和数据类型.html">语法和数据类型</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/流程控制与错误处理.html">流程控制与错误处理</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/循环与迭代.html">循环与迭代</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/函数.html">函数</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/表达式与运算符.html">表达式与运算符</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/数字与日期.html">数字与日期</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/文本格式化.html">文本格式化</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/索引集合.html">索引集合</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/带键集合.html">带键集合</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/使用对象.html">使用对象</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/对象模型的细节.html">对象模型的细节</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/Promises.html">Promises</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/迭代器与生成器.html">迭代器与生成器</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/元编程.html">元编程</a></li>
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/JavaScript模块.html">JavaScript模块</a></li>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-              </ul>
+            <div id="info" class="collapse show" aria-labelledby="headingInfo" data-parent="#notebook">
+              <div class="card-body" style="font-size: 16px;">
+                <div>wiki是我的个人学习笔记库</div>
+                <div>每当我看到一个知识点时都会在此记录</div>
+                <div>以便于日后形成自己的知识体系</div>
+              </div>
             </div>
           </div>
 
+
+          
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button style="font-size: 16px;color: #333;box-shadow: none;" class="btn btn-block text-left"
+                      type="button" data-toggle="collapse" data-target="#JavaScript"
+                      aria-controls="#JavaScript">
+                      <i class="fa fa-folder"></i>
+                      JavaScript
+                    </button>
+                  </h2>
+                </div>
+
+
+                <div id="JavaScript" class="collapse" data-parent="#notebook">
+                  <div class="card-body">
+                    <ul class="post" style="font-size: 16px;padding-left: 30px;">
+                      
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/JavaScript的前世今生.html">
+                              JavaScript的前世今生
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/语法和数据类型.html">
+                              语法和数据类型
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/流程控制与错误处理.html">
+                              流程控制与错误处理
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/循环与迭代.html">
+                              循环与迭代
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/函数.html">
+                              函数
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/表达式与运算符.html">
+                              表达式与运算符
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/数字与日期.html">
+                              数字与日期
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/文本格式化.html">
+                              文本格式化
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/索引集合.html">
+                              索引集合
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/带键集合.html">
+                              带键集合
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/使用对象.html">
+                              使用对象
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/对象模型的细节.html">
+                              对象模型的细节
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/Promises.html">
+                              Promises
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/迭代器与生成器.html">
+                              迭代器与生成器
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/元编程.html">
+                              元编程
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/JavaScript模块.html">
+                              JavaScript模块
+                            </a></li>
+                          
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+              
+                
+            
+                
+            
+                
+            
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button style="font-size: 16px;color: #333;box-shadow: none;" class="btn btn-block text-left"
+                      type="button" data-toggle="collapse" data-target="#设计模式"
+                      aria-controls="#设计模式">
+                      <i class="fa fa-folder"></i>
+                      设计模式
+                    </button>
+                  </h2>
+                </div>
+
+
+                <div id="设计模式" class="collapse" data-parent="#notebook">
+                  <div class="card-body">
+                    <ul class="post" style="font-size: 16px;padding-left: 30px;">
+                      
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/中介者模式.html">
+                              中介者模式
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/发布-订阅模式.html">
+                              发布-订阅模式
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/策略模式.html">
+                              策略模式
+                            </a></li>
+                          
+                            
+                        
+                          <li class="post-list-item"><a href="/wiki/装饰器模式.html">
+                              装饰器模式
+                            </a></li>
+                          
+                            
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+              
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+
+
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-              <button style="font-size: 16px;color: #333;box-shadow: none;" class="btn btn-block text-left" type="button"
-                data-toggle="collapse" data-target="#设计模式"
-                aria-controls="#设计模式">
-                <i class="fa fa-folder"></i> 设计模式
-              </button>
-            </h2>
-          </div>
-
-
-          <div id="设计模式" class="collapse" data-parent="#notebook">
-            <div class="card-body">
-              <ul class="post" style="font-size: 16px;padding-left: 30px;">
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/单例模式.html">单例模式</a></li>
-                
-                
-                
-                
-                
-                
-                
-                <li class="post-list-item"><a href="/wiki/策略模式.html">策略模式</a></li>
-                
-                
-                
-                
-                
-                
-              </ul>
-            </div>
-          </div>
-
-        </div>
-        
-        
-        
-        
-        
-        
-
 
       </div>
 
-    </div><!-- accordion -->
-  </div>
-  </div>
+      <iframe src="" frameborder="0" style="display: none;"></iframe>
+    </div>
+    </div>
 
 </section>
+
+
+
+<script>
+  Array.from(document.querySelectorAll('i')).forEach(ele => {
+    ele.addEventListener('click', () => {
+      const list = document.querySelector('#list');
+      const iframe = document.querySelector('iframe');
+      if(ele.className.includes('icon-chazhaobiaodanliebiao')) {
+        iframe.style.display = 'none';
+        list.style.display = 'block';
+      }else if(ele.className.includes('icon-guanxitu')) {
+        iframe.src = '/graph.html'
+        iframe.style.display = 'block';
+        list.style.display = 'none';
+      }else if(ele.className.includes('icon-naotu')) {
+        iframe.src = '/mind.html'
+        iframe.style.display = 'block';
+        list.style.display = 'none';
+      }
+    })
+  })
+</script>
       <footer class="footer">
   <div class="outer">
     <ul class="list-inline">

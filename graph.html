@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.1.8/dist/g6.min.js"></script>
+</head>
+
+<body>
+
+    <div id="container"></div>
+    <script>
+        fetch('/graph.json')
+            .then(res => res.json())
+            .then(data => {
+                data.nodes = data.nodes.map(node => {
+                    node.x = 0;
+                    node.y = 0;
+                    return node;
+                })
+                const container = document.getElementById('container');
+                const width = container.scrollWidth;
+                const height = container.scrollHeight || 500;
+                const graph = new G6.Graph({
+                    container: 'container',
+                    width,
+                    height,
+                    layout: {
+                        type: 'force',
+                        preventOverlap: true,
+                        nodeStrength: data.nodes.length < 20 ? 30 : 15,
+                        collideStrength: 2,
+                        nodeSpacing: 20
+                    },
+                    modes: {
+                        default: ['drag-canvas', 'zoom-canvas'],
+                    },
+                    defaultNode: {
+                        size: 10,
+                    },
+                });
+                graph.data(data);
+                graph.render();
+
+                function refreshDragedNodePosition(e) {
+                    const model = e.item.get('model');
+                    model.fx = e.x;
+                    model.fy = e.y;
+                }
+                graph.on('node:dragstart', (e) => {
+                    graph.layout();
+                    refreshDragedNodePosition(e);
+                });
+                graph.on('node:drag', (e) => {
+                    refreshDragedNodePosition(e);
+                });
+                graph.on('node:dragend', function (e) {
+                    e.item.get('model').fx = null;
+                    e.item.get('model').fy = null;
+                });
+                graph.on('node:click', evt => { // 点击节点跳转到对应的链接
+                    window.open(`wiki/${evt.item._cfg.model.label}.html`)
+                })
+                if (typeof window !== 'undefined')
+                    window.onresize = () => {
+                        if (!graph || graph.get('destroyed')) return;
+                        if (!container || !container.scrollWidth || !container.scrollHeight) return;
+                        graph.changeSize(container.scrollWidth, container.scrollHeight);
+                    };
+            })
+    </script>
+
+</body>
+
+</html>

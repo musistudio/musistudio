@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2021-01-30T04:03:14.955Z</updated>
+  <updated>2021-02-17T23:59:15.333Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,115 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>中介者模式</title>
+    <link href="https://musii.life/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2021-02-17T23:50:57.000Z</published>
+    <updated>2021-02-17T23:59:15.333Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;中介者模式&quot;&gt;&lt;a href=&quot;#中介者模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>发布-订阅模式</title>
+    <link href="https://musii.life/wiki/%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2021-02-17T23:50:57.000Z</published>
+    <updated>2021-02-17T23:59:20.267Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;发布-订阅模式&quot;&gt;&lt;a href=&quot;#发布-订阅模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略模式</title>
+    <link href="https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2021-02-17T23:50:57.000Z</published>
+    <updated>2021-02-17T23:52:03.032Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;策略模式&quot;&gt;&lt;a href=&quot;#策略模式&quot; class=&quot;headerlink&quot; title=&quot;策略模式&quot;&gt;&lt;/a&gt;策略模式&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;思考:
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>装饰器模式</title>
+    <link href="https://musii.life/wiki/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F.html"/>
+    <id>https://musii.life/wiki/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F.html</id>
+    <published>2021-02-17T23:50:57.000Z</published>
+    <updated>2021-02-17T23:52:46.112Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;装饰器模式&quot;&gt;&lt;a href=&quot;#装饰器模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
+    
+    
+      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>前端没有安全——记一次前端获取sign的经过</title>
@@ -65,34 +174,6 @@
   </entry>
   
   <entry>
-    <title>策略模式</title>
-    <link href="https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html"/>
-    <id>https://musii.life/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.html</id>
-    <published>2020-11-20T13:15:46.638Z</published>
-    <updated>2020-11-20T13:15:46.638Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。&lt;/p&gt;
-&lt;h2 id=&quot;案例&quot;&gt;&lt;a href=&quot;#案例&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>JS日期的那些事儿</title>
     <link href="https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html"/>
     <id>https://musii.life/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html</id>
@@ -135,34 +216,6 @@
     
     
       <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单例模式</title>
-    <link href="https://musii.life/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html"/>
-    <id>https://musii.life/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html</id>
-    <published>2020-09-02T04:48:17.000Z</published>
-    <updated>2020-11-20T13:15:46.637Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;保证一个类仅有一个实例，并提供一个访问它的全局访问点。&lt;/p&gt;
-&lt;h2 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-设计模式" scheme="https://musii.life/tags/w-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -475,60 +528,6 @@
         
         
           &lt;h3 id=&quot;字符串&quot;&gt;&lt;a href=&quot;#字符串&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数字与日期</title>
-    <link href="https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html"/>
-    <id>https://musii.life/wiki/%E6%95%B0%E5%AD%97%E4%B8%8E%E6%97%A5%E6%9C%9F.html</id>
-    <published>2020-05-03T12:54:05.000Z</published>
-    <updated>2020-11-20T13:15:46.638Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;数字&quot;&gt;&lt;a href=&quot;#数字&quot; class=&quot;headerlink&quot; title=&quot;数字&quot;&gt;&lt;/a&gt;数字&lt;/h3&gt;&lt;p&gt;在JavaScript中，数字以双精度64位二进制格式IEEE
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>表达式与运算符</title>
-    <link href="https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html"/>
-    <id>https://musii.life/wiki/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6.html</id>
-    <published>2020-05-03T00:27:44.000Z</published>
-    <updated>2020-11-20T13:15:46.639Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;h4 id=&quot;赋值运算符&quot;&gt;&lt;a href=&quot;#赋值运算符&quot; class=&quot;headerlink&quot;
         
       
     

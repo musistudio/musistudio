@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    单例模式 |  musi&#39;s life
+    中介者模式 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-单例模式" class="article article-type-post" itemscope
+  <article id="post-中介者模式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  单例模式
+  中介者模式
 </h1>
  
 
@@ -65,8 +65,8 @@
 
     
     <div class="article-meta">
-      <a href="/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html" class="article-date">
-  <time datetime="2020-09-02T04:48:17.000Z" itemprop="datePublished">2020-09-02</time>
+      <a href="/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F.html" class="article-date">
+  <time datetime="2021-02-17T23:50:57.000Z" itemprop="datePublished">2021-02-18</time>
 </a>
       
       
@@ -76,7 +76,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">30</span>
+            <span class="post-count">307</span>
         </span>
     </span>
 
@@ -110,9 +110,15 @@
       
 
       
-      <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      <h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><blockquote>
+<p>中介者模式用来解除对象与对象之间的紧耦合关系，增加一个中介者对象后，所有的对象都通过中介者对象来通信，而不是互相引用。</p>
+</blockquote>
+<blockquote>
+<p>是不是像<code>vuex</code>和<code>redux</code>的概念？把共享的数据单独抽离成store，每个组件需要操作数据都通过store来实现而不是相互的引用。</p>
+</blockquote>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mediator</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>._msg = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    registor(type, action) &#123; <span class="comment">// 订阅消息方法</span></span><br><span class="line">        <span class="keyword">this</span>._msg[type] ? <span class="keyword">this</span>._msg[type].push(action) : (<span class="keyword">this</span>._msg[type] = [action]);</span><br><span class="line">    &#125;</span><br><span class="line">    send(type) &#123; <span class="comment">// 发布消息方法</span></span><br><span class="line">        <span class="keyword">this</span>._msg[type].forEach(<span class="function"><span class="params">action</span> =&gt;</span> action())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mediator = <span class="keyword">new</span> Mediator(); <span class="comment">// 新建一个中介者</span></span><br><span class="line">mediator.registor(<span class="string">'demo'</span>, () =&gt; &#123; <span class="comment">// 订阅 "demo" 消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'111'</span>);</span><br><span class="line">&#125;)</span><br><span class="line">mediator.registor(<span class="string">'demo'</span>, () =&gt; &#123; <span class="comment">// 订阅 "demo" 消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'222'</span>);</span><br><span class="line">&#125;)</span><br><span class="line">mediator.send(<span class="string">'demo'</span>); <span class="comment">// 发布 "订阅" 消息</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>与[[<a href="/wiki/发布-订阅模式.html">发布-订阅模式</a>]]不同的是，中介者模式只具备单向的数据通信，实现起来并没有那么麻烦。一方面，中介者模式实现了对象之间的解耦，另一方面，把对象交互的复杂度全都转移到了中介者模式上。这也是<code>vuex</code>在一般小项目中不推荐使用的原因。</p>
 
       
       <!-- reward -->
@@ -181,7 +187,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -197,19 +203,10 @@
   
   <nav class="article-nav">
     
-      <a href="/code/JS%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            JS数组去重的那些事
-          
-        </div>
-      </a>
     
-    
-      <a href="/code/HTML%E4%B8%AD%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html" class="article-nav-link">
+      <a href="/wiki/%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">HTML中的那些事儿</div>
+        <div class="article-nav-title">发布-订阅模式</div>
       </a>
     
   </nav>
