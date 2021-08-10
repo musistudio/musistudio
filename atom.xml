@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://musii.life/"/>
-  <updated>2020-11-01T07:08:27.691Z</updated>
+  <updated>2021-08-10T10:25:41.188Z</updated>
   <id>https://musii.life/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端搞编译——AST在前端的应用</title>
+    <link href="https://musii.life/code/%E5%89%8D%E7%AB%AF%E6%90%9E%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94AST%E5%9C%A8%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BA%94%E7%94%A8.html"/>
+    <id>https://musii.life/code/%E5%89%8D%E7%AB%AF%E6%90%9E%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94AST%E5%9C%A8%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BA%94%E7%94%A8.html</id>
+    <published>2021-08-10T10:21:35.000Z</published>
+    <updated>2021-08-10T10:25:41.188Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前端搞编译-AST在PRO中的运用&quot;&gt;&lt;a href=&quot;#前端搞编译-AST在PRO中的运用&quot; class=&quot;headerlink&quot; title=&quot;前端搞编译-AST在PRO中的运用&quot;&gt;&lt;/a&gt;前端搞编译-AST在PRO中的运用&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;AST(Abstract Syntax Tree, 抽象语法树)，以树状形式表现编程语言的语法结构。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="code" scheme="https://musii.life/categories/code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://musii.life/tags/JavaScript/"/>
+    
+      <category term="编译原理" scheme="https://musii.life/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>serverless给前端带来的技术变革</title>
+    <link href="https://musii.life/%E5%AD%A6%E4%B9%A0/serverless%E7%BB%99%E5%89%8D%E7%AB%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8F%98%E9%9D%A9.html"/>
+    <id>https://musii.life/%E5%AD%A6%E4%B9%A0/serverless%E7%BB%99%E5%89%8D%E7%AB%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8F%98%E9%9D%A9.html</id>
+    <published>2020-11-20T13:22:34.000Z</published>
+    <updated>2021-02-02T10:32:28.383Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Serverless Compute是指构建和运行不需要服务器管理的应用程序的概念。它描述了一种更细粒度的部署模型，应用程序捆绑一个或多个function(FaaS)，上传到平台，然后执行，伸缩和计费，以响应当前所需的确切需求。 —— 《CNCF Serverless White Paper》&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="学习" scheme="https://musii.life/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="前端" scheme="https://musii.life/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>JS日期的那些事儿</title>
@@ -481,62 +529,6 @@
         
         
           &lt;h3 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;h4 id=&quot;赋值运算符&quot;&gt;&lt;a href=&quot;#赋值运算符&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>函数</title>
-    <link href="https://musii.life/wiki/%E5%87%BD%E6%95%B0.html"/>
-    <id>https://musii.life/wiki/%E5%87%BD%E6%95%B0.html</id>
-    <published>2020-04-26T17:10:47.000Z</published>
-    <updated>2020-05-02T15:39:20.170Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h4 id=&quot;函数定义&quot;&gt;&lt;a href=&quot;#函数定义&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="wiki" scheme="https://musii.life/categories/wiki/"/>
-    
-    
-      <category term="w-JavaScript" scheme="https://musii.life/tags/w-JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>循环与迭代</title>
-    <link href="https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html"/>
-    <id>https://musii.life/wiki/%E5%BE%AA%E7%8E%AF%E4%B8%8E%E8%BF%AD%E4%BB%A3.html</id>
-    <published>2020-04-26T08:22:52.000Z</published>
-    <updated>2020-04-26T09:32:17.836Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;JavaScript提供了以下循环语句：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;h4 id=&quot;for语句&quot;&gt;&lt;a href=&quot;#for语句&quot; class=&quot;headerlink&quot;
         
       
     

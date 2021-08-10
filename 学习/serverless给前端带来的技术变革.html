@@ -15,7 +15,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>
-    元编程 |  musi&#39;s life
+    serverless给前端带来的技术变革 |  musi&#39;s life
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -48,7 +48,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-元编程" class="article article-type-post" itemscope
+  <article id="post-serverless给前端带来的技术变革" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -56,7 +56,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  元编程
+  serverless给前端带来的技术变革
 </h1>
  
 
@@ -65,10 +65,14 @@
 
     
     <div class="article-meta">
-      <a href="/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html" class="article-date">
-  <time datetime="2020-05-03T13:58:21.000Z" itemprop="datePublished">2020-05-03</time>
+      <a href="/%E5%AD%A6%E4%B9%A0/serverless%E7%BB%99%E5%89%8D%E7%AB%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8F%98%E9%9D%A9.html" class="article-date">
+  <time datetime="2020-11-20T13:22:34.000Z" itemprop="datePublished">2020-11-20</time>
 </a>
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+
       
       
 <div class="word_count">
@@ -76,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">194</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -85,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -111,13 +115,70 @@
 
       
       <blockquote>
-<p>从ECMAScript2015开始，JavaScript获得了<code>Proxy</code>和<code>Reflect</code>对象的支持，允许拦截并定义基本语言操作的自定义行为(例如属性查找、赋值、枚举和函数调用等)。借助这两个对象，可以在JavaScript元级别进行编程。</p>
+<p>Serverless Compute是指构建和运行不需要服务器管理的应用程序的概念。它描述了一种更细粒度的部署模型，应用程序捆绑一个或多个function(FaaS)，上传到平台，然后执行，伸缩和计费，以响应当前所需的确切需求。 —— 《CNCF Serverless White Paper》</p>
 </blockquote>
-<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><p>在ES6中引入的Proxy对象可以拦截某些操作并实现自定义行为。例如获取一个对象上的属性：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  <span class="keyword">get</span>: function(target, name) &#123;</span><br><span class="line">    <span class="keyword">return</span> name <span class="keyword">in</span> target ? target[name] : <span class="number">42</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, handler);</span><br><span class="line">p.a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(p.a, p.b);    <span class="comment">// 1, 42</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 
-<p>Proxy对象定义了一个目标(这里是一个对象)和一个实现了<code>get</code>方法的handle对象，代理的对象在获取未定义的属性时不会返回<code>undefined</code>而返回42。</p>
-<p>未完待续…</p>
+<h2 id="什么是serverless"><a href="#什么是serverless" class="headerlink" title="什么是serverless"></a>什么是serverless</h2><ol>
+<li>狭义上的serverless = FaaS + BaaS，由serverless白皮书1.0提出，是目前serverless的最佳实践。<ul>
+<li>FaaS(stateless): 函数即服务，采用EDD(Event Drive Development)的方式运行和管理代码，函数作为开发者部署程序的最小单元，无需关注服务器甚至是技术栈即可对其进行扩展。</li>
+<li>BaaS(stateful): 后端即服务，基于第三方API的服务。可代替应用程序的核心功能。</li>
+</ul>
+</li>
+<li>广义上的serverless，指的是开发者不需要过多的关注服务器的平台和运维，让开发者专注于业务开发的一种云计算模式。由于这种模式服务器对开发者是透明的所以又被翻译成无服务器。</li>
+</ol>
+<h2 id="为什么是前端"><a href="#为什么是前端" class="headerlink" title="为什么是前端"></a>为什么是前端</h2><p>近年来前端生态圈的迅速发展，前端这个职业也在快速发展。从一开始的“切图仔”到服务于后端的模板再到前后端分离专注于用户交互的开发方式，Node.js的出现让前端开发者拥有了部分后端的能力，DevOps概念的提出前端也开始介入部分运维的工作。一职多能已是前端这个职业的趋势。</p>
+<h2 id="serverless给前端带来了什么"><a href="#serverless给前端带来了什么" class="headerlink" title="serverless给前端带来了什么"></a>serverless给前端带来了什么</h2><ol>
+<li><p>赋能前端</p>
+<p>进一步降低后端的门槛，使得前端可以更多的参与业务交付，同时也提升了前端的发展空间。</p>
+</li>
+<li><p>研发提效</p>
+<p>采用云端一体化的方式进行研发，相比于传统的前后端分离的方式进行开发、发布，能极大提高项目的开发和交付速度。</p>
+</li>
+<li><p>弱化运维</p>
+<p>开发者基本不再需要关注服务器，不再需要考虑流量、并发等一系列问题，减少前端的学习和开发成本。</p>
+</li>
+</ol>
+<h2 id="serverless是未来？未来已来"><a href="#serverless是未来？未来已来" class="headerlink" title="serverless是未来？未来已来!"></a>serverless是未来？未来已来!</h2><ol>
+<li><p>serverless发展历程:</p>
+<p>2012年  Iron.io的副总裁Ken首次提出serverless的概念</p>
+<p>2014年 AWS率先推出Lambda即函数计算</p>
+<p>2017年 各大云厂商纷纷实现serverless，并各自推出自己的serverless框架</p>
+<p>2018年 微信小程序率先推出云开发，打造云端一体化的开发方式。腾讯用微信周边生态将serverless技术大规模落地，随后各大厂商纷纷效仿，现在云开发几乎已成小程序的标配。</p>
+</li>
+</ol>
+<img src="https://upload-images.jianshu.io/upload_images/2509688-86d4747424b11cfc.png?imageMogr2/auto-orient/strip|imageView2/2/w/638/format/webp" alt="云计算发展历程" style="zoom:200%;" />
+
+<ol start="2">
+<li><p>云计算的发展历程:</p>
+<p>IDC → IaaS(基础设施即服务) → PaaS(平台即服务) → Serverless(无服务器计算)</p>
+<p>从IDC → IaaS，用户不用关注真实的物理资源。</p>
+<p>从IaaS → PaaS，用户不再关注操作系统，数据库，中间件等基础软件。</p>
+<p>从PaaS → serverless, 用户可以很少甚至不用关注backend，app可以简化为一个单页面程序。</p>
+</li>
+</ol>
+<h2 id="serverless的优势"><a href="#serverless的优势" class="headerlink" title="serverless的优势"></a>serverless的优势</h2><ul>
+<li><p>低成本</p>
+<ul>
+<li>开发成本: 开发者直接调用的是服务化的组件，如对象存储，授权服务等，可以缩短开发周期，降低开发难度。</li>
+<li>运维成本: 用户的服务器、数据库将被托管至云厂商，用户将不再参与基础设施及软件的维护。</li>
+</ul>
+</li>
+<li><p>按需付费</p>
+<p>按请求次数及运行时间和cpu算力进行收费，不调用不收费。</p>
+</li>
+<li><p>高扩展</p>
+<p>拥有完全自动的、有弹性的、且由服务提供者所管理扩展方式。</p>
+</li>
+<li><p>NoOps</p>
+<p>开发者只需关注自身业务不需要关注服务器的运维。</p>
+</li>
+</ul>
+<h2 id="软件开发没有银弹——serverless的不足"><a href="#软件开发没有银弹——serverless的不足" class="headerlink" title="软件开发没有银弹——serverless的不足"></a>软件开发没有银弹——serverless的不足</h2><ul>
+<li>与云厂商绑定 每个云厂商的serverless框架实现方式并不统一，迁移比较困难。</li>
+<li>相较于传统开发增加了冷启动耗时。</li>
+<li>开发生态还不完善，缺少好用的开发和调试工具。</li>
+</ul>
 
       
       <!-- reward -->
@@ -186,13 +247,15 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/wiki/%E5%85%83%E7%BC%96%E7%A8%8B.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://musii.life/%E5%AD%A6%E4%B9%A0/serverless%E7%BB%99%E5%89%8D%E7%AB%AF%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8F%98%E9%9D%A9.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
 
     </footer>
 
@@ -202,19 +265,19 @@
   
   <nav class="article-nav">
     
-      <a href="/wiki/JavaScript%E6%A8%A1%E5%9D%97.html" class="article-nav-link">
+      <a href="/code/%E5%89%8D%E7%AB%AF%E6%90%9E%E7%BC%96%E8%AF%91%E2%80%94%E2%80%94AST%E5%9C%A8%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BA%94%E7%94%A8.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            JavaScript模块
+            前端搞编译——AST在前端的应用
           
         </div>
       </a>
     
     
-      <a href="/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8.html" class="article-nav-link">
+      <a href="/code/JS%E6%97%A5%E6%9C%9F%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">迭代器与生成器</div>
+        <div class="article-nav-title">JS日期的那些事儿</div>
       </a>
     
   </nav>
